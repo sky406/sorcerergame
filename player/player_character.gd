@@ -8,29 +8,18 @@ var mouse_delta:Vector2 = Vector2.ZERO
 var horizontallook:float = 5
 var verticallook:float = 15
 
+func _ready():
+	#lock mouse to screen 
+	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+
 func _process(delta):
-	#get_node("playermesh").rotation_degrees.y = get_node("cameraOrbit").rotation_degrees.y
-	# make the body slowly try to match the rotation 
-	#might want to changes these later who knows
-	#var mesh_rotationY:float = get_node("playermesh").rotation_degrees.y
-	#var cam_rotationY:float = get_node("cameraOrbit").rotation_degrees.y
-	#
-	#var rotatespeed:float = 60
-	#
-	#if(mesh_rotationY != cam_rotationY):
-		#mesh_rotationY = move_toward(mesh_rotationY,cam_rotationY,rotatespeed)
-		#
-	#get_node("playermesh").rotation_degrees.y = mesh_rotationY
-	# camera movement
+	
 	var rot = Vector3(mouse_delta.y,mouse_delta.x,0) * delta * lookSensitivity
-	#rotate_y(deg_to_rad(-rot.y))
 	rotation_degrees.y -=rot.y
 	rotatecameraX(rot.x)
 	mouse_delta = Vector2.ZERO
 
 func _physics_process(delta):
-	
-		#pass
 	# gravity 
 	if not is_on_floor():
 		velocity.y -= gravity * delta

@@ -88,4 +88,4 @@ camrotatedown={
 
 [physics]
 
-3d/default_gravity=15.0
+3d/default_gravity=60.0
