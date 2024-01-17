@@ -1,0 +1,70 @@
+[gd_scene load_steps=10 format=3 uid="uid://c2apxkmgi52x2"]
+
+[ext_resource type="Script" path="res://testscene.gd" id="1_n18cj"]
+[ext_resource type="PackedScene" uid="uid://bqv22p58k73pd" path="res://player/player_character.tscn" id="1_yvgkh"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_leidy"]
+sky_top_color = Color(0.733333, 0.796078, 0.905882, 1)
+sky_horizon_color = Color(0.733333, 0.74127, 0.759721, 1)
+ground_horizon_color = Color(0.733333, 0.74127, 0.759721, 1)
+
+[sub_resource type="Sky" id="Sky_nes5c"]
+sky_material = SubResource("ProceduralSkyMaterial_leidy")
+
+[sub_resource type="Environment" id="Environment_vmpyy"]
+background_mode = 2
+sky = SubResource("Sky_nes5c")
+tonemap_mode = 2
+sdfgi_enabled = true
+glow_enabled = true
+fog_enabled = true
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_idjgc"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_hqii8"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_gen3n"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_s0h1k"]
+metallic = 0.48
+
+[node name="Node" type="Node"]
+script = ExtResource("1_n18cj")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_vmpyy")
+
+[node name="floor" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="floor"]
+transform = Transform3D(1000, 0, 0, 0, 1, 0, 0, 0, 1000, 0, 0, 0)
+shape = SubResource("BoxShape3D_idjgc")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="floor"]
+transform = Transform3D(1000, 0, 0, 0, 1, 0, 0, 0, 1000, 0, 0, 0)
+mesh = SubResource("BoxMesh_hqii8")
+skeleton = NodePath("../..")
+
+[node name="player_character" parent="." instance=ExtResource("1_yvgkh")]
+transform = Transform3D(1.88426, 0, 0, 0, 1.88426, 0, 0, 0, 1.88426, -21.7405, 0, -13.3001)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.836535, -0.547914, 0, 0.547914, 0.836535, -21.7405, 47.5292, -13.3001)
+light_color = Color(1, 1, 0.407843, 1)
+
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18, 8.86471, 12)
+light_color = Color(1, 0.247059, 1, 1)
+light_energy = 14.09
+light_indirect_energy = 0.838
+light_volumetric_fog_energy = 6.332
+light_size = 30.0
+shadow_enabled = true
+omni_range = 38.0
+
+[node name="CSGMesh3D" type="CSGMesh3D" parent="."]
+transform = Transform3D(24.1, 0, 0, 0, 18.816, 0, 0, 0, 33.74, 0, 5, 0)
+use_collision = true
+mesh = SubResource("BoxMesh_gen3n")
+material = SubResource("StandardMaterial3D_s0h1k")

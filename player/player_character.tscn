@@ -1,0 +1,38 @@
+[gd_scene load_steps=6 format=3 uid="uid://bqv22p58k73pd"]
+
+[ext_resource type="Script" path="res://player/player_character.gd" id="1_jsxkw"]
+[ext_resource type="Script" path="res://player/cameraOrbit.gd" id="2_7ll05"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_343o7"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_qt0gw"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_tf42a"]
+
+[node name="playerCharacter" type="CharacterBody3D"]
+script = ExtResource("1_jsxkw")
+
+[node name="playermesh" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+transparency = 0.17
+mesh = SubResource("CapsuleMesh_343o7")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="playermesh"]
+transform = Transform3D(1, 0, 0, 0, 0.3, 0, 0, 0, 0.40904, 0, 0.25177, -0.391049)
+mesh = SubResource("BoxMesh_qt0gw")
+
+[node name="env collide" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CapsuleShape3D_tf42a")
+
+[node name="cameraOrbit" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.58731, 0)
+script = ExtResource("2_7ll05")
+
+[node name="SpringArm3D" type="SpringArm3D" parent="cameraOrbit"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.564596, 0.789378, 0)
+spring_length = 5.0
+
+[node name="Camera3D" type="Camera3D" parent="cameraOrbit/SpringArm3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 5.11247)
+fov = 86.5
