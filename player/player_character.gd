@@ -1,10 +1,12 @@
 extends CharacterBody3D
 
 var speed = 10
-const jump_vel = 4.5
+const jump_vel = 30
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 var mouse_delta:Vector2 = Vector2.ZERO
 @export var lookSensitivity:float = 15.0
+var horizontallook:float = 5
+var verticallook:float = 15
 
 func _process(delta):
 	#get_node("playermesh").rotation_degrees.y = get_node("cameraOrbit").rotation_degrees.y
@@ -20,9 +22,11 @@ func _process(delta):
 		#
 	#get_node("playermesh").rotation_degrees.y = mesh_rotationY
 	# camera movement
-	var rot = Vector3(mouse_delta.y,mouse_delta.x,0) * lookSensitivity * delta
-	pass
-	
+	var rot = Vector3(mouse_delta.y,mouse_delta.x,0) * delta * lookSensitivity
+	#rotate_y(deg_to_rad(-rot.y))
+	rotation_degrees.y -=rot.y
+	rotatecameraX(rot.x)
+	mouse_delta = Vector2.ZERO
 
 func _physics_process(delta):
 	
@@ -50,3 +54,13 @@ func _physics_process(delta):
 func _input(event):
 	if event is InputEventMouseMotion:
 		mouse_delta = event.relative
+
+func rotatecameraX(rotation):
+	var currentrot = get_node("cameraOrbit").rotation_degrees.x
+	var minLookAngle:float = -90
+	var maxLookAngle:float = 60
+	
+	currentrot -= rotation
+	currentrot = clamp(currentrot,minLookAngle,maxLookAngle)
+	
+	get_node("cameraOrbit").rotation_degrees.x = currentrot

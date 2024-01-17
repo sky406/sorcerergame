@@ -85,3 +85,7 @@ camrotatedown={
 "events": [Object(InputEventJoypadMotion,"resource_local_to_scene":false,"resource_name":"","device":-1,"axis":3,"axis_value":-1.0,"script":null)
 ]
 }
+
+[physics]
+
+3d/default_gravity=15.0

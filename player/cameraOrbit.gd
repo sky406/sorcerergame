@@ -11,10 +11,10 @@ func _input(event):
 		mouseDelta = event.relative
 
 func _process(delta):
-	var rot = Vector3(mouseDelta.y,mouseDelta.x,0) * lookSensitivity * delta
-	rotation_degrees.x -=rot.x
-	print(rotation_degrees.x)
-	rotation_degrees.x = clamp(rotation_degrees.x,minLookAngle,maxLookAngle)
+	#var rot = Vector3(mouseDelta.y,mouseDelta.x,0) * lookSensitivity * delta
+	#rotation_degrees.x -=rot.x
+	#print(rotation_degrees.x)
+	#rotation_degrees.x = clamp(rotation_degrees.x,minLookAngle,maxLookAngle)
 	# TODO clean up this code for final;
 	#rotation_degrees.y +=rot.y
 	#print(rotation_degrees.y)
