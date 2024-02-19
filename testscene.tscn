@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://c2apxkmgi52x2"]
+[gd_scene load_steps=12 format=3 uid="uid://c2apxkmgi52x2"]
 
 [ext_resource type="Script" path="res://testscene.gd" id="1_n18cj"]
 [ext_resource type="PackedScene" uid="uid://bqv22p58k73pd" path="res://player/player_character.tscn" id="1_yvgkh"]
@@ -14,6 +14,7 @@ sky_material = SubResource("ProceduralSkyMaterial_leidy")
 [sub_resource type="Environment" id="Environment_vmpyy"]
 background_mode = 2
 sky = SubResource("Sky_nes5c")
+ambient_light_color = Color(0.952941, 0.678431, 0, 1)
 tonemap_mode = 2
 sdfgi_enabled = true
 glow_enabled = true
@@ -27,6 +28,13 @@ fog_enabled = true
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_s0h1k"]
 metallic = 0.48
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_wcuno"]
+top_radius = 1.5
+bottom_radius = 1.5
+height = 1.65
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ksq1p"]
 
 [node name="Node" type="Node"]
 script = ExtResource("1_n18cj")
@@ -47,7 +55,7 @@ mesh = SubResource("BoxMesh_hqii8")
 skeleton = NodePath("../..")
 
 [node name="player_character" parent="." instance=ExtResource("1_yvgkh")]
-transform = Transform3D(1.88426, 0, 0, 0, 1.88426, 0, 0, 0, 1.88426, -21.7405, 0, -13.3001)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -21.7405, 0, -13.3001)
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.836535, -0.547914, 0, 0.547914, 0.836535, -21.7405, 47.5292, -13.3001)
@@ -68,3 +76,9 @@ transform = Transform3D(24.1, 0, 0, 0, 18.816, 0, 0, 0, 33.74, 0, 5, 0)
 use_collision = true
 mesh = SubResource("BoxMesh_gen3n")
 material = SubResource("StandardMaterial3D_s0h1k")
+
+[node name="CSGMesh3D2" type="CSGMesh3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -26, 1, -12)
+use_collision = true
+mesh = SubResource("CylinderMesh_wcuno")
+material = SubResource("StandardMaterial3D_ksq1p")

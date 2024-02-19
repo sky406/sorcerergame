@@ -6,9 +6,9 @@ func _ready():
 	pass # Replace with function body.
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass
+## Called every frame. 'delta' is the elapsed time since the previous frame.
+#func _process(delta):
+	#pass
 
 #just a function to quit the test room DELETE LATER
 func _unhandled_input(event):
