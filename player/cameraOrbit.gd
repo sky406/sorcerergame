@@ -1,4 +1,5 @@
 extends Node3D
+# TODO check if there is a way to globalize looksensitivity
 
 @export var lookSensitivity:float = 15.0
 var minLookAngle:float = -90
@@ -11,16 +12,13 @@ func _input(event):
 		mouseDelta = event.relative
 
 func _process(delta):
-	#var rot = Vector3(mouseDelta.y,mouseDelta.x,0) * lookSensitivity * delta
-	#rotation_degrees.x -=rot.x
-	#print(rotation_degrees.x)
-	#rotation_degrees.x = clamp(rotation_degrees.x,minLookAngle,maxLookAngle)
-	# TODO clean up this code for final;
-	#rotation_degrees.y +=rot.y
-	#print(rotation_degrees.y)
-	
+	var rot = Vector3(mouseDelta.y,mouseDelta.x,0) *delta * lookSensitivity
+	rotatecam(rot)
 	mouseDelta = Vector2.ZERO
+	print(rotation_degrees)
 	
-func _ready():
-	#lock mouse to screen 
-	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+
+func rotatecam(rotation):
+	rotation_degrees.y -= rotation.y
+	rotation_degrees.x -= rotation.x
+	rotation_degrees.x = clamp(rotation_degrees.x,minLookAngle,maxLookAngle)
