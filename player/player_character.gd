@@ -1,12 +1,14 @@
 extends CharacterBody3D
 @onready var camcontrol = $cameraOrbit
+@onready var meshcontrol = $meshControl
 @export var speed:float = 10
 @export var acceleration:float = 5
 @export var dash_speed:float = 60
 @export var sprint_speed:float = 36
 @export var jump_vel:float = 20
+
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
-var mouse_delta:Vector2 = Vector2.ZERO
+var mouseDelta:Vector2 = Vector2.ZERO
 @export var lookSensitivity:float = 15.0
 var horizontallook:float = 5
 var verticallook:float = 15
@@ -15,16 +17,31 @@ var current_speed = speed
 func _ready():
 	#lock mouse to screen 
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
-	print(rotation_degrees)
 
-# func _process(delta):
-	
-# 	var rot = Vector3(mouse_delta.y,mouse_delta.x,0) * delta * lookSensitivity
-# 	rotation_degrees.y -=rot.y
-# 	rotatecameraX(rot.x)
-# 	mouse_delta = Vector2.ZERO
+func _input(event):
+	if event is InputEventMouseMotion:
+		mouseDelta = event.relative
 
+func _process(delta):
+	# track mouse movement for camera control
+	var rot = Vector3(mouseDelta.y,mouseDelta.x,0)*delta*lookSensitivity
+	rotatecam(rot)
+	mouseDelta = Vector2.ZERO
+	# 
+
+# cam control (might use it  for other thigns so i'm kinda isolating it)
+@export var maxLookAngle:float = 90
+@export var minLookAngle:float = -90
+
+func rotatecam(rot,lockedvertical=true):
+	rotation_degrees.y -= rot.y
+	camcontrol.rotation_degrees.x -= rot.x
+	if lockedvertical:
+		camcontrol.rotation_degrees.x = clamp(camcontrol.rotation_degrees.x,minLookAngle,maxLookAngle)
+	meshcontrol.rotation_degrees.y += rot.y
 	
+
+# ################################
 
 func _physics_process(delta):
 	# print(getSpeed())
@@ -51,37 +68,26 @@ func getSpeed():
 	
 func move():
 	var input_dir = Input.get_vector("strafeLeft","strafeRight","moveForward","moveBackward")
-	var direction = (transform.basis * Vector3(input_dir.x,0,input_dir.y)).normalized() # note to self this may be redundant so caheck later
-	print(direction)
-	# if direction:
-	# 	velocity.x = direction.x * current_speed
-	# 	velocity.z = direction.z * current_speed
-	# else:
-	# 	velocity.x = lerp(velocity.x,0.0,0.1)
-	# 	velocity.z = lerp(velocity.z,0.0,0.1)
-	# move_and_slide()
-	var movespeed = getSpeed()
-	var speedtarget = speed
+	var direction = (transform.basis * Vector3(input_dir.x,0,input_dir.y)).normalized()
 	if Input.is_action_pressed("dash"):
-		speedtarget = sprint_speed
+		current_speed = sprint_speed
 	else:
-		movespeed = speed
+		current_speed = speed
 	
 	if direction:
-		rotation_degrees.y = camcontrol.rotation_degrees.y
-		camcontrol.rotation_degrees.y = 0
-
+		### faceing movement direction (when not aiming)
+		meshcontrol.look_at(position+direction)
+		# print(meshcontrol.rotation_degrees)
+		print(meshcontrol.position+direction)
 		####
 		while Input.is_action_pressed("dash"):
 			pass
 			
 		####
-		movespeed = move_toward(movespeed,speedtarget,acceleration)
-		velocity.x = direction.x * movespeed
-		velocity.z = direction.z * movespeed
+		velocity.x = direction.x * current_speed
+		velocity.z = direction.z * current_speed
 	else:
 		# ironically this sorta works
-		movespeed = lerp(movespeed,0.0,0.1)
 		velocity.x = lerp(velocity.x,0.0,0.1)
 		velocity.z = lerp(velocity.z,0.0,0.1)
 	move_and_slide()

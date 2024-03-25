@@ -15,12 +15,15 @@ height = 1.65
 [node name="playerCharacter" type="CharacterBody3D"]
 script = ExtResource("1_jsxkw")
 
-[node name="playermesh" type="MeshInstance3D" parent="."]
+[node name="meshControl" type="Node3D" parent="."]
+
+[node name="playermesh" type="MeshInstance3D" parent="meshControl"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.83116, 0)
 transparency = 0.17
 mesh = SubResource("CapsuleMesh_343o7")
+skeleton = NodePath("../..")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="playermesh"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="meshControl/playermesh"]
 transform = Transform3D(1, 0, 0, 0, 0.3, 0, 0, 0, 0.40904, 0, 0.25177, -0.391049)
 mesh = SubResource("BoxMesh_qt0gw")
 
@@ -33,11 +36,11 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.58731, 0)
 script = ExtResource("2_7ll05")
 
 [node name="SpringArm3D" type="SpringArm3D" parent="cameraOrbit"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.564596, 0.505791, 0)
 shape = SubResource("SphereShape3D_jm0xf")
-spring_length = 3.0
+spring_length = 6.0
 margin = 1.0
 
 [node name="Camera3D" type="Camera3D" parent="cameraOrbit/SpringArm3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 3.45564)
-fov = 69.5
+current = true
+fov = 88.1
