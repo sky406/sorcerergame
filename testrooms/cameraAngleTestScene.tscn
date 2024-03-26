@@ -1,0 +1,33 @@
+[gd_scene load_steps=7 format=3 uid="uid://ghapde5eq75f"]
+
+[ext_resource type="Script" path="res://testrooms/testroomscripts/cameraAngleTestScene.gd" id="1_pxi8y"]
+[ext_resource type="PackedScene" uid="uid://bqv22p58k73pd" path="res://player/player_character.tscn" id="2_1tv13"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_ikpwa"]
+
+[sub_resource type="Sky" id="Sky_sb872"]
+sky_material = SubResource("ProceduralSkyMaterial_ikpwa")
+
+[sub_resource type="Environment" id="Environment_nsyox"]
+sky = SubResource("Sky_sb872")
+ambient_light_source = 3
+ambient_light_color = Color(0.937255, 0.776471, 0.329412, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_nqaly"]
+size = Vector3(100, 0.5, 100)
+
+[node name="Node3D" type="Node3D"]
+script = ExtResource("1_pxi8y")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_nsyox")
+
+[node name="CSGMesh3D" type="CSGMesh3D" parent="WorldEnvironment"]
+use_collision = true
+mesh = SubResource("BoxMesh_nqaly")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="WorldEnvironment"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 17, 0)
+light_energy = 1.45
+
+[node name="playerCharacter" parent="." instance=ExtResource("2_1tv13")]

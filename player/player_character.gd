@@ -28,6 +28,8 @@ func _process(delta):
 	rotatecam(rot)
 	mouseDelta = Vector2.ZERO
 	# 
+	print(angle_to_angle(meshcontrol.rotation_degrees.y,rotation_degrees.y))
+
 
 # cam control (might use it  for other thigns so i'm kinda isolating it)
 @export var maxLookAngle:float = 90
@@ -91,3 +93,19 @@ func move():
 		velocity.x = lerp(velocity.x,0.0,0.1)
 		velocity.z = lerp(velocity.z,0.0,0.1)
 	move_and_slide()
+
+func correctAngle(rotation):
+	var angle:float = abs(fmod(rotation,360))
+	# print(angle)
+	return angle
+func angle_to_angle(from,to):
+	# returns the closest angle to turn to for rotation
+	var corrected_from = correctAngle(from)
+	var corrected_to = correctAngle(to)
+	var difference = corrected_to-corrected_from
+	print(difference)
+	if difference > 180 or difference < -180:
+		
+		pass
+	# TODO fix the angle to angle script
+	

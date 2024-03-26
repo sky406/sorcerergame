@@ -1,7 +1,7 @@
 [gd_scene load_steps=12 format=3 uid="uid://c2apxkmgi52x2"]
 
-[ext_resource type="Script" path="res://testscene.gd" id="1_n18cj"]
-[ext_resource type="PackedScene" uid="uid://bqv22p58k73pd" path="res://player/player_character.tscn" id="1_yvgkh"]
+[ext_resource type="Script" path="res://testrooms/testroomscripts/testscene.gd" id="1_smjcf"]
+[ext_resource type="PackedScene" uid="uid://bqv22p58k73pd" path="res://player/player_character.tscn" id="2_tu12g"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_leidy"]
 sky_top_color = Color(0.733333, 0.796078, 0.905882, 1)
@@ -37,7 +37,7 @@ height = 1.65
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ksq1p"]
 
 [node name="Node" type="Node"]
-script = ExtResource("1_n18cj")
+script = ExtResource("1_smjcf")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_vmpyy")
@@ -54,7 +54,7 @@ transform = Transform3D(1000, 0, 0, 0, 1, 0, 0, 0, 1000, 0, 0, 0)
 mesh = SubResource("BoxMesh_hqii8")
 skeleton = NodePath("../..")
 
-[node name="player_character" parent="." instance=ExtResource("1_yvgkh")]
+[node name="player_character" parent="." instance=ExtResource("2_tu12g")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -21.7405, 0, -13.3001)
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
