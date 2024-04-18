@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://bjxwse3b8mhc5"]
+
+[ext_resource type="Script" path="res://weapons/weapon components/scripts/damage calculator.gd" id="1_8y2uq"]
+[ext_resource type="Script" path="res://weapons/weapon components/scripts/die.gd" id="2_ckw5e"]
+
+[node name="DamageCalculator" type="Node"]
+script = ExtResource("1_8y2uq")
+
+[node name="die" type="Node" parent="."]
+script = ExtResource("2_ckw5e")

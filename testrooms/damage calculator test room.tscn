@@ -1,0 +1,30 @@
+[gd_scene load_steps=3 format=3 uid="uid://bkce0y6as061l"]
+
+[ext_resource type="Script" path="res://weapons/weapon components/scripts/damage calculator.gd" id="1_ccp43"]
+[ext_resource type="Texture2D" uid="uid://dffofiidqfgag" path="res://textures/placeholder blobie.png" id="2_57xlj"]
+
+[node name="DamageCalculatorTestRoom" type="Node2D"]
+script = ExtResource("1_ccp43")
+
+[node name="Label" type="Label" parent="."]
+offset_left = 502.0
+offset_top = 57.0
+offset_right = 713.0
+offset_bottom = 110.0
+text = "insert roll here"
+
+[node name="TextEdit" type="TextEdit" parent="."]
+offset_left = 430.0
+offset_top = 89.0
+offset_right = 709.0
+offset_bottom = 127.0
+
+[node name="Button" type="Button" parent="TextEdit"]
+layout_mode = 0
+offset_left = -145.0
+offset_top = 48.0
+offset_right = 507.0
+offset_bottom = 532.0
+text = "click here to roll"
+icon = ExtResource("2_57xlj")
+flat = true

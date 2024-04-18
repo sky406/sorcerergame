@@ -1,0 +1,159 @@
+[gd_scene load_steps=4 format=3 uid="uid://n6mfqadjlvbj"]
+
+[ext_resource type="Texture2D" uid="uid://ctqgstrjr1ygo" path="res://textures/dot.png" id="1_pmfxh"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_cj57e"]
+
+[sub_resource type="Environment" id="Environment_78gu7"]
+background_mode = 1
+background_color = Color(0, 0.34902, 0.0352941, 1)
+
+[node name="DamageNumbers" type="Node3D"]
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(0.694161, -0.358793, 0.624026, -0.0331899, 0.850044, 0.525665, -0.719054, -0.385608, 0.578159, 2.85689, 2.65432, 2.71977)
+size = 2.802
+near = 0.012
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_cj57e")
+skeleton = NodePath("../Camera3D")
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_bottom = -1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="ColorRect" type="ColorRect" parent="Control"]
+layout_mode = 0
+offset_right = 256.0
+offset_bottom = 649.0
+color = Color(0.286275, 0.286275, 0.286275, 1)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control"]
+layout_mode = 1
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_top = 4.0
+offset_right = 255.0
+offset_bottom = -2.0
+grow_vertical = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Control/VBoxContainer"]
+layout_mode = 2
+
+[node name="dice_number" type="LineEdit" parent="Control/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+placeholder_text = "dice ammount"
+
+[node name="Label" type="Label" parent="Control/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "D"
+
+[node name="dietype" type="LineEdit" parent="Control/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+placeholder_text = "type"
+
+[node name="dh" type="CheckButton" parent="Control/VBoxContainer"]
+layout_mode = 2
+text = "drop highest"
+
+[node name="dl" type="CheckButton" parent="Control/VBoxContainer"]
+layout_mode = 2
+text = "drop lowest
+"
+
+[node name="kh" type="CheckButton" parent="Control/VBoxContainer"]
+layout_mode = 2
+text = "keep highest
+"
+
+[node name="kl" type="CheckButton" parent="Control/VBoxContainer"]
+layout_mode = 2
+text = "keep lowest
+"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="Control/VBoxContainer"]
+layout_mode = 2
+
+[node name="reroll" type="CheckButton" parent="Control/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+text = "reroll
+"
+
+[node name="rerollTrigger" type="LineEdit" parent="Control/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+
+[node name="HBoxContainer5" type="HBoxContainer" parent="Control/VBoxContainer"]
+layout_mode = 2
+
+[node name="rrtype" type="MenuButton" parent="Control/VBoxContainer/HBoxContainer5"]
+layout_mode = 2
+text = "reroll variant"
+icon = ExtResource("1_pmfxh")
+item_count = 3
+popup/item_0/text = "none"
+popup/item_0/checked = true
+popup/item_0/id = 0
+popup/item_1/text = "greater"
+popup/item_1/id = 1
+popup/item_2/text = "less"
+popup/item_2/id = 2
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="Control/VBoxContainer"]
+layout_mode = 2
+
+[node name="explode" type="CheckButton" parent="Control/VBoxContainer/HBoxContainer3"]
+layout_mode = 2
+text = "explode
+"
+
+[node name="rerollTrigger" type="LineEdit" parent="Control/VBoxContainer/HBoxContainer3"]
+layout_mode = 2
+
+[node name="HBoxContainer4" type="HBoxContainer" parent="Control/VBoxContainer"]
+layout_mode = 2
+
+[node name="once" type="CheckBox" parent="Control/VBoxContainer/HBoxContainer4"]
+layout_mode = 2
+text = "once
+"
+
+[node name="alldice" type="CheckBox" parent="Control/VBoxContainer/HBoxContainer4"]
+layout_mode = 2
+text = "all
+"
+
+[node name="HBoxContainer6" type="HBoxContainer" parent="Control/VBoxContainer/HBoxContainer4"]
+layout_mode = 2
+
+[node name="explodeType" type="MenuButton" parent="Control/VBoxContainer/HBoxContainer4/HBoxContainer6"]
+layout_mode = 2
+text = "exvar
+"
+icon = ExtResource("1_pmfxh")
+item_count = 3
+popup/item_0/text = "none"
+popup/item_0/checked = true
+popup/item_0/id = 0
+popup/item_1/text = "greater"
+popup/item_1/id = 1
+popup/item_2/text = "less"
+popup/item_2/id = 2
+
+[node name="Button" type="Button" parent="Control/VBoxContainer"]
+layout_mode = 2
+text = "roll dice
+"
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.965926, 0.12941, 0.224144, -0.258819, 0.482963, 0.836516, 0, -0.866025, 0.5, 1.34478, 3.02401, 2.1272)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_78gu7")

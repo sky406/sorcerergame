@@ -48,7 +48,6 @@ func rotatecam(rot,lockedvertical=true):
 func _physics_process(delta):
 	# print(getSpeed())
 	# debug player speed, TODO remove release
-	var sprint_format
 	
 	# gravity 
 	if not is_on_floor():
@@ -60,12 +59,12 @@ func _physics_process(delta):
 	move()
 
 func dash():
-	var dash_speed = 60
+	pass
 
 func getSpeed():
-	var velocity = get_real_velocity()
-	var horizontal_speed:float = sqrt(pow(velocity.x,2)+pow(velocity.z,2))
-	var totalspeed = sqrt(pow(velocity.y,2)+pow(horizontal_speed,2))
+	var vel = get_real_velocity()
+	var horizontal_speed:float = sqrt(pow(vel.x,2)+pow(vel.z,2))
+	var totalspeed = sqrt(pow(vel.y,2)+pow(horizontal_speed,2))
 	return snapped(totalspeed,0.01)
 	
 func move():
@@ -81,9 +80,8 @@ func move():
 		meshcontrol.look_at(position+direction)
 		# print(meshcontrol.rotation_degrees)
 		print(meshcontrol.position+direction)
+		print(position+direction)
 		####
-		while Input.is_action_pressed("dash"):
-			pass
 			
 		####
 		velocity.x = direction.x * current_speed
@@ -94,8 +92,8 @@ func move():
 		velocity.z = lerp(velocity.z,0.0,0.1)
 	move_and_slide()
 
-func correctAngle(rotation):
-	var angle:float = abs(fmod(rotation,360))
+func correctAngle(rot):
+	var angle:float = abs(fmod(rot,360))
 	# print(angle)
 	return angle
 func angle_to_angle(from,to):
@@ -103,9 +101,9 @@ func angle_to_angle(from,to):
 	var corrected_from = correctAngle(from)
 	var corrected_to = correctAngle(to)
 	var difference = corrected_to-corrected_from
-	print(difference)
+	print("from: "+str(corrected_from)+" to: "+str(corrected_to)+" diff "+str(difference))
 	if difference > 180 or difference < -180:
 		
 		pass
-	# TODO fix the angle to angle script
+	# TODO make the player model roatate towards the direction it's moving
 	

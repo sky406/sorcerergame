@@ -31,3 +31,8 @@ transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 17,
 light_energy = 1.45
 
 [node name="playerCharacter" parent="." instance=ExtResource("2_1tv13")]
+
+[node name="Label3D" type="Label3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 1, -8)
+text = "test"
+font_size = 320

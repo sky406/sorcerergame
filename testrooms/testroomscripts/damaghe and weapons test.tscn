@@ -1,0 +1,16 @@
+[gd_scene load_steps=4 format=3 uid="uid://ddy655o6n246y"]
+
+[ext_resource type="PackedScene" uid="uid://m0hpxjjvim3r" path="res://testrooms/templates/test_room_control_template.tscn" id="1_qhdhx"]
+[ext_resource type="PackedScene" uid="uid://bqv22p58k73pd" path="res://player/player_character.tscn" id="2_swvug"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_kjimo"]
+size = Vector3(900, 0.1, 900)
+
+[node name="DamagheAndWeaponsTest" type="Node3D"]
+
+[node name="test room control template" parent="." instance=ExtResource("1_qhdhx")]
+
+[node name="CSGMesh3D" type="CSGMesh3D" parent="test room control template"]
+mesh = SubResource("BoxMesh_kjimo")
+
+[node name="playerCharacter" parent="." instance=ExtResource("2_swvug")]
