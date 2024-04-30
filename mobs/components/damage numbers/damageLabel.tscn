@@ -1,0 +1,65 @@
+[gd_scene load_steps=5 format=3 uid="uid://dauaeay3v6vu8"]
+
+[ext_resource type="Script" path="res://mobs/components/damage numbers/damageLabel.gd" id="1_8fb1g"]
+[ext_resource type="FontFile" uid="uid://b0sg8dn8ykcyt" path="res://fonts/Jingle Star.ttf" id="2_aqkig"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_1jf16"]
+viewport_path = NodePath("SubViewport")
+
+[sub_resource type="World3D" id="World3D_6a0hc"]
+
+[node name="DamageLabel" type="RigidBody3D"]
+script = ExtResource("1_8fb1g")
+
+[node name="Timer" type="Timer" parent="."]
+one_shot = true
+
+[node name="Sprite3D" type="Sprite3D" parent="."]
+transform = Transform3D(0.157984, 0, 0, 0, 0.157984, 0, 0, 0, 0.824467, 0, 0, 0)
+billboard = 1
+double_sided = false
+no_depth_test = true
+fixed_size = true
+texture = SubResource("ViewportTexture_1jf16")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+root_node = NodePath("../SubViewport/Node3D/sub text")
+
+[node name="SubViewport" type="SubViewport" parent="."]
+world_3d = SubResource("World3D_6a0hc")
+transparent_bg = true
+handle_input_locally = false
+msaa_3d = 3
+
+[node name="Node3D" type="Node3D" parent="SubViewport"]
+
+[node name="Camera3D" type="Camera3D" parent="SubViewport/Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.70444)
+current = true
+fov = 56.1
+size = 1.62
+near = 0.224
+far = 4004.3
+
+[node name="crittext" type="Label3D" parent="SubViewport/Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.145659, 0)
+text = "if you're seeing this the dev fucked up"
+font = ExtResource("2_aqkig")
+font_size = 20
+
+[node name="damage number" type="Label3D" parent="SubViewport/Node3D"]
+modulate = Color(1, 0.192157, 0.203922, 1)
+text = "fucked up bad"
+font = ExtResource("2_aqkig")
+font_size = 40
+outline_size = 10
+autowrap_mode = 1
+
+[node name="sub text" type="Label3D" parent="SubViewport/Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.11278, 0)
+text = "lmao "
+font = ExtResource("2_aqkig")
+font_size = 19
+outline_size = 0
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

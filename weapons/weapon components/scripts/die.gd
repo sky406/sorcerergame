@@ -115,4 +115,6 @@ func roll():
 	var rolls = rolldice(numdice,dietype)
 	if modifiers.is_empty():
 		return rolls
+
+	
 	

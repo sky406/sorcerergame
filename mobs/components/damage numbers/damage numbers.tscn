@@ -19,6 +19,8 @@ near = 0.012
 mesh = SubResource("BoxMesh_cj57e")
 skeleton = NodePath("../Camera3D")
 
+[node name="damag number spew" type="Node3D" parent="MeshInstance3D"]
+
 [node name="Control" type="Control" parent="."]
 layout_mode = 3
 anchors_preset = 15
