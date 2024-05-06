@@ -46,6 +46,8 @@ subtext:String=""
 	if isCritical:
 		number.criticaltext = "CRITICAL HIT"
 		number.critcol = critcol
+	
+	number.subtext = subtext
 
 	call_deferred("add_child",number)
 	

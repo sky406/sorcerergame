@@ -19,6 +19,7 @@ config/icon="res://icon.svg"
 DamageNumbers="*res://mobs/components/damage numbers/damageNumbers.gd"
 DisplayDamage="*res://mobs/components/damage numbers/displayDamage.gd"
 DamageLabel="*res://mobs/components/damage numbers/damageLabel.tscn"
+Funcsglobal="*res://funcsglobal.gd"
 
 [input]
 

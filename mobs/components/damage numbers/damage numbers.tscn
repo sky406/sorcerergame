@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://n6mfqadjlvbj"]
 
-[ext_resource type="Texture2D" uid="uid://ctqgstrjr1ygo" path="res://textures/dot.png" id="1_pmfxh"]
+[ext_resource type="Script" path="res://mobs/components/damage numbers/damagetestspewscript.gd" id="1_1fvhv"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_cj57e"]
 
@@ -20,6 +20,7 @@ mesh = SubResource("BoxMesh_cj57e")
 skeleton = NodePath("../Camera3D")
 
 [node name="damag number spew" type="Node3D" parent="MeshInstance3D"]
+script = ExtResource("1_1fvhv")
 
 [node name="Control" type="Control" parent="."]
 layout_mode = 3
@@ -52,6 +53,7 @@ layout_mode = 2
 
 [node name="dice_number" type="LineEdit" parent="Control/VBoxContainer/HBoxContainer"]
 layout_mode = 2
+text = "1"
 placeholder_text = "dice ammount"
 
 [node name="Label" type="Label" parent="Control/VBoxContainer/HBoxContainer"]
@@ -60,6 +62,7 @@ text = "D"
 
 [node name="dietype" type="LineEdit" parent="Control/VBoxContainer/HBoxContainer"]
 layout_mode = 2
+text = "20"
 placeholder_text = "type"
 
 [node name="dh" type="CheckButton" parent="Control/VBoxContainer"]
@@ -95,13 +98,11 @@ layout_mode = 2
 [node name="HBoxContainer5" type="HBoxContainer" parent="Control/VBoxContainer"]
 layout_mode = 2
 
-[node name="rrtype" type="MenuButton" parent="Control/VBoxContainer/HBoxContainer5"]
+[node name="rrtype" type="OptionButton" parent="Control/VBoxContainer/HBoxContainer5"]
 layout_mode = 2
-text = "reroll variant"
-icon = ExtResource("1_pmfxh")
 item_count = 3
+selected = 0
 popup/item_0/text = "none"
-popup/item_0/checked = true
 popup/item_0/id = 0
 popup/item_1/text = "greater"
 popup/item_1/id = 1
@@ -116,7 +117,7 @@ layout_mode = 2
 text = "explode
 "
 
-[node name="rerollTrigger" type="LineEdit" parent="Control/VBoxContainer/HBoxContainer3"]
+[node name="explode trigger" type="LineEdit" parent="Control/VBoxContainer/HBoxContainer3"]
 layout_mode = 2
 
 [node name="HBoxContainer4" type="HBoxContainer" parent="Control/VBoxContainer"]
@@ -135,14 +136,11 @@ text = "all
 [node name="HBoxContainer6" type="HBoxContainer" parent="Control/VBoxContainer/HBoxContainer4"]
 layout_mode = 2
 
-[node name="explodeType" type="MenuButton" parent="Control/VBoxContainer/HBoxContainer4/HBoxContainer6"]
+[node name="explodetype" type="OptionButton" parent="Control/VBoxContainer/HBoxContainer4/HBoxContainer6"]
 layout_mode = 2
-text = "exvar
-"
-icon = ExtResource("1_pmfxh")
 item_count = 3
+selected = 0
 popup/item_0/text = "none"
-popup/item_0/checked = true
 popup/item_0/id = 0
 popup/item_1/text = "greater"
 popup/item_1/id = 1
@@ -159,3 +157,5 @@ transform = Transform3D(0.965926, 0.12941, 0.224144, -0.258819, 0.482963, 0.8365
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_78gu7")
+
+[connection signal="pressed" from="Control/VBoxContainer/Button" to="MeshInstance3D/damag number spew" method="_on_button_pressed"]

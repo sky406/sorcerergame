@@ -26,7 +26,13 @@ func _ready():
 	Damlabel.modulate = col
 	Damlabel.modulate.a = 0
 	Damlabel.outline_modulate.a = 0
+	critlabel.text = criticaltext
+	critlabel.modulate = critcol
+	sublabel.text = subtext
+	sublabel.modulate = subcol
 	apply_impulse(Vector3(xspeed,yspeed,zspeed))
+	# TODO MAKE THE TEXT FADE PROPERLY ALSO FIND OUT IF YOU CAN USE RENDER LAYERS TO MAKE THE NUMBERS APPEAR ABOVE ENEMIES BUT NOT ENVINRONMENT AND THE PLAYER
+
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	while Damlabel.modulate.a < 255:
