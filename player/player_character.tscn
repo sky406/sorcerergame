@@ -1,7 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://bqv22p58k73pd"]
+[gd_scene load_steps=9 format=3 uid="uid://bqv22p58k73pd"]
 
 [ext_resource type="Script" path="res://player/player_character.gd" id="1_jsxkw"]
 [ext_resource type="Script" path="res://player/cameraOrbit.gd" id="2_7ll05"]
+[ext_resource type="Script" path="res://player/attributes.gd" id="3_5klw4"]
+[ext_resource type="Script" path="res://player/UI.gd" id="4_uebbd"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_343o7"]
 height = 1.65
@@ -13,6 +15,7 @@ height = 1.65
 [sub_resource type="SphereShape3D" id="SphereShape3D_jm0xf"]
 
 [node name="playerCharacter" type="CharacterBody3D"]
+collision_layer = 2
 script = ExtResource("1_jsxkw")
 
 [node name="meshControl" type="Node3D" parent="."]
@@ -44,3 +47,33 @@ margin = 1.0
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 3.45564)
 current = true
 fov = 88.1
+
+[node name="attributes" type="Node" parent="."]
+script = ExtResource("3_5klw4")
+resistances = [null]
+
+[node name="UI" type="Control" parent="."]
+layout_mode = 3
+anchor_right = 1.0
+anchor_bottom = 0.997
+offset_bottom = -0.0560303
+script = ExtResource("4_uebbd")
+
+[node name="hp" type="ProgressBar" parent="UI"]
+layout_mode = 0
+offset_left = 37.0
+offset_top = 14.0
+offset_right = 287.0
+offset_bottom = 41.0
+
+[node name="debug hp" type="RichTextLabel" parent="UI/hp"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = 13.0
+offset_top = -1.0
+offset_right = 60.0
+offset_bottom = 27.0
+grow_horizontal = 0
+text = "111"

@@ -1,0 +1,24 @@
+[gd_scene load_steps=4 format=3 uid="uid://31gw5bfp7j80"]
+
+[ext_resource type="PackedScene" uid="uid://bqv22p58k73pd" path="res://player/player_character.tscn" id="1_udoy5"]
+[ext_resource type="PackedScene" uid="uid://db2ypxacbggky" path="res://testrooms/effects testing/effector.tscn" id="2_bud5d"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_nkn5f"]
+size = Vector3(900, 0.5, 900)
+
+[node name="AreaEffectTest" type="Node3D"]
+
+[node name="CSGMesh3D" type="CSGMesh3D" parent="."]
+use_collision = true
+mesh = SubResource("BoxMesh_nkn5f")
+
+[node name="playerCharacter" parent="." instance=ExtResource("1_udoy5")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.235802, 0, 1.18223)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 6.76412, 0)
+
+[node name="Effector" parent="." instance=ExtResource("2_bud5d")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7, 3.26381, -10)

@@ -28,7 +28,7 @@ func _process(delta):
 	rotatecam(rot)
 	mouseDelta = Vector2.ZERO
 	# 
-	print(angle_to_angle(meshcontrol.rotation_degrees.y,rotation_degrees.y))
+	#print(angle_to_angle(meshcontrol.rotation_degrees.y,rotation_degrees.y))
 
 
 # cam control (might use it  for other thigns so i'm kinda isolating it)
@@ -79,8 +79,8 @@ func move():
 		### faceing movement direction (when not aiming)
 		meshcontrol.look_at(position+direction)
 		# print(meshcontrol.rotation_degrees)
-		print(meshcontrol.position+direction)
-		print(position+direction)
+		#print(meshcontrol.position+direction)
+		#print(position+direction)
 		####
 			
 		####

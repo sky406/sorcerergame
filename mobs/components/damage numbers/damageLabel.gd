@@ -56,4 +56,5 @@ func _physics_process(delta):
 func _on_timer_timeout():
 	timeup = true
 
-#TODO fix the fade ins of the labels
+#TODO chage the way the damage number pops in to something eyecating but not in motion .
+# even try to make the text pop iun 

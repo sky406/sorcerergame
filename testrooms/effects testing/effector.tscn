@@ -1,0 +1,32 @@
+[gd_scene load_steps=5 format=3 uid="uid://db2ypxacbggky"]
+
+[ext_resource type="Script" path="res://testrooms/effects testing/effector.gd" id="1_vt5p2"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_q160x"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_4xor6"]
+radial_segments = 58
+rings = 6
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_qnvfw"]
+radius = 2.31342
+
+[node name="Effector" type="MeshInstance3D"]
+mesh = SubResource("SphereMesh_q160x")
+script = ExtResource("1_vt5p2")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(4.56528, 0, 0, 0, 4.56528, 0, 0, 0, 4.56528, 0, 0, 0)
+transparency = 0.78
+cast_shadow = 0
+mesh = SubResource("SphereMesh_4xor6")
+
+[node name="Area3D" type="Area3D" parent="."]
+collision_layer = 4
+collision_mask = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+shape = SubResource("SphereShape3D_qnvfw")
+
+[connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]
+[connection signal="body_exited" from="Area3D" to="." method="_on_area_3d_body_exited"]

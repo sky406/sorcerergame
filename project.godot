@@ -20,6 +20,7 @@ DamageNumbers="*res://mobs/components/damage numbers/damageNumbers.gd"
 DisplayDamage="*res://mobs/components/damage numbers/displayDamage.gd"
 DamageLabel="*res://mobs/components/damage numbers/damageLabel.tscn"
 Funcsglobal="*res://funcsglobal.gd"
+Effect="res://effects/template/effect.tscn"
 
 [input]
 
@@ -92,6 +93,12 @@ camrotatedown={
 "events": [Object(InputEventJoypadMotion,"resource_local_to_scene":false,"resource_name":"","device":-1,"axis":3,"axis_value":-1.0,"script":null)
 ]
 }
+
+[layer_names]
+
+3d_physics/layer_1="environment"
+3d_physics/layer_2="player"
+3d_physics/layer_3="projectiles"
 
 [physics]
 
