@@ -9,7 +9,3 @@ script = ExtResource("1_p7glv")
 one_shot = true
 
 [node name="intervaltimer" type="Timer" parent="."]
-
-[connection signal="tree_entered" from="." to="." method="_on_tree_entered"]
-[connection signal="timeout" from="lifetimer" to="." method="_on_lifetimer_timeout"]
-[connection signal="timeout" from="intervaltimer" to="." method="_on_intervaltimer_timeout"]
