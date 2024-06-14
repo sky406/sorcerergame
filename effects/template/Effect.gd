@@ -10,35 +10,25 @@ var timedeffect:bool = false
 var isstackbale:bool = false
 var lifetime:float = 0
 var overtime:Dictionary = {"active":false,"interval":0} 
-var effectOn=false
-
-signal effect_end
+# var effectOn=false
+var effect:Array = []
+signal effect_timeout(effectName)
 signal effect_added
 signal effect_removed
 signal effect_interval_timeout
-
-
-# attributes that can be targeted
-var strength = 0
-var dexterity = 0 
-var constitution = 0 
-var inteligence = 0 
-var wisdom = 0 
-var charisma = 0 
-var maxhp = 0
-var damage_bonus = [{"dice":null,"number":0,"type":"all"}]#make a seperate dictionary for every damage type
-var speed = {"number":0,"percent":0}
+signal overtime_effect_timeout(effect:Array)
 
 
 
-func _init(
-	displayname:String,
-	istimed:bool,
-	time = 0 
-):
-	effectname = displayname
-	timedeffect = istimed
-	lifetime = time
+# func _init(
+# 	displayname:String,
+# 	istimed:bool=false,
+# 	time = 0,
+# 	canstack:bool=false,
+# ):
+# 	effectname = displayname
+# 	timedeffect = istimed
+# 	lifetime = time
 
 func _ready():
 	if timedeffect:
@@ -54,4 +44,7 @@ func intervalend():
 	effect_interval_timeout.emit()
 
 func effectend():
-	effect_end.emit()
+	effect_timeout.emit()
+
+func getEffects():
+	return effect
