@@ -7,28 +7,32 @@ extends Node
 # main properties
 var displayeffect:bool = false
 var timedeffect:bool = false
-var isstackbale:bool = false
+var isstackable:bool = false
 var lifetime:float = 0
-var overtime:Dictionary = {"active":false,"interval":0} 
+var overtime:Dictionary = {"active":false,"interval":0,"damage":{},"effects":{}} 
 # var effectOn=false
 var effect:Array = []
 signal effect_timeout(effectName)
-signal effect_added
-signal effect_removed
-signal effect_interval_timeout
-signal overtime_effect_timeout(effect:Array)
+signal effect_added(effectName)
+signal effect_removed(effectName)
+signal effect_interval_timeout(effectName)
+signal overtime_effect_timeout(effectName)
 
+func get_EffectDetails():
+	return {
+		"name":effectname,
+		"effects": effect,
+		"icon":icon,
+		"properties":{
+			"displayeffect":displayeffect,
+			"timedeffect": timedeffect,
+			"canstack":isstackable,
+			"lifetime":lifetime
+		},
+		"overtime":overtime
+	}
 
-
-# func _init(
-# 	displayname:String,
-# 	istimed:bool=false,
-# 	time = 0,
-# 	canstack:bool=false,
-# ):
-# 	effectname = displayname
-# 	timedeffect = istimed
-# 	lifetime = time
+func get_Effect():return effect
 
 func _ready():
 	if timedeffect:
@@ -38,13 +42,21 @@ func _ready():
 	
 	if overtime["active"]:
 		interval.wait_time = overtime["interval"]
+		interval.timeout.connect(_intervalend)
 		interval.start()
-		interval.timeout.connect(intervalend())
-func intervalend():
-	effect_interval_timeout.emit()
+		#print("yippie")
+		
+func _intervalend():
+	effect_interval_timeout.emit(effectname)
 
 func effectend():
 	effect_timeout.emit()
 
 func getEffects():
 	return effect
+
+func callout():
+	print("hi")
+
+func _on_tree_exiting():
+	effect_removed.emit(effectname)

@@ -51,4 +51,3 @@ subtext:String=""
 
 	call_deferred("add_child",number)
 	
-	

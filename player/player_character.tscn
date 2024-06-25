@@ -14,7 +14,7 @@ height = 1.65
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_jm0xf"]
 
-[node name="playerCharacter" type="CharacterBody3D"]
+[node name="player" type="CharacterBody3D"]
 collision_layer = 2
 script = ExtResource("1_jsxkw")
 
@@ -50,7 +50,6 @@ fov = 88.1
 
 [node name="attributes" type="Node" parent="."]
 script = ExtResource("3_5klw4")
-resistances = [null]
 
 [node name="UI" type="Control" parent="."]
 layout_mode = 3
@@ -77,3 +76,7 @@ offset_right = 60.0
 offset_bottom = 27.0
 grow_horizontal = 0
 text = "111"
+
+[connection signal="attribute_changed" from="attributes" to="UI" method="_on_attributes_attribute_changed"]
+[connection signal="effect_added" from="attributes" to="attributes" method="_on_effect_added"]
+[connection signal="effect_added" from="attributes" to="UI" method="_on_attributes_effect_added"]

@@ -1,11 +1,13 @@
 extends CharacterBody3D
 @onready var camcontrol = $cameraOrbit
 @onready var meshcontrol = $meshControl
+@onready var attributes = $attributes
 @export var speed:float = 10
 @export var acceleration:float = 5
 @export var dash_speed:float = 60
 @export var sprint_speed:float = 36
 @export var jump_vel:float = 20
+signal input(inputtype)
 
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 var mouseDelta:Vector2 = Vector2.ZERO
