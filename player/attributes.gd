@@ -1,33 +1,71 @@
 extends Node
 const die = preload("res://weapons/weapon components/scripts/die.gd")
 const statEffect = preload("res://effects/template/effect.tscn")
-
-signal  attribute_changed(newattr)
 #TODO check if you still need the old attribute
-signal effect_added(effectName)
-signal effect_removed(effectName)
-signal hp_adjusted(old_max,old_current,new_max,new_current)
-signal stat_changed(stat,old,new)
 
 
-
+#core attributes
 @export var strength:int = 8
 @export var dexterity:int = 12
 @export var constitution:int = 13
 @export var inteligence:int = 11
 @export var widsom:int = 10
 @export var charisma:int = 18
-@export var level = 0
-var maxhp = 6+calculate_mod(constitution) + 0*3+calculate_mod(constitution)
-var hp:float = maxhp
-var bonuses = {
-	"damage":{"all":0},
-	"speed":{"number":0,"percent":0}
-}
-var effects = {}
+@export var level:int = 0
+@export var speed:float = 30
 
-func calculate_mod(attribute:int):
+#effect bonuses
+var item_bonuses:Dictionary = {
+	"effects":[]
+}
+var energy_bonus:int = 0
+var effectbonus = 0 
+# derived attributes
+func get_mod(attribute:int):
 	return int(floor((float(attribute)-10)/2.0))
+
+func prof():
+	return int(floor(float(level/4.0)))+1
+
+func maxenergy():
+	var lvlbonus = 0
+	match level:
+		1:lvlbonus = 4
+		2:lvlbonus = 6
+		3:lvlbonus = 14
+		4:lvlbonus = 17
+		5:lvlbonus = 27
+		6:lvlbonus = 32
+		7:lvlbonus = 38
+		8:lvlbonus = 44
+		9:lvlbonus = 57
+		10:lvlbonus = 64
+		11:lvlbonus = 73
+		12:lvlbonus = 73
+		13:lvlbonus = 83
+		14:lvlbonus = 83
+		15:lvlbonus = 94
+		16:lvlbonus = 94
+		17:lvlbonus = 107
+		18:lvlbonus = 114
+		19:lvlbonus = 123
+		20:lvlbonus = 133
+		_:lvlbonus = 133+level
+	return lvlbonus + energy_bonus
+
+func effectmod():
+	return get_mod(charisma) + effectbonus + Funcsglobal.sumarray(item_bonuses["effects"])
+var maxhp = (6+get_mod(constitution))+(level*3+get_mod(constitution))
+var hp:float = maxhp
+var energy:float = maxenergy()
+
+signal attribute_changed(newattr)
+signal effect_added(effectName)
+signal effect_removed(effectName)
+signal hp_adjusted(old_max,old_current,new_max,new_current)
+signal stat_changed(stat,old,new)
+
+
 
 func _ready():
 	connect("effect_added",_on_effect_added)
@@ -63,17 +101,16 @@ func addEffect(effect:Dictionary):
 	neweffect.overtime = effect["overtime"]
 	# TODO APPLY THE effects and connect the signals
 	neweffect.connect("effect_added",_on_effect_added)
-	# neweffect.connect("overtime_effect_timeout",_on_overtime_timeout)
 	neweffect.connect("effect_removed",_on_effect_removed)
 	neweffect.connect("effect_interval_timeout",_on_effect_interval)
 
-	call_deferred("add_child",neweffect)
-	# effects.append(neweffect)
+	# applying the effect
+	var effects = effect["effects"]
+
 	
+
+	call_deferred("add_child",neweffect)
 	effect_added.emit(neweffect.effectname)
-	# print("attribute changed")
-	# print(constitution)
-	print(listeffects())
 
 func removeEffect(effect):
 	call_deferred("remove_child",effect)

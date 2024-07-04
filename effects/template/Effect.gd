@@ -44,7 +44,6 @@ func _ready():
 		interval.wait_time = overtime["interval"]
 		interval.timeout.connect(_intervalend)
 		interval.start()
-		#print("yippie")
 		
 func _intervalend():
 	effect_interval_timeout.emit(effectname)
@@ -54,9 +53,6 @@ func effectend():
 
 func getEffects():
 	return effect
-
-func callout():
-	print("hi")
 
 func _on_tree_exiting():
 	effect_removed.emit(effectname)
