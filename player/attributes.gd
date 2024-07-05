@@ -9,7 +9,7 @@ const statEffect = preload("res://effects/template/effect.tscn")
 @export var dexterity:int = 12
 @export var constitution:int = 13
 @export var inteligence:int = 11
-@export var widsom:int = 10
+@export var wisdom:int = 10
 @export var charisma:int = 18
 @export var level:int = 0
 @export var speed:float = 30
@@ -54,23 +54,27 @@ func maxenergy():
 	return lvlbonus + energy_bonus
 
 func effectmod():
-	return get_mod(charisma) + effectbonus + Funcsglobal.sumarray(item_bonuses["effects"])
+	return get_mod(charisma) + Funcsglobal.sumarray(item_bonuses["effects"])
 var maxhp = (6+get_mod(constitution))+(level*3+get_mod(constitution))
 var hp:float = maxhp
 var energy:float = maxenergy()
+# TODO clean up the derived stats a bit
+# signals
 
 signal attribute_changed(newattr)
 signal effect_added(effectName)
 signal effect_removed(effectName)
 signal hp_adjusted(old_max,old_current,new_max,new_current)
 signal stat_changed(stat,old,new)
-
+signal effect_resisted(effectName)
+signal effect_applied(effectName)
 
 
 func _ready():
 	connect("effect_added",_on_effect_added)
 
-var currenteffectsEffects:Dictionary =  {}
+####### effect bullshit 
+var active_effects = []
 
 func listeffects():
 	var effectlist = []
@@ -82,30 +86,30 @@ func listeffects():
 				# i.callout()
 	return effectlist
 
-func addEffect(effect:Dictionary):
+func addEffect(effect:Array):
 	var neweffect = statEffect.instantiate()
-	if effect["properties"]["canstack"] == false:
-		var currenteffects = listeffects()
-		if effect["name"] in currenteffects:
-			print("effect already applied")
-			return
-	neweffect.effectname = effect["name"]
-	neweffect.effect = effect["effects"]
-	neweffect.icon = effect["icon"]
-	# properties
-	var properties = effect["properties"]
-	neweffect.displayeffect = properties["displayeffect"]
-	neweffect.timedeffect = properties["timedeffect"]
-	neweffect.lifetime = properties["lifetime"]
-	neweffect.isstackable = properties["canstack"]
-	neweffect.overtime = effect["overtime"]
+	neweffect.build_effect(effect)
+	effect_added.emit(neweffect.effectname)
+	# check if effect in list
+	var activeeffects = listeffects()
+	if neweffect.effectname in activeeffects and !neweffect.isstackable:
+		print("effect already applied")
+		effect_resisted.emit(neweffect.effectname)
+		return
+
+	# apply effect
+	var appliedeffects = []
+	for i in neweffect.effect:
+		#TODO add a check for type resitances and shit idk 
+		appliedeffects.append(i)
+	active_effects.append({neweffect.effectname:appliedeffects})
+	
 	# TODO APPLY THE effects and connect the signals
 	neweffect.connect("effect_added",_on_effect_added)
 	neweffect.connect("effect_removed",_on_effect_removed)
 	neweffect.connect("effect_interval_timeout",_on_effect_interval)
 
 	# applying the effect
-	var effects = effect["effects"]
 
 	
 
@@ -145,3 +149,26 @@ func _on_effect_interval(effectName):
 
 func _on_effect_removed(effectName):
 	pass
+
+# this part just makes calculating attribute changes might need some reworks eventually
+func get_attribute(attribute:String):
+	var effecttotal = 0
+	for i in active_effects:
+		if i.has("attribute"):
+			if i["attribute"]==attribute:
+				effecttotal+=i["value"]
+	match attribute:
+		"strength":
+			return strength+effecttotal
+		"dexterity":
+			return dexterity+effecttotal
+		"constitution":
+			return constitution+effecttotal
+		"inteligence":
+			return inteligence+effecttotal
+		"wisdom":
+			return wisdom+effecttotal
+		"charisma": 
+			return charisma+effecttotal
+		"speed":
+			return speed+effecttotal
