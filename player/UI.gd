@@ -6,7 +6,7 @@ extends Control
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	hpbar.max_value = attributes.maxhp
+	hpbar.max_value = attributes.get_attribute("constitution")
 	hpbar.value = attributes.hp
 	hpval.text = str(attributes.hp)
 
@@ -17,13 +17,8 @@ func _process(delta):
 
 
 func _on_attributes_attribute_changed(newattr):
-	hpbar.max_value = attributes.maxhp
+	print("recalculating hp")
+	hpbar.max_value = attributes.get_attribute("constitution")
 	hpbar.value = attributes.hp
 	hpval.text = str(attributes.hp)
 
-
-func _on_attributes_effect_added(effect):
-	print("hey what the fuck")
-	hpbar.max_value = attributes.maxhp
-	hpbar.value = attributes.hp
-	hpval.text = str(attributes.hp)

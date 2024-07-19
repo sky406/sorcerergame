@@ -39,9 +39,9 @@ func get_EffectDetails():
 		{"overtime":overtime} 
 	]
 
-func build_effect(effect:Array):
+func build_effect(Effect:Array):
 	print("effect build in progress")
-	for i in effect:
+	for i in Effect:
 		print(i.keys()[0])
 		match i.keys()[0]:
 			"properties":
