@@ -13,7 +13,7 @@ var overtime:Dictionary = {"active":false,"interval":0,"effects":[]}
 # var effectOn=false
 var effect:Array = []
 signal effect_timeout(effectName)
-signal effect_added(effectName)
+signal effect_added(effect)
 signal effect_removed(effectName)
 signal effect_interval_timeout(effectName)
 signal overtime_effect_timeout(effectName)
@@ -27,6 +27,7 @@ func get_EffectDetails():
 			{"istimed":timedeffect},
 			{"lifetime":lifetime},
 			{"isstackable":isstackable},
+			{"icon":icon}
 
 		]	
 		},
@@ -56,14 +57,17 @@ func build_effect(Effect:Array):
 							print("displayeffect found")
 							displayeffect = key["display"]
 						"istimed":
-							print("timedeffect found: value = "+str(key["istimed"]))
+							print("timedeffect found: value = "+ str(key["istimed"]))
 							timedeffect = key["istimed"]
 						"lifetime":
-							print("lifetime found: value = " +str(key["lifetime"]))
+							print("lifetime found: value = " + str(key["lifetime"]))
 							lifetime = key["lifetime"]
 						"isstackable":
 							print("stackable found: value = " + str(key["isstackable"]))
 							isstackable = key["isstackable"]
+						"icon":
+							print("found icon")
+							icon =  key["icon"]
 			"effects":
 				print("effects"+str(i["effects"]))
 				effect = i["effects"]

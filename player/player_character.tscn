@@ -1,8 +1,10 @@
-[gd_scene load_steps=9 format=3 uid="uid://bqv22p58k73pd"]
+[gd_scene load_steps=11 format=3 uid="uid://bqv22p58k73pd"]
 
 [ext_resource type="Script" path="res://player/player_character.gd" id="1_jsxkw"]
 [ext_resource type="Script" path="res://player/cameraOrbit.gd" id="2_7ll05"]
+[ext_resource type="PackedScene" uid="uid://ivoq3jp5vith" path="res://assets/claire_pawn.glb" id="2_pnju7"]
 [ext_resource type="Script" path="res://player/attributes.gd" id="3_5klw4"]
+[ext_resource type="Script" path="res://player/effects.gd" id="4_5o3fu"]
 [ext_resource type="Script" path="res://player/UI.gd" id="4_uebbd"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_343o7"]
@@ -20,8 +22,12 @@ script = ExtResource("1_jsxkw")
 
 [node name="meshControl" type="Node3D" parent="."]
 
+[node name="claire_pawn" parent="meshControl" instance=ExtResource("2_pnju7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0262589, 0)
+
 [node name="playermesh" type="MeshInstance3D" parent="meshControl"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.83116, 0)
+visible = false
 transparency = 0.17
 mesh = SubResource("CapsuleMesh_343o7")
 skeleton = NodePath("../..")
@@ -51,6 +57,9 @@ fov = 88.1
 [node name="attributes" type="Node" parent="."]
 script = ExtResource("3_5klw4")
 
+[node name="effects" type="Node" parent="attributes"]
+script = ExtResource("4_5o3fu")
+
 [node name="UI" type="Control" parent="."]
 layout_mode = 3
 anchor_right = 1.0
@@ -77,6 +86,16 @@ offset_bottom = 27.0
 grow_horizontal = 0
 text = "111"
 
+[node name="effect sprite" type="HBoxContainer" parent="UI/hp"]
+clip_contents = true
+layout_mode = 0
+offset_top = 29.0
+offset_right = 247.0
+offset_bottom = 50.0
+theme_override_constants/separation = 1
+
+[connection signal="attribute_changed" from="attributes" to="attributes" method="_on_attribute_changed"]
 [connection signal="attribute_changed" from="attributes" to="UI" method="_on_attributes_attribute_changed"]
 [connection signal="effect_added" from="attributes" to="attributes" method="_on_effect_added"]
 [connection signal="effect_added" from="attributes" to="UI" method="_on_attributes_effect_added"]
+[connection signal="effect_removed" from="attributes" to="UI" method="_on_attributes_effect_removed"]

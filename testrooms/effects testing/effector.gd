@@ -15,21 +15,24 @@ func _process(delta):
 func _on_area_3d_body_entered(body):
 	print("entered")
 	#print (body.get_property_list())
+	print(body.get("attributes").strength)
+	print(body.has_node("attributes"))
 	print(body.name)
 	var list = body.get_property_list()
 	for i in list:
 		if i["name"] == "attributes":
-			body.attributes.addEffect(
-				{"name":effectname,
-				"effects": [],
-			"icon":null,
-			"properties":{
-				"displayeffect":false,
-				"timedeffect": false,
-				"canstack":true,
-				"lifetime":0
-			},
-			"overtime":{"active":true,"interval":effectname}}
+			body.attributes.addEffect([
+				{"properties":
+					[
+						{"name":effectname},
+						{"display":true},
+						{"istimed":false},
+						{"icon":Image.load_from_file("res://assets/placeholder sprites/efecticon.png")}
+					]
+					},
+				{"effects":[
+					{"attribute":"constitution","value":-1,"limit":1}
+				]}]
 			)
 	effectname+=1
 

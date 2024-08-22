@@ -1,12 +1,12 @@
 extends Node
 const die = preload("res://weapons/weapon components/scripts/die.gd")
 @onready var effectman =$effects
+@export var resistances = []
+
 #TODO check if you still need the old attribute
-
-
 signal attribute_changed(newattr)
-signal effect_added(effectName)
-signal effect_removed(effectName)
+signal effect_added(effect)
+signal effect_removed(effect)
 signal hp_adjusted(old_max,old_current,new_max,new_current)
 signal stat_changed(stat,old,new)
 signal effect_resisted(effectName)
@@ -16,7 +16,7 @@ func addEffect(effect:Array):
 	# check if effect is resisted then add to effects 
 	effectman.addEffect(effect)
 	attribute_changed.emit("ahh")
-	effect_added.emit("change name later")
+	effect_added.emit(effect)
 
 # this part just makes calculating attribute changes might need some reworks eventually
 func get_attribute(attribute:String):

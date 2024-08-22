@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://d255hshibqf05"]
+
+[ext_resource type="Texture2D" uid="uid://ce6whub1holcl" path="res://assets/placeholder sprites/efecticon.png" id="1_bn78c"]
+
+[node name="EffectSprite" type="TextureRect"]
+offset_right = 16.0
+offset_bottom = 16.0
+texture = ExtResource("1_bn78c")
+expand_mode = 3

@@ -1,7 +1,8 @@
-[gd_scene load_steps=12 format=3 uid="uid://c2apxkmgi52x2"]
+[gd_scene load_steps=13 format=3 uid="uid://c2apxkmgi52x2"]
 
 [ext_resource type="Script" path="res://testrooms/testroomscripts/testscene.gd" id="1_smjcf"]
 [ext_resource type="PackedScene" uid="uid://bqv22p58k73pd" path="res://player/player_character.tscn" id="2_tu12g"]
+[ext_resource type="PackedScene" uid="uid://c4lqubwcw43y1" path="res://assets/placeholder staff.glb" id="3_d7fxl"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_leidy"]
 sky_top_color = Color(0.733333, 0.796078, 0.905882, 1)
@@ -50,7 +51,7 @@ transform = Transform3D(1000, 0, 0, 0, 1, 0, 0, 0, 1000, 0, 0, 0)
 shape = SubResource("BoxShape3D_idjgc")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="floor"]
-transform = Transform3D(1000, 0, 0, 0, 1, 0, 0, 0, 1000, 0, 0, 0)
+transform = Transform3D(1000, 0, 0, 0, 1, 0, 0, 0, 1000, -1, 0, 1)
 mesh = SubResource("BoxMesh_hqii8")
 skeleton = NodePath("../..")
 
@@ -82,3 +83,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -26, 1, -12)
 use_collision = true
 mesh = SubResource("CylinderMesh_wcuno")
 material = SubResource("StandardMaterial3D_ksq1p")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -26, -7, 19)
+
+[node name="placeholder staff" parent="." instance=ExtResource("3_d7fxl")]
+transform = Transform3D(0.135214, 0, 0.990816, 0, 1, 0, -0.990816, 0, 0.135214, -17, 0, -25)
