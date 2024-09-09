@@ -1,10 +1,104 @@
-[gd_scene load_steps=4 format=3 uid="uid://dauaeay3v6vu8"]
+[gd_scene load_steps=7 format=3 uid="uid://dauaeay3v6vu8"]
 
 [ext_resource type="Script" path="res://mobs/components/damage numbers/damageLabel.gd" id="1_8fb1g"]
 [ext_resource type="FontFile" uid="uid://b0sg8dn8ykcyt" path="res://fonts/Jingle Star.ttf" id="2_aqkig"]
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_1jf16"]
 viewport_path = NodePath("SubViewport")
+
+[sub_resource type="Animation" id="Animation_mxxop"]
+length = 0.001
+
+[sub_resource type="Animation" id="Animation_tlqbe"]
+resource_name = "fade in and out "
+length = 5.0
+loop_mode = 1
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../crittext:modulate:a")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0, 0, 0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0, 1, -0.5, -0.813165, 0.25, 0, 1, -0.25, 0, 0.9, -0.134065, 0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 0.2, 2.6, 3.6, 4.7)
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../crittext:outline_modulate:a")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0, 0, 0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0, 1, -0.4, -0.707527, 0.25, 0, 1, -0.25, 0, 0.9, -0.194429, 0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 0.2, 2.6, 3.6, 4.7)
+}
+tracks/2/type = "bezier"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("../damage number:modulate:a")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0, 0, 0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 0.199384, 1.1, 4, 5)
+}
+tracks/3/type = "bezier"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("../damage number:outline_modulate:a")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0, 0, 0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 0.198604, 1.1, 4, 5)
+}
+tracks/4/type = "bezier"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath(".:modulate:a")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0, 0, 0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.8, 0.0470287, 0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 0.199774, 2.6, 3.6, 4.7)
+}
+tracks/5/type = "bezier"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath(".:outline_modulate:a")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0, 0, 0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0, 1, -0.2, -0.0133358, 0.25, 0, 1, -0.25, 0, 0.8, 0.0621198, 0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 0.2, 2.6, 3.6, 4.7)
+}
+tracks/6/type = "method"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("../../..")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(5),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"_kill_self"
+}]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ierqf"]
+_data = {
+"RESET": SubResource("Animation_mxxop"),
+"fade in and out ": SubResource("Animation_tlqbe")
+}
 
 [node name="DamageLabel" type="RigidBody3D"]
 script = ExtResource("1_8fb1g")
@@ -16,11 +110,15 @@ one_shot = true
 transform = Transform3D(0.157984, 0, 0, 0, 0.157984, 0, 0, 0, 0.824467, 0, 0, 0)
 billboard = 1
 double_sided = false
+no_depth_test = true
 fixed_size = true
 texture = SubResource("ViewportTexture_1jf16")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 root_node = NodePath("../SubViewport/Node3D/sub text")
+libraries = {
+"": SubResource("AnimationLibrary_ierqf")
+}
 
 [node name="SubViewport" type="SubViewport" parent="."]
 own_world_3d = true
@@ -40,12 +138,15 @@ far = 4004.3
 
 [node name="crittext" type="Label3D" parent="SubViewport/Node3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.145659, 0)
+modulate = Color(1, 1, 1, 0.0307691)
+outline_modulate = Color(0, 0, 0, 0.0405237)
 text = "if you're seeing this the dev fucked up"
 font = ExtResource("2_aqkig")
 font_size = 20
 
 [node name="damage number" type="Label3D" parent="SubViewport/Node3D"]
-modulate = Color(1, 0.192157, 0.203922, 1)
+modulate = Color(1, 0.192157, 0.203922, 0.324232)
+outline_modulate = Color(0, 0, 0, 0.325005)
 text = "dumbass"
 font = ExtResource("2_aqkig")
 font_size = 40
@@ -54,6 +155,8 @@ autowrap_mode = 1
 
 [node name="sub text" type="Label3D" parent="SubViewport/Node3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.11278, 0)
+modulate = Color(1, 1, 1, 0.109047)
+outline_modulate = Color(0, 0, 0, 0.105612)
 text = "lmao "
 font = ExtResource("2_aqkig")
 font_size = 19

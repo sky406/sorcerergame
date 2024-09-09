@@ -1,7 +1,6 @@
-[gd_scene load_steps=11 format=3 uid="uid://bqv22p58k73pd"]
+[gd_scene load_steps=10 format=3 uid="uid://bqv22p58k73pd"]
 
 [ext_resource type="Script" path="res://player/player_character.gd" id="1_jsxkw"]
-[ext_resource type="Script" path="res://player/cameraOrbit.gd" id="2_7ll05"]
 [ext_resource type="PackedScene" uid="uid://ivoq3jp5vith" path="res://assets/claire_pawn.glb" id="2_pnju7"]
 [ext_resource type="Script" path="res://player/attributes.gd" id="3_5klw4"]
 [ext_resource type="Script" path="res://player/effects.gd" id="4_5o3fu"]
@@ -42,7 +41,6 @@ shape = SubResource("CapsuleShape3D_tf42a")
 
 [node name="cameraOrbit" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.58731, 0)
-script = ExtResource("2_7ll05")
 
 [node name="SpringArm3D" type="SpringArm3D" parent="cameraOrbit"]
 shape = SubResource("SphereShape3D_jm0xf")
