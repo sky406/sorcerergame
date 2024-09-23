@@ -9,7 +9,6 @@ extends RigidBody3D
 @export var zspeed = 0
 @export var col:Color = Color(1,1,1)
 var dropspeed = 30
-var timeup:bool = false
 var displaytext = "nottext"
 var criticaltext = ""
 var critcol:Color = Color(1,1,1)
@@ -49,9 +48,6 @@ func _physics_process(delta):
 func _kill_self():
 	queue_free()
 	
-
-func _on_timer_timeout():
-	timeup = true
 
 #TODO chage the way the damage number pops in to something eyecating but not in motion .
 # even try to make the text pop iun 

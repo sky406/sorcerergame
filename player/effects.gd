@@ -60,4 +60,4 @@ func affects(attribute:String):
 	print("affected values counted")
 	print(attribute+str(values))
 	print(effects)
-	return clamp(Funcsglobal.sumarray(values),1,50)
+	return clamp(Global.sumarray(values),1,50)

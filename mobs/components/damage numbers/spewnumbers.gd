@@ -34,7 +34,7 @@ func _on_timer_timeout():
 	var gravval = gravslider.value
 	var spreadval = spreadslider.value
 	var speedval = lifeslider.value
-	DisplayDamage.display(
+	Global.displayDamage(
 		str(120),
 		position,
 		launchval,
@@ -44,7 +44,7 @@ func _on_timer_timeout():
 		spreadval,
 		gravval,
 		true,
-		DisplayDamage.rgbTocol(255,58,61),
+		Global.rgbTocol(255,58,61),
 		"little subtext"
 	)
 #TODO give more control over the spew of numbers
