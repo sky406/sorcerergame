@@ -35,10 +35,10 @@ func _on_attributes_effect_added(effect):
 	print(effect[0])
 	print("beep beep")
 	var effectproperties = effect[0]["properties"]
-	var displayicon = Funcsglobal.keyFromArray("display",effectproperties)["display"] 
+	var displayicon = Global.keyFromArray("display",effectproperties)["display"] 
 	if displayicon:
 		if effecticons.size()<iconlimit:
-			var icon = Funcsglobal.keyFromArray("icon",effectproperties)["icon"]
+			var icon = Global.keyFromArray("icon",effectproperties)["icon"]
 			var effect_icon = effect_sprite.instantiate()
 			effect_icon.texture = ImageTexture.create_from_image(icon)
 			effecticons.append(effect_icon)

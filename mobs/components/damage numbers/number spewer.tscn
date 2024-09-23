@@ -13,7 +13,7 @@ script = ExtResource("1_5c3gm")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 4)
 
 [node name="Timer" type="Timer" parent="."]
-wait_time = 0.074
+wait_time = 0.002
 autostart = true
 
 [node name="Control" type="Control" parent="."]
@@ -46,7 +46,7 @@ offset_right = 220.0
 offset_bottom = 70.0
 text = "spread"
 
-[node name="fadetime slider" type="HSlider" parent="Control"]
+[node name="interval slider" type="HSlider" parent="Control"]
 layout_mode = 1
 anchors_preset = -1
 anchor_right = 1.0
@@ -56,16 +56,18 @@ offset_top = 11.0
 offset_right = -257.0
 offset_bottom = 11.2
 grow_horizontal = 2
-max_value = 255.0
-value = 3.0
+min_value = 0.01
+max_value = 1.0
+step = 0.01
+value = 1.0
 
-[node name="fadelavle" type="Label" parent="Control/fadetime slider"]
+[node name="interval label" type="Label" parent="Control/interval slider"]
 layout_mode = 0
 offset_left = 166.0
 offset_top = 47.0
 offset_right = 220.0
 offset_bottom = 70.0
-text = "fadespeed"
+text = "interval"
 
 [node name="grav slider" type="VSlider" parent="Control"]
 layout_mode = 2
@@ -111,8 +113,10 @@ offset_left = 122.0
 offset_top = 81.0
 offset_right = 138.0
 offset_bottom = 621.0
-max_value = 1.0
+min_value = 1.0
+max_value = 6.0
 step = 0.01
+value = 1.0
 
 [node name="Label2" type="Label" parent="Control/life slider"]
 layout_mode = 1
@@ -125,4 +129,29 @@ text = "lifetime"
 label_settings = SubResource("LabelSettings_aqk17")
 horizontal_alignment = 1
 
+[node name="VBoxContainer" type="VBoxContainer" parent="Control"]
+layout_mode = 0
+offset_left = 948.0
+offset_top = 132.0
+offset_right = 1107.0
+offset_bottom = 545.0
+
+[node name="interval val" type="Label" parent="Control/VBoxContainer"]
+layout_mode = 2
+text = "interval"
+
+[node name="lifetime val" type="Label" parent="Control/VBoxContainer"]
+layout_mode = 2
+text = "lifetime"
+
+[node name="launchpower val" type="Label" parent="Control/VBoxContainer"]
+layout_mode = 2
+text = "lifetimlaunchpower"
+
+[node name="gravity val" type="Label" parent="Control/VBoxContainer"]
+layout_mode = 2
+text = "grav
+"
+
 [connection signal="timeout" from="Timer" to="spew node" method="_on_timer_timeout"]
+[connection signal="drag_ended" from="Control/interval slider" to="spew node" method="_on_interval_slider_drag_ended"]

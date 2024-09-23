@@ -63,7 +63,7 @@ func _on_button_pressed():
 
 	var roll = damagedie.roll()
 	for i in roll:
-		DisplayDamage.display(
+		Global.displayDamage(
 			str(i),
 			position,
 			10,
@@ -73,3 +73,4 @@ func _on_button_pressed():
 			0,
 			45
 		)
+#TODO make the die rolls easier to read
