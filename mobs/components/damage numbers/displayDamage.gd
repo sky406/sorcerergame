@@ -1,6 +1,6 @@
 extends Node
 const damlabel = preload("res://mobs/components/damage numbers/damageLabel.tscn")
-func rbgTocol(r:int,g:int,b:int):
+func rgbTocol(r:int,g:int,b:int):
 	var R = r/255.0
 	var G = g/255.0
 	var B = b/255.0 
@@ -21,14 +21,14 @@ text:String,
 position:Vector3,
 launchpower:float,
 col:Color,
-lifetime:float,
+animspeed:float=1.0,
 anglespread:float=1.0,
 spawnspread:float=0,
 grav:float=30,
-fadespeed:int = 30,
 isCritical:bool = false,
-critcol = rbgTocol(255,48,61),
-subtext:String=""
+critcol = rgbTocol(255,48,61),
+subtext:String="",
+subcol = rgbTocol(171,178,187)
 ):
 	var number = damlabel.instantiate()
 	number.displaytext = text
@@ -40,14 +40,14 @@ subtext:String=""
 	number.zspeed = randsign(anglespread)
 	number.yspeed = launchpower
 	number.dropspeed=grav
-	number.fadeinspeed=fadespeed
-	number.lifetime = lifetime
+	number.animspeed = animspeed
 	number.subtext = subtext
 	if isCritical:
 		number.criticaltext = "CRITICAL HIT"
 		number.critcol = critcol
 	
 	number.subtext = subtext
+	number.subcol = subcol
 
 	call_deferred("add_child",number)
 	

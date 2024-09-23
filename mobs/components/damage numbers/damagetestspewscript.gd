@@ -73,3 +73,4 @@ func _on_button_pressed():
 			0,
 			45
 		)
+#TODO make the die rolls easier to read
