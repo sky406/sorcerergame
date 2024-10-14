@@ -4,6 +4,39 @@ var numdice=0
 var dietype=0
 var exlimit = 10 #this exists for performance reasons try not to let it go on forever
 var modifiers = {}
+# modifier setters
+func kh(setting:bool = true):
+	modifiers["kh"]=setting
+	if setting:
+		modifiers["kl"]= not setting
+func kl(setting:bool = true):
+	modifiers["kl"]=setting
+	if  setting:
+		modifiers["kh"]= not setting
+
+func dh(setting:bool = true):
+	modifiers["dh"] = setting
+	if setting:
+		modifiers["dl"] = not setting
+
+func dl(setting:bool = true):
+	modifiers["dl"] = setting
+	if setting:
+		modifiers["dh"] = not setting
+
+# note: set the trigger parameter to 0 disable a modifier
+func rr(trigger:int,highOrLow=0):
+	modifiers["rr"]	= {"trigger":trigger,"highOrLow":highOrLow}
+ 
+
+func x(trigger:int,highOrLow:int=0,alldice:bool=false,once:bool=false):
+	modifiers["explode"]={"trigger":trigger,"highOrLow":highOrLow,"alldice":alldice,"once":once}
+	
+func explodeLimit(limit:int):
+	exlimit = limit
+
+
+
 func _init(
 iterations:int=1,
 die:int=20,
