@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://bb3i8bqkf3p1x"]
+
+[ext_resource type="PackedScene" uid="uid://c4lqubwcw43y1" path="res://assets/placeholder staff.glb" id="1_rcieg"]
+
+[node name="TestWeapon" type="Node3D"]
+
+[node name="placeholder staff" parent="." instance=ExtResource("1_rcieg")]

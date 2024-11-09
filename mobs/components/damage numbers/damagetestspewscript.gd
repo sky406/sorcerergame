@@ -1,10 +1,7 @@
 extends Node3D
 @onready var dicenumber = $"../../Control/VBoxContainer/HBoxContainer/dice_number"
 @onready var dietype = $"../../Control/VBoxContainer/HBoxContainer/dietype"
-@onready var dh = $"../../Control/VBoxContainer/dh"
-@onready var dl = $"../../Control/VBoxContainer/dl"
-@onready var kh = $"../../Control/VBoxContainer/kh"
-@onready var kl = $"../../Control/VBoxContainer/kl"
+@onready var dk = $"../../Control/VBoxContainer/dropOrKeep"
 
 @onready var rrswitch = $"../../Control/VBoxContainer/HBoxContainer2/reroll"
 @onready var rrtrigger = $"../../Control/VBoxContainer/HBoxContainer2/rerollTrigger"
@@ -15,7 +12,7 @@ extends Node3D
 @onready var explodeonce = $"../../Control/VBoxContainer/HBoxContainer4/once"
 @onready var explodeall = $"../../Control/VBoxContainer/HBoxContainer4/alldice"
 @onready var explodetype = $"../../Control/VBoxContainer/HBoxContainer4/HBoxContainer6/explodetype"
-const die = preload("res://weapons/weapon components/scripts/die.gd")
+#const die = preload("res://player/items/weapons/weapon components/scripts/die.gd")
 
 func get_popup_text(popup:MenuButton):
 	var popupindex = popup.get_popup().get_focused_item()
@@ -27,39 +24,53 @@ func _on_button_pressed():
 	# this is just to selecte whether or nto to use greater or less than for reroll or explode
 	var selectedrrtype = rrtype.get_selected_id()
 	var selectedexplodetype = explodetype.get_selected_id()
-	print(selectedexplodetype)
-	print(selectedrrtype)
-	var rrt = 0
-	var ext = 0 
-	match  selectedexplodetype:
-		0:
-			ext = 0 
-		1:
-			ext = 1
-		2: 
-			ext = -1
-
-	match  selectedrrtype:
-		0: 
-			rrt = 0
-		1: 
-			rrt = 1
-		2:
-			rrt = -1
+	var selecteddrop = dk.get_selected_id()
+	#print(selectedexplodetype)
+	#print(selectedrrtype)
+	#var rrt = 0
+	#var ext = 0 
+	#match  selectedexplodetype:
+		#0:
+			#ext = 0 
+		#1:
+			#ext = 1
+		#2: 
+			#ext = -1
+#
+	#match  selectedrrtype:
+		#0: 
+			#rrt = 0
+		#1: 
+			#rrt = 1
+		#2:
+			#rrt = -1
 	# actually seting up the die
-	var damagedie = die.new(
-		int(dicenumber.text),
-		int(dietype.text),
-		kh.button_pressed,
-		kl.button_pressed,
-		dh.button_pressed,
-		dl.button_pressed,
-			[rrswitch.button_pressed,int(rrtrigger.text),rrt],
-			[explodeswitch.button_pressed,int(explodetrigger.text),ext],
-		explodeall.button_pressed,
-		explodeonce.button_pressed
-	)
-
+	var damagedie:Die =Die.new()
+	#die.new(
+		#int(dicenumber.text),
+		#int(dietype.text),
+		#kh.button_pressed,
+		#kl.button_pressed,
+		#dh.button_pressed,
+		#dl.button_pressed,
+			#[rrswitch.button_pressed,int(rrtrigger.text),rrt],
+			#[explodeswitch.button_pressed,int(explodetrigger.text),ext],
+		#explodeall.button_pressed,
+		#explodeonce.button_pressed
+	#)
+	damagedie.numdice = int(dicenumber.text)
+	damagedie.dietype = int(dietype.text)
+	damagedie.keepOrDrop = selecteddrop
+	damagedie.rerollDice = rrswitch.button_pressed
+	damagedie.rerollTrigger = int(rrtrigger.text)
+	damagedie.rerollHigherLower = selectedrrtype
+	damagedie.explodeDice = explodeswitch.button_pressed
+	damagedie.explodeTrigger = int(explodetrigger.text)
+	damagedie.explodeTriggerHigherLower = selectedexplodetype
+	damagedie.explodeAll = explodeall.button_pressed
+	damagedie.explodeOnce = explodeonce.button_pressed
+	print(damagedie)
+	
 
 	var roll = damagedie.roll()
 	for i in roll:

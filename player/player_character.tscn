@@ -54,6 +54,15 @@ fov = 88.1
 
 [node name="attributes" type="Node" parent="."]
 script = ExtResource("3_5klw4")
+resistances = null
+strength = null
+dexterity = null
+constitution = null
+inteligence = null
+wisdom = null
+charisma = null
+level = null
+speed = null
 
 [node name="effects" type="Node" parent="attributes"]
 script = ExtResource("4_5o3fu")

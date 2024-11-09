@@ -1,5 +1,5 @@
 extends Node
-const die = preload("res://weapons/weapon components/scripts/die.gd")
+# const die = preload("res://weapons/weapon components/scripts/die.gd")
 @onready var effectman =$effects
 @export var resistances = []
 
@@ -96,9 +96,7 @@ var maxhp = 0
 var hp = 0
 
 func on_effect_added():
-	print("new effect detected")
-	print(get_attribute("constitution"))
-	print("hi hi hellow aihahahkakhakhjakjahk")
+	pass
 
 func _ready():
 	effectman.connect("effect_added",on_effect_added)
