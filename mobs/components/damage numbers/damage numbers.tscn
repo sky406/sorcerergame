@@ -65,24 +65,19 @@ layout_mode = 2
 text = "20"
 placeholder_text = "type"
 
-[node name="dh" type="CheckButton" parent="Control/VBoxContainer"]
+[node name="dropOrKeep" type="OptionButton" parent="Control/VBoxContainer"]
 layout_mode = 2
-text = "drop highest"
-
-[node name="dl" type="CheckButton" parent="Control/VBoxContainer"]
-layout_mode = 2
-text = "drop lowest
-"
-
-[node name="kh" type="CheckButton" parent="Control/VBoxContainer"]
-layout_mode = 2
-text = "keep highest
-"
-
-[node name="kl" type="CheckButton" parent="Control/VBoxContainer"]
-layout_mode = 2
-text = "keep lowest
-"
+selected = 0
+item_count = 5
+popup/item_0/text = "don't drop or keep"
+popup/item_1/text = "keep highest"
+popup/item_1/id = 1
+popup/item_2/text = "keep lowest"
+popup/item_2/id = 2
+popup/item_3/text = "drop highest"
+popup/item_3/id = 3
+popup/item_4/text = "drop lowest"
+popup/item_4/id = 4
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="Control/VBoxContainer"]
 layout_mode = 2
@@ -100,10 +95,9 @@ layout_mode = 2
 
 [node name="rrtype" type="OptionButton" parent="Control/VBoxContainer/HBoxContainer5"]
 layout_mode = 2
-item_count = 3
 selected = 0
-popup/item_0/text = "none"
-popup/item_0/id = 0
+item_count = 3
+popup/item_0/text = "exact"
 popup/item_1/text = "greater"
 popup/item_1/id = 1
 popup/item_2/text = "less"
@@ -138,10 +132,9 @@ layout_mode = 2
 
 [node name="explodetype" type="OptionButton" parent="Control/VBoxContainer/HBoxContainer4/HBoxContainer6"]
 layout_mode = 2
-item_count = 3
 selected = 0
-popup/item_0/text = "none"
-popup/item_0/id = 0
+item_count = 3
+popup/item_0/text = "equal"
 popup/item_1/text = "greater"
 popup/item_1/id = 1
 popup/item_2/text = "less"
