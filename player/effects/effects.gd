@@ -1,3 +1,16 @@
+# Status effects do lots of things
+#	change an NPC or player's attributes such as strength or constitution
+#	add extra effects to damage or spell effects
+#	apply effects based on specific actions:
+#		effects can be applied to creatures through effect fields, equipping items and taking damage from certain sources
+
+# Things effects can change 
+#	attributes: 
+#		this involves shit such as strength, wisdom and other core attributes
+#	immunities and resistances
+#	spell effects and damage 
+
+
 extends Node
 const statEffect = preload("res://effects/template/effect.tscn")
 @export var effects:Array = []

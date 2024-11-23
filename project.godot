@@ -20,6 +20,11 @@ config/icon="res://icon.svg"
 AddEffect="*res://effects/add_effect.gd"
 Global="*res://global.gd"
 //DamageNumbers="res://mobs/components/damage_numbers/damageNumbers.gd"
+CharacterStats="*res://player/damage/character_stats.gd"
+Combat="*res://player/damage/combat.gd"
+DamageType="*res://player/damage/damage_type.gd"
+Dice="*res://player/damage/dice.gd"
+LingeringEffect="*res://player/damage/lingering_effect.gd"
 
 [input]
 

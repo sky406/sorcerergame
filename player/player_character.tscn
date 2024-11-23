@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://player/player_character.gd" id="1_jsxkw"]
 [ext_resource type="PackedScene" uid="uid://ivoq3jp5vith" path="res://assets/claire_pawn.glb" id="2_pnju7"]
 [ext_resource type="Script" path="res://player/attributes.gd" id="3_5klw4"]
-[ext_resource type="Script" path="res://player/effects.gd" id="4_5o3fu"]
+[ext_resource type="Script" path="res://player/effects/effects.gd" id="4_5o3fu"]
 [ext_resource type="Script" path="res://player/UI.gd" id="4_uebbd"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_343o7"]
