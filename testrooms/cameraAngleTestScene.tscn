@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=3 uid="uid://ghapde5eq75f"]
 
-[ext_resource type="Script" path="res://testrooms/testroomscripts/cameraAngleTestScene.gd" id="1_pxi8y"]
+[ext_resource type="Script" uid="uid://bbfj3ktfw3o5c" path="res://testrooms/testroomscripts/cameraAngleTestScene.gd" id="1_pxi8y"]
 [ext_resource type="PackedScene" uid="uid://bqv22p58k73pd" path="res://player/player_character.tscn" id="2_1tv13"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_ikpwa"]

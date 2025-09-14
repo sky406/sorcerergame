@@ -1,7 +1,6 @@
 extends Node
 const damlabel = preload("res://mobs/components/damage numbers/damageLabel.tscn")
 
-
 func sumarray(array):
 	var sum = 0 
 	for i in array: 
@@ -45,9 +44,9 @@ angleSpread:float=1.0,
 spawnSpread:float=0,
 grav:float=30,
 isCritical:bool = false,
-critCol:Color = Global.rgbTocol(255,48,61),
+critCol:Color = rgbTocol(255,48,61),
 subText:String="",
-subCol:Color = Global.rgbTocol(171,178,187)
+subCol:Color = rgbTocol(171,178,187)
 ):
 	var number = damlabel.instantiate()
 	number.displaytext = text
@@ -70,3 +69,9 @@ subCol:Color = Global.rgbTocol(171,178,187)
 	number.subcol = subCol
 
 	call_deferred("add_child",number)
+
+func isPlayer(body:Node3D):
+	return body.is_in_group("player")
+
+func findPlayer():
+	return get_tree().get_first_node_in_group("player")

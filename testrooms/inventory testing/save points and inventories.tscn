@@ -1,0 +1,44 @@
+[gd_scene load_steps=7 format=3 uid="uid://dst6q5x4jk5mc"]
+
+[ext_resource type="PackedScene" uid="uid://bqv22p58k73pd" path="res://player/player_character.tscn" id="1_78n2f"]
+[ext_resource type="PackedScene" uid="uid://dikxwps5whpm5" path="res://environement items/interactables/placeholders/env_campfire.tscn" id="2_5cufc"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_wqodh"]
+sky_top_color = Color(0.730108, 0.797757, 0.902662, 1)
+sky_horizon_color = Color(0.713295, 0.747237, 0.768699, 1)
+sky_energy_multiplier = 0.95
+ground_bottom_color = Color(0.123074, 0.191191, 0.172135, 1)
+ground_horizon_color = Color(0.713295, 0.747237, 0.768699, 1)
+
+[sub_resource type="Sky" id="Sky_icfqo"]
+sky_material = SubResource("ProceduralSkyMaterial_wqodh")
+
+[sub_resource type="Environment" id="Environment_yiw3l"]
+background_mode = 2
+sky = SubResource("Sky_icfqo")
+tonemap_mode = 2
+
+[sub_resource type="BoxMesh" id="BoxMesh_txlcb"]
+size = Vector3(300, 0.5, 300)
+
+[node name="SavePointsAndInventories" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_yiw3l")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.582123, -0.15654, 0.79789, 0, 0.981293, 0.192522, -0.813101, 0.112071, -0.571233, 0, 0, 0)
+light_color = Color(0.708196, 0.817061, 0.826815, 1)
+shadow_enabled = true
+
+[node name="CSGMesh3D" type="CSGMesh3D" parent="."]
+use_collision = true
+mesh = SubResource("BoxMesh_txlcb")
+
+[node name="player" parent="." instance=ExtResource("1_78n2f")]
+
+[node name="EnvCampfire" parent="." instance=ExtResource("2_5cufc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11, 0.0963366, -6)
+
+[node name="EnvCampfire2" parent="." instance=ExtResource("2_5cufc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13, 0.0963366, -5)

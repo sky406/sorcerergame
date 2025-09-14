@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://db2ypxacbggky"]
 
-[ext_resource type="Script" path="res://testrooms/effects testing/effector.gd" id="1_vt5p2"]
+[ext_resource type="Script" uid="uid://7pb4re51uour" path="res://testrooms/effects testing/effector.gd" id="1_vt5p2"]
 
 [sub_resource type="SphereMesh" id="SphereMesh_q160x"]
 

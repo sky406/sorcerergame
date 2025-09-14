@@ -9,9 +9,11 @@ const iconlimit:int = 5
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	hpbar.max_value = attributes.get_attribute("constitution")
-	hpbar.value = attributes.hp
-	hpval.text = str(attributes.hp)
+	pass
+	#hpbar.max_value = 8 #TODO CHANGE LATER
+	#hpbar.value = attributes.hp
+	#hpval.text = str(attributes.hp)
+	#TODO fix the actual hp
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -21,7 +23,7 @@ func _process(delta):
 
 func _on_attributes_attribute_changed(newattr):
 	print("recalculating hp")
-	hpbar.max_value = attributes.get_attribute("constitution")
+	hpbar.max_value = 8 #TODO CHANGE LATER
 	hpbar.value = attributes.hp
 	hpval.text = str(attributes.hp)
 

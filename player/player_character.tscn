@@ -1,10 +1,13 @@
-[gd_scene load_steps=10 format=3 uid="uid://bqv22p58k73pd"]
+[gd_scene load_steps=16 format=3 uid="uid://bqv22p58k73pd"]
 
-[ext_resource type="Script" path="res://player/player_character.gd" id="1_jsxkw"]
+[ext_resource type="Script" uid="uid://bpgoxoeiekgtu" path="res://player/player_character.gd" id="1_jsxkw"]
 [ext_resource type="PackedScene" uid="uid://ivoq3jp5vith" path="res://assets/claire_pawn.glb" id="2_pnju7"]
-[ext_resource type="Script" path="res://player/attributes.gd" id="3_5klw4"]
-[ext_resource type="Script" path="res://player/effects.gd" id="4_5o3fu"]
-[ext_resource type="Script" path="res://player/UI.gd" id="4_uebbd"]
+[ext_resource type="Script" uid="uid://d2ttjvct8j4r3" path="res://creature components/attributes/attributes.gd" id="3_5klw4"]
+[ext_resource type="Script" uid="uid://mdw3ywaqgv0w" path="res://player/UI.gd" id="4_uebbd"]
+[ext_resource type="Script" uid="uid://eu45yk57yc4i" path="res://player/equipment.gd" id="5_5025v"]
+[ext_resource type="Script" uid="uid://bgbuje8mygw64" path="res://player/resources/res_equipslot.gd" id="6_u3epu"]
+[ext_resource type="PackedScene" uid="uid://ccw5elslourbc" path="res://player/components/Player_interactionUI.tscn" id="7_56ccg"]
+[ext_resource type="Script" uid="uid://boyk5yox52vv" path="res://player/interactionController.gd" id="8_j2hx5"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_343o7"]
 height = 1.65
@@ -15,8 +18,20 @@ height = 1.65
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_jm0xf"]
 
-[node name="player" type="CharacterBody3D"]
-collision_layer = 2
+[sub_resource type="ViewportTexture" id="ViewportTexture_sjgww"]
+viewport_path = NodePath("interactionUI")
+
+[sub_resource type="Resource" id="Resource_plbej"]
+script = ExtResource("6_u3epu")
+type = 0
+limit = 0
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_lux7e"]
+radius = 2.74621
+
+[node name="player" type="CharacterBody3D" groups=["player"]]
+collision_layer = 7
+collision_mask = 7
 script = ExtResource("1_jsxkw")
 
 [node name="meshControl" type="Node3D" parent="."]
@@ -52,20 +67,17 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 3.45564)
 current = true
 fov = 88.1
 
+[node name="interactionUI_Sprite" type="Sprite3D" parent="cameraOrbit/SpringArm3D/Camera3D"]
+transform = Transform3D(0.294099, 0, 0, 0, 0.294099, 0, 0, 0, 1, 0.643517, -0.838636, -1.14998)
+no_depth_test = true
+texture = SubResource("ViewportTexture_sjgww")
+
+[node name="RayCast3D" type="RayCast3D" parent="cameraOrbit/SpringArm3D/Camera3D"]
+target_position = Vector3(0, 0, -10)
+debug_shape_custom_color = Color(0.834614, 0.834614, 0.834614, 1)
+
 [node name="attributes" type="Node" parent="."]
 script = ExtResource("3_5klw4")
-resistances = null
-strength = null
-dexterity = null
-constitution = null
-inteligence = null
-wisdom = null
-charisma = null
-level = null
-speed = null
-
-[node name="effects" type="Node" parent="attributes"]
-script = ExtResource("4_5o3fu")
 
 [node name="UI" type="Control" parent="."]
 layout_mode = 3
@@ -101,8 +113,28 @@ offset_right = 247.0
 offset_bottom = 50.0
 theme_override_constants/separation = 1
 
+[node name="equipment" type="Node" parent="."]
+script = ExtResource("5_5025v")
+testSlot = SubResource("Resource_plbej")
+
+[node name="interactionUI" type="SubViewport" parent="."]
+transparent_bg = true
+
+[node name="interaction" parent="interactionUI" instance=ExtResource("7_56ccg")]
+
+[node name="interaction_collision" type="Area3D" parent="."]
+collision_layer = 0
+
+[node name="interaction_range" type="CollisionShape3D" parent="interaction_collision"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.959287, 0)
+shape = SubResource("SphereShape3D_lux7e")
+
+[node name="interactionController" type="Node" parent="."]
+script = ExtResource("8_j2hx5")
+
 [connection signal="attribute_changed" from="attributes" to="attributes" method="_on_attribute_changed"]
 [connection signal="attribute_changed" from="attributes" to="UI" method="_on_attributes_attribute_changed"]
 [connection signal="effect_added" from="attributes" to="attributes" method="_on_effect_added"]
 [connection signal="effect_added" from="attributes" to="UI" method="_on_attributes_effect_added"]
 [connection signal="effect_removed" from="attributes" to="UI" method="_on_attributes_effect_removed"]
+[connection signal="updatedInteractables" from="interactionController" to="." method="_updateInteractables"]

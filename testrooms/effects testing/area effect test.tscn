@@ -1,10 +1,37 @@
-[gd_scene load_steps=4 format=3 uid="uid://31gw5bfp7j80"]
+[gd_scene load_steps=10 format=3 uid="uid://31gw5bfp7j80"]
 
 [ext_resource type="PackedScene" uid="uid://bqv22p58k73pd" path="res://player/player_character.tscn" id="1_udoy5"]
 [ext_resource type="PackedScene" uid="uid://db2ypxacbggky" path="res://testrooms/effects testing/effector.tscn" id="2_bud5d"]
+[ext_resource type="Script" uid="uid://3adm5rikmgnl" path="res://creature components/attributes/effects/res_targetAttribute.gd" id="3_m220s"]
+[ext_resource type="Texture2D" uid="uid://ce6whub1holcl" path="res://assets/placeholder sprites/efecticon.png" id="4_4gb6g"]
+[ext_resource type="Script" uid="uid://c47ansiwqjyiq" path="res://creature components/attributes/effects/res_effectData.gd" id="4_4thbv"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_nkn5f"]
 size = Vector3(900, 0.5, 900)
+
+[sub_resource type="Resource" id="Resource_gcrff"]
+script = ExtResource("3_m220s")
+targetAttribute = 0
+ammount = 12
+applymode = 0
+
+[sub_resource type="Resource" id="Resource_diwse"]
+script = ExtResource("3_m220s")
+targetAttribute = 2
+ammount = 10
+applymode = 0
+
+[sub_resource type="Resource" id="Resource_k5stx"]
+script = ExtResource("4_4thbv")
+icon = ExtResource("4_4gb6g")
+effectName = "an effect"
+isTimed = true
+lifeTime = 30.0
+stackable = true
+effects = Array[ExtResource("3_m220s")]([SubResource("Resource_gcrff"), SubResource("Resource_diwse")])
+display = true
+overtime = false
+overtimeInterval = 0.0
 
 [node name="AreaEffectTest" type="Node3D"]
 
@@ -22,3 +49,4 @@ transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 6.7
 
 [node name="Effector" parent="." instance=ExtResource("2_bud5d")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7, 3.26381, -10)
+effect = SubResource("Resource_k5stx")

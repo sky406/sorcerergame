@@ -1,0 +1,52 @@
+[gd_scene load_steps=8 format=3 uid="uid://bjy87jer7ge1"]
+
+[ext_resource type="FontFile" uid="uid://b0sg8dn8ykcyt" path="res://fonts/Jingle Star.ttf" id="1_1skmm"]
+[ext_resource type="Script" uid="uid://dsdh3aljqaw7j" path="res://player/components/interact_label.gd" id="2_j5grq"]
+[ext_resource type="Texture2D" uid="uid://fdwcl5u2jxuo" path="res://assets/placeholder sprites/placeholder empty effect-Recovered.png" id="2_wjx6l"]
+
+[sub_resource type="Theme" id="Theme_o561l"]
+default_font = ExtResource("1_1skmm")
+
+[sub_resource type="Gradient" id="Gradient_3jn8j"]
+colors = PackedColorArray(0.172261, 0.180203, 0.11001, 1, 0.514901, 0.240073, 0.247705, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_2sygn"]
+gradient = SubResource("Gradient_3jn8j")
+width = 395
+height = 73
+fill_from = Vector2(1.44, 0.564)
+fill_to = Vector2(0.798374, 0.440839)
+
+[sub_resource type="LabelSettings" id="LabelSettings_gwxvl"]
+font_size = 15
+
+[node name="interactionLabel" type="MarginContainer"]
+offset_right = 402.0
+offset_bottom = 84.0
+theme = SubResource("Theme_o561l")
+theme_override_constants/margin_left = 1
+theme_override_constants/margin_top = 1
+theme_override_constants/margin_right = 1
+theme_override_constants/margin_bottom = 1
+script = ExtResource("2_j5grq")
+
+[node name="TextureRect2" type="TextureRect" parent="."]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = SubResource("GradientTexture2D_2sygn")
+expand_mode = 3
+stretch_mode = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("2_wjx6l")
+expand_mode = 2
+
+[node name="Label" type="Label" parent="HBoxContainer"]
+layout_mode = 2
+text = "Interact"
+label_settings = SubResource("LabelSettings_gwxvl")

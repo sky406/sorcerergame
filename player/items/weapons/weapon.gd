@@ -1,7 +1,12 @@
-class_name Weapon
-extends Item
+extends Node3D
+@export var equipEffect:effectDat
 
-func _init():
-	#set inherited varibles here
-	itemType = Type.Weapon
-#TODO add weapon functionality and actually figure our what to do with this 
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	pass
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta: float) -> void:
+	pass
+	

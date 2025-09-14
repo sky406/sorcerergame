@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://n6mfqadjlvbj"]
 
-[ext_resource type="Script" path="res://mobs/components/damage numbers/damagetestspewscript.gd" id="1_1fvhv"]
+[ext_resource type="Script" uid="uid://7jisfs1uquca" path="res://mobs/components/damage numbers/damagetestspewscript.gd" id="1_1fvhv"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_cj57e"]
 
@@ -70,6 +70,7 @@ layout_mode = 2
 selected = 0
 item_count = 5
 popup/item_0/text = "don't drop or keep"
+popup/item_0/id = 0
 popup/item_1/text = "keep highest"
 popup/item_1/id = 1
 popup/item_2/text = "keep lowest"
@@ -98,6 +99,7 @@ layout_mode = 2
 selected = 0
 item_count = 3
 popup/item_0/text = "exact"
+popup/item_0/id = 0
 popup/item_1/text = "greater"
 popup/item_1/id = 1
 popup/item_2/text = "less"
@@ -135,6 +137,7 @@ layout_mode = 2
 selected = 0
 item_count = 3
 popup/item_0/text = "equal"
+popup/item_0/id = 0
 popup/item_1/text = "greater"
 popup/item_1/id = 1
 popup/item_2/text = "less"

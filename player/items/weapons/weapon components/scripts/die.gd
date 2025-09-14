@@ -128,5 +128,4 @@ func roll():
 			rolls = dropHighest(rolls)
 		4: 
 			rolls = dropLowest(rolls)
-
 	return rolls

@@ -25,39 +25,7 @@ func _on_button_pressed():
 	var selectedrrtype = rrtype.get_selected_id()
 	var selectedexplodetype = explodetype.get_selected_id()
 	var selecteddrop = dk.get_selected_id()
-	#print(selectedexplodetype)
-	#print(selectedrrtype)
-	#var rrt = 0
-	#var ext = 0 
-	#match  selectedexplodetype:
-		#0:
-			#ext = 0 
-		#1:
-			#ext = 1
-		#2: 
-			#ext = -1
-#
-	#match  selectedrrtype:
-		#0: 
-			#rrt = 0
-		#1: 
-			#rrt = 1
-		#2:
-			#rrt = -1
-	# actually seting up the die
 	var damagedie:Die =Die.new()
-	#die.new(
-		#int(dicenumber.text),
-		#int(dietype.text),
-		#kh.button_pressed,
-		#kl.button_pressed,
-		#dh.button_pressed,
-		#dl.button_pressed,
-			#[rrswitch.button_pressed,int(rrtrigger.text),rrt],
-			#[explodeswitch.button_pressed,int(explodetrigger.text),ext],
-		#explodeall.button_pressed,
-		#explodeonce.button_pressed
-	#)
 	damagedie.numdice = int(dicenumber.text)
 	damagedie.dietype = int(dietype.text)
 	damagedie.keepOrDrop = selecteddrop
@@ -69,9 +37,6 @@ func _on_button_pressed():
 	damagedie.explodeTriggerHigherLower = selectedexplodetype
 	damagedie.explodeAll = explodeall.button_pressed
 	damagedie.explodeOnce = explodeonce.button_pressed
-	print(damagedie)
-	
-
 	var roll = damagedie.roll()
 	for i in roll:
 		Global.displayDamage(

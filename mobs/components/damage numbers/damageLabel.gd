@@ -1,4 +1,5 @@
 extends RigidBody3D
+class_name DamageLabel
 @onready var animp = $AnimationPlayer
 @onready var Damlabel = $"SubViewport/Node3D/damage number"
 @onready var critlabel = $SubViewport/Node3D/crittext

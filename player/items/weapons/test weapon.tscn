@@ -1,7 +1,25 @@
-[gd_scene load_steps=2 format=3 uid="uid://bb3i8bqkf3p1x"]
+[gd_scene load_steps=3 format=3 uid="uid://bb3i8bqkf3p1x"]
 
+[ext_resource type="Script" uid="uid://bp4ahs0g4c07g" path="res://player/items/weapons/weapon.gd" id="1_4bk5m"]
 [ext_resource type="PackedScene" uid="uid://c4lqubwcw43y1" path="res://assets/placeholder staff.glb" id="1_rcieg"]
 
 [node name="TestWeapon" type="Node3D"]
+script = ExtResource("1_4bk5m")
 
 [node name="placeholder staff" parent="." instance=ExtResource("1_rcieg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.17407, 0)
+
+[node name="projectileSpawn" type="Marker3D" parent="placeholder staff"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.07197, 0)
+
+[node name="OmniLight3D" type="OmniLight3D" parent="placeholder staff"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.06091, 0)
+light_color = Color(1, 0.105882, 0.227451, 1)
+light_energy = 1.054
+light_indirect_energy = 2.886
+light_size = 0.367
+light_specular = 1.47
+distance_fade_enabled = true
+distance_fade_begin = 12.42
+distance_fade_length = 7.95
+omni_range = 2.50377
