@@ -4,7 +4,7 @@ extends Node
 @export var resistances:Array[Resistance] 
 @export var damageImmunities:Array[damageType] 
 @export var effectResistances:Array[String]
-var appliedEffects:Array[effectDat]
+var appliedEffects:Array[Effect]
 #TODO check if you still need the old attribute
 ''' signals '''
 signal attribute_changed(newattr)
@@ -12,8 +12,8 @@ signal effect_added(effect)
 signal effect_removed(effect)
 signal hp_adjusted(old_max,old_current,new_max,new_current)
 signal stat_changed(stat,old,new)
-signal effect_resisted(effect:effectDat)
-signal effect_applied(effect:effectDat)
+signal effect_resisted(effect:Effect)
+signal effect_applied(effect:Effect)
 signal dealtDamage(old,new,resisted:bool)
 signal maxHpChanged(old,new)
 signal damageImmune(damage)
@@ -117,121 +117,37 @@ func _changeMaxHp(newmax:float):
 # effect stuff
 
 
-func _applyEffect(effect:effectDat):
-	# TODO rename the effectdat script to effects so that the attubutes node does all the heavy lifitn on effect management
-	if effect.effectName in effectResistances:
-		effect_resisted.emit(effect.effectName)
-		return
-	elif effect in appliedEffects and not effect.stackable:
-		print("effect cannot stack")
-		effect_resisted.emit(effect.effectName)
-		return
-	else:
-		appliedEffects.push_back(effect)
+# func _applyEffect(effect:Effect):
+# 	# TODO rename the effectdat script to effects so that the attubutes node does all the heavy lifitn on effect management
+# 	if effect.effectName in effectResistances:
+# 		effect_resisted.emit(effect.effectName)
+# 		return
+# 	elif effect in appliedEffects and not effect.stackable:
+# 		print("effect cannot stack")
+# 		effect_resisted.emit(effect.effectName)
+# 		return
+# 	else:
+# 		appliedEffects.push_back(effect)
 
-		if effect.isTimed:
-			var effectTimer = load("res://effects/effectTimer.tscn")
-			effectTimer.linkedEffect = effect.effectName
-			effectTimer.effect_end.connect(_onEffectEnd)
-			# effectTimer
-			call_deferred("add_child",effectTimer)
-		# TODO add the overtime code somewhere here
-		effect_applied.emit(effect)
-		# for eff in effect.effects:
-		# 	# break down where the attibue belongs an just adds it in 
-		# 	var attribute:targetAttr.attribute
-		# 	var mode:targetAttr.mode
+# 		if effect.isTimed:
+# 			var effectTimer = load("res://effects/effectTimer.tscn")
+# 			effectTimer.linkedEffect = effect.effectName
+# 			effectTimer.effect_end.connect(_onEffectEnd)
+# 			# effectTimer
+# 			call_deferred("add_child",effectTimer)
+# 		# TODO add the overtime code somewhere here
+# 		effect_applied.emit(effect)
+# 		# for eff in effect.effects:
+# 		# 	# break down where the attibue belongs an just adds it in 
+# 		# 	var attribute:targetAttr.attribute
+# 		# 	var mode:targetAttr.mode
 			
 
 
 
-func _onEffectEnd(effectname):
-	for effect in appliedEffects:
-		if effect.effectname == effectname:
+# func _onEffectEnd(effectname):
+# 	for effect in appliedEffects:
+# 		if effect.effectname == effectname:
 			
-			appliedEffects.erase(effect)
-			break
-
-# func getbonuses(attribute:String) -> Array:
-# 	# 	load bearing comment (()): keeps vs code from acting up
-
-# 	var attr = null
-# 	match attribute:
-# 		"str": 
-# 			attr = targetAttr.attribute.strength
-# 		"dex":
-# 			attr = targetAttr.attribute.dexterity
-# 		"con":
-# 			attr = targetAttr.attribute.constitution
-# 		"int":
-# 			attr = targetAttr.attribute.inteligence
-# 		"wis":
-# 			attr = targetAttr.attribute.wisdom
-# 		"chr":
-# 			attr = targetAttr.attribute.charisma
-# 		"spd":
-# 			attr = targetAttr.attribute.speed
-# 		"eng":
-# 			attr = targetAttr.attribute.energy
-# 		"effres":
-# 			attr = targetAttr.attribute.effect_resisitance
-# 		"effhit":
-# 			attr = targetAttr.attribute.effect_hit
-# 		"mdmg":
-# 			attr = targetAttr.attribute.melee_damage
-# 		"sdmg": 
-# 			attr = targetAttr.attribute.spell_damage
-# 		"dd": 
-# 			attr = targetAttr.attribute.damage_dice
-# 		_:
-# 			print("attibute not recognized")
-	
-# 	var bonus = 0
-# 	# var mattchingattr = appliedEffects.filter(func(eff):
-# 	# 	for i in eff.effects:
-# 	# 		if i.targetAttr == attr:
-# 	# 				match i.at
-# 	# 			return true)
-# 	# TODO figure this our a bit better
-
-
-
-# 	return mattchingattr # just a reminder this is an array of effectData
-		
-
-# func _getAttrib(attribute:String):
-# 	''' use the three letters for core attributes
-# 		speed = spd
-# 		energy = eng
-# 		effect_resistance = effres
-# 		effect_hit = eff%
-# 		melee_damage = mdmg
-# 		spell_damage = sdmg
-# 		damage_dice = dd
-# 		'''
-# 	attr = ""
-# 	match attribute:
-# 		"str": 
-# 			attr = strength
-# 		"dex":
-# 			attr = dexterity
-# 		"con":
-# 			attr = constitution
-# 		"int":
-# 			attr = inteligence
-# 		"wis":
-# 			attr = wisdom
-# 		"chr":
-# 			attr = charisma
-# 		"spd":
-# 			attr = speed
-# 		_:
-# 			print("attibute not recognized")
-# 	var effects = getbonuses(attribute)
-# 	# TODO make a spereate bonus for the dice realted and limited bonuses
-# 	# var total = attr + func():
-# 	# 	var bonus = 0
-# 	# 	pass
-# 		# for eff in effects:
-# 			# for bonuses in 
-			
+# 			appliedEffects.erase(effect)
+# 			break

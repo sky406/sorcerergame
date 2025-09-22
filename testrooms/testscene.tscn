@@ -6,7 +6,7 @@
 [ext_resource type="Script" uid="uid://rpx0sl5mvrk" path="res://testrooms/test_script_manager.gd" id="4_38u3p"]
 [ext_resource type="PackedScene" uid="uid://dbl8jt1fcw31q" path="res://testrooms/SCN_testcolider.tscn" id="4_yosie"]
 [ext_resource type="Script" uid="uid://3adm5rikmgnl" path="res://creature components/attributes/effects/res_targetAttribute.gd" id="5_c7syu"]
-[ext_resource type="Script" uid="uid://c47ansiwqjyiq" path="res://creature components/attributes/effects/res_effectData.gd" id="6_k2pne"]
+[ext_resource type="Script" uid="uid://c47ansiwqjyiq" path="res://creature components/attributes/effects/res_effect.gd" id="6_k2pne"]
 [ext_resource type="Script" uid="uid://njad1paf0wqj" path="res://testrooms/debugoverlay.gd" id="8_k2pne"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_leidy"]
@@ -47,6 +47,7 @@ script = ExtResource("5_c7syu")
 targetAttribute = 0
 ammount = 2
 applymode = 0
+multiplytype = 0
 metadata/_custom_type_script = "uid://3adm5rikmgnl"
 
 [sub_resource type="Resource" id="Resource_2lysr"]

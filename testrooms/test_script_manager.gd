@@ -1,6 +1,6 @@
 extends Node
 @onready var effectorColider1 = $effectcollision
-@export var testeffect1:effectDat
+@export var testeffect1:Effect
 # apply  a basic effect to the player 
 
 func applyEffect1(body:Node3D):

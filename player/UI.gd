@@ -3,7 +3,7 @@ extends Control
 @onready var hpbar = $hp
 @onready var hpval = $"hp/debug hp"
 @onready var spriteholder = $"hp/effect sprite"
-const effect_sprite = preload("res://effects/effect sprite.tscn")
+const effect_sprite = preload("res://creature components/attributes/effects/effect sprite.tscn")
 var effecticons:Array = []
 const iconlimit:int = 5
 

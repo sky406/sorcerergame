@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://db2ypxacbggky" path="res://testrooms/effects testing/effector.tscn" id="2_bud5d"]
 [ext_resource type="Script" uid="uid://3adm5rikmgnl" path="res://creature components/attributes/effects/res_targetAttribute.gd" id="3_m220s"]
 [ext_resource type="Texture2D" uid="uid://ce6whub1holcl" path="res://assets/placeholder sprites/efecticon.png" id="4_4gb6g"]
-[ext_resource type="Script" uid="uid://c47ansiwqjyiq" path="res://creature components/attributes/effects/res_effectData.gd" id="4_4thbv"]
+[ext_resource type="Script" uid="uid://c47ansiwqjyiq" path="res://creature components/attributes/effects/res_effect.gd" id="4_4thbv"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_nkn5f"]
 size = Vector3(900, 0.5, 900)

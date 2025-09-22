@@ -1,0 +1,59 @@
+[gd_scene load_steps=8 format=3 uid="uid://bj6csw4drqiin"]
+
+[ext_resource type="Script" uid="uid://i2gvtebtu1n5" path="res://testrooms/effects testing/effect code test/effect_code_test.gd" id="1_ucehm"]
+[ext_resource type="Script" uid="uid://cm84txahi882w" path="res://creature components/attributes/attribute.gd" id="2_oyu7w"]
+[ext_resource type="Script" uid="uid://c47ansiwqjyiq" path="res://creature components/attributes/effects/res_effect.gd" id="3_4docc"]
+[ext_resource type="Script" uid="uid://3adm5rikmgnl" path="res://creature components/attributes/effects/res_targetAttribute.gd" id="3_fs1gm"]
+
+[sub_resource type="Resource" id="Resource_fs1gm"]
+script = ExtResource("2_oyu7w")
+name = "test"
+value = 1.0
+metadata/_custom_type_script = "uid://cm84txahi882w"
+
+[sub_resource type="Resource" id="Resource_bci0w"]
+script = ExtResource("3_fs1gm")
+targetAttribute = "test"
+ammount = 1.5
+applymode = 1
+metadata/_custom_type_script = "uid://3adm5rikmgnl"
+
+[sub_resource type="Resource" id="Resource_b0wxs"]
+script = ExtResource("3_4docc")
+effectName = "testlmao"
+stackable = true
+effect = SubResource("Resource_bci0w")
+metadata/_custom_type_script = "uid://c47ansiwqjyiq"
+
+[node name="EffectCodeTest" type="Node2D"]
+script = ExtResource("1_ucehm")
+testAttrib = SubResource("Resource_fs1gm")
+testEfect = SubResource("Resource_b0wxs")
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 1150.0
+offset_bottom = 652.0
+size_flags_horizontal = 6
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control"]
+custom_minimum_size = Vector2(10, 0)
+layout_mode = 0
+offset_left = 38.0
+offset_top = 28.0
+offset_right = 312.0
+offset_bottom = 614.0
+
+[node name="testattribute value" type="Label" parent="Control/VBoxContainer"]
+layout_mode = 2
+text = "attribute value:"
+
+[node name="Button" type="Button" parent="Control/VBoxContainer"]
+layout_mode = 2
+
+[node name="Button2" type="Button" parent="Control/VBoxContainer"]
+layout_mode = 2
+
+[connection signal="pressed" from="Control/VBoxContainer/Button" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="Control/VBoxContainer/Button2" to="." method="_on_button_2_pressed"]
