@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://bj6csw4drqiin"]
+[gd_scene load_steps=12 format=3 uid="uid://bj6csw4drqiin"]
 
 [ext_resource type="Script" uid="uid://i2gvtebtu1n5" path="res://testrooms/effects testing/effect code test/effect_code_test.gd" id="1_ucehm"]
 [ext_resource type="Script" uid="uid://cm84txahi882w" path="res://creature components/attributes/attribute.gd" id="2_oyu7w"]
@@ -8,27 +8,53 @@
 [sub_resource type="Resource" id="Resource_fs1gm"]
 script = ExtResource("2_oyu7w")
 name = "test"
-value = 1.0
+value = 2.0
+accepted = 2
 metadata/_custom_type_script = "uid://cm84txahi882w"
 
-[sub_resource type="Resource" id="Resource_bci0w"]
+[sub_resource type="Resource" id="Resource_b0wxs"]
 script = ExtResource("3_fs1gm")
 targetAttribute = "test"
-ammount = 1.5
-applymode = 1
+ammount = 2.0
 metadata/_custom_type_script = "uid://3adm5rikmgnl"
 
-[sub_resource type="Resource" id="Resource_b0wxs"]
+[sub_resource type="Resource" id="Resource_bci0w"]
 script = ExtResource("3_4docc")
-effectName = "testlmao"
+effect = SubResource("Resource_b0wxs")
+metadata/_custom_type_script = "uid://c47ansiwqjyiq"
+
+[sub_resource type="Resource" id="Resource_4docc"]
+script = ExtResource("3_fs1gm")
+targetAttribute = "t1"
+ammount = 1.0
+metadata/_custom_type_script = "uid://3adm5rikmgnl"
+
+[sub_resource type="Resource" id="Resource_8xo2e"]
+script = ExtResource("3_4docc")
+effectName = "test 2 "
 stackable = true
-effect = SubResource("Resource_bci0w")
+effect = SubResource("Resource_4docc")
+metadata/_custom_type_script = "uid://c47ansiwqjyiq"
+
+[sub_resource type="Resource" id="Resource_w3j6l"]
+script = ExtResource("3_fs1gm")
+targetAttribute = "t2"
+ammount = 2.0
+metadata/_custom_type_script = "uid://3adm5rikmgnl"
+
+[sub_resource type="Resource" id="Resource_di6fa"]
+script = ExtResource("3_4docc")
+effectName = "test3"
+stackable = true
+effect = SubResource("Resource_w3j6l")
 metadata/_custom_type_script = "uid://c47ansiwqjyiq"
 
 [node name="EffectCodeTest" type="Node2D"]
 script = ExtResource("1_ucehm")
 testAttrib = SubResource("Resource_fs1gm")
-testEfect = SubResource("Resource_b0wxs")
+testEfect = SubResource("Resource_bci0w")
+testEffect2 = SubResource("Resource_8xo2e")
+testEffect3 = SubResource("Resource_di6fa")
 
 [node name="Control" type="Control" parent="."]
 layout_mode = 3
@@ -51,9 +77,52 @@ text = "attribute value:"
 
 [node name="Button" type="Button" parent="Control/VBoxContainer"]
 layout_mode = 2
+text = "add"
 
 [node name="Button2" type="Button" parent="Control/VBoxContainer"]
 layout_mode = 2
+text = "remove"
+
+[node name="multiattrib" type="Label" parent="Control/VBoxContainer"]
+layout_mode = 2
+text = "multiattrib 1:"
+
+[node name="multiattrib2" type="Label" parent="Control/VBoxContainer"]
+layout_mode = 2
+text = "multiattrib 2:"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Control/VBoxContainer"]
+custom_minimum_size = Vector2(10, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+size_flags_stretch_ratio = 2.4
+
+[node name="addattrib1" type="Button" parent="Control/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "add1"
+
+[node name="addattrib2" type="Button" parent="Control/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "add2"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="Control/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+size_flags_stretch_ratio = 2.4
+
+[node name="removeattrib1" type="Button" parent="Control/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+text = "remove 1"
+
+[node name="removeattrib2" type="Button" parent="Control/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+text = "remove 2"
 
 [connection signal="pressed" from="Control/VBoxContainer/Button" to="." method="_on_button_pressed"]
 [connection signal="pressed" from="Control/VBoxContainer/Button2" to="." method="_on_button_2_pressed"]
+[connection signal="pressed" from="Control/VBoxContainer/HBoxContainer/addattrib1" to="." method="_on_addattrib_1_pressed"]
+[connection signal="pressed" from="Control/VBoxContainer/HBoxContainer/addattrib2" to="." method="_on_addattrib_2_pressed"]
+[connection signal="pressed" from="Control/VBoxContainer/HBoxContainer2/removeattrib1" to="." method="_on_removeattrib_1_pressed"]
+[connection signal="pressed" from="Control/VBoxContainer/HBoxContainer2/removeattrib2" to="." method="_on_removeattrib_2_pressed"]

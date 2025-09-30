@@ -75,3 +75,9 @@ func isPlayer(body:Node3D):
 
 func findPlayer():
 	return get_tree().get_first_node_in_group("player")
+
+func sumArray(numbers:Array):
+	var sum = 0
+	for num in numbers:
+		sum += num
+	return sum

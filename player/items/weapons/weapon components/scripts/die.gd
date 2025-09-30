@@ -4,6 +4,8 @@ enum kldl{none,keepHighest,keepLowest,dropHighest,dropLowest}
 enum highlow{exact,higher,lower}
 @export var numdice:int
 @export var dietype:int
+
+@export_group("additional settings")
 @export var keepOrDrop:kldl
 @export var rerollDice:bool
 @export var rerollTrigger:int
@@ -106,12 +108,14 @@ func explode(rolls:Array,trigger:int,highOrLow:highlow,once:bool=false,alldice:b
 				else:
 					rolls.append_array(explodeddice)
 	return rolls					
-func rolldice(rolltimes:int,die:int):
+func rolldice(rolltimes:int,die:int)->Array:
 	var results = []
 	for i in range(rolltimes):
 		results.append((randi()%die)+1)
 	return results
-func roll():
+
+func roll()->Array:
+	# ):
 	var rolls = rolldice(numdice,dietype)
 	if reroll:
 		rolls = reroll(rolls,rerollTrigger,rerollHigherLower)
@@ -129,3 +133,9 @@ func roll():
 		4: 
 			rolls = dropLowest(rolls)
 	return rolls
+
+#func _init(
+	#num:int=1,
+	#die:int=20,
+#) -> void:
+	#pass

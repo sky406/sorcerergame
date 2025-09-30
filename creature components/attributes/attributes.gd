@@ -4,9 +4,9 @@ extends Node
 @export var resistances:Array[Resistance] 
 @export var damageImmunities:Array[damageType] 
 @export var effectResistances:Array[String]
-var appliedEffects:Array[Effect]
-#TODO check if you still need the old attribute
-''' signals '''
+# var appliedEffects:Array[Effect]
+@export var attributes:Array[Attribute]
+# ''' signals '''
 signal attribute_changed(newattr)
 signal effect_added(effect)
 signal effect_removed(effect)
@@ -22,14 +22,21 @@ signal healed(old,new,ammount)
 ######## attributes #######
 
 #core attributes
-@export var strength:int = 8
-@export var dexterity:int = 12
-@export var constitution:int = 13
-@export var inteligence:int = 11
-@export var wisdom:int = 10
-@export var charisma:int = 18
-@export var level:int = 0
+# @export var strength:float = 8
+# @export var dexterity:float = 12
+# @export var constitution:float = 13
+# @export var inteligence:float = 11
+# @export var wisdom:float = 10
+# @export var charisma:float = 18
+@export var level:float = 0
 @export var speed:float = 30
+
+func _ready():
+	# ):
+	#set up the attributes
+	attributes.push_back(Attribute.new("strength",8))
+	attributes
+
 
 
 # attribute functions
