@@ -81,3 +81,11 @@ func sumArray(numbers:Array):
 	for num in numbers:
 		sum += num
 	return sum
+
+func convertSpeedtometers(speedperround:float):
+	# converts speed from feet per round to usable units for actual calculation 
+	# only really use in character movement
+	# this also assumes that the speed per is for every 60 feet 
+	var feetpersec = speedperround/6
+
+	return feetpersec * 0.3048 * 10 # the * 10 is to account for scaling 

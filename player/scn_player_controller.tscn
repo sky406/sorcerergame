@@ -1,0 +1,56 @@
+[gd_scene load_steps=8 format=3 uid="uid://dfpux28u75lmp"]
+
+[ext_resource type="Script" uid="uid://fdqypw4xkegf" path="res://player/scripts/SCR_player_controller.gd" id="1_g0c5r"]
+[ext_resource type="PackedScene" uid="uid://ivoq3jp5vith" path="res://assets/claire_pawn.glb" id="3_dvn8e"]
+[ext_resource type="PackedScene" uid="uid://dbg65bg8csgpv" path="res://creature components/attributes/attributes.tscn" id="3_qomee"]
+[ext_resource type="Script" uid="uid://dyocojy6tt5g4" path="res://player/scripts/SCR_inputs.gd" id="4_ofvul"]
+[ext_resource type="Script" uid="uid://cgjb8u1sh65ro" path="res://creature components/combat/resistances and immunities/RES_resistance.gd" id="6_ofvul"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_h0fml"]
+height = 2.1914063
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_krdnj"]
+
+[node name="PlayerController" type="CharacterBody3D" groups=["player"]]
+script = ExtResource("1_g0c5r")
+strength = 20
+
+[node name="claire_pawn" parent="." instance=ExtResource("3_dvn8e")]
+
+[node name="env collide" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.88336027, 0)
+shape = SubResource("CapsuleShape3D_h0fml")
+
+[node name="cameraOrbit" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.4889944, 0)
+
+[node name="SpringArm3D" type="SpringArm3D" parent="cameraOrbit"]
+shape = SubResource("SphereShape3D_krdnj")
+spring_length = 6.0
+margin = 1.0
+
+[node name="Camera3D" type="Camera3D" parent="cameraOrbit/SpringArm3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 3.45564)
+current = true
+fov = 88.1
+
+[node name="inputs" type="Node" parent="."]
+script = ExtResource("4_ofvul")
+metadata/active = false
+
+[node name="interaction handler" type="Node" parent="."]
+
+[node name="attributes" parent="." instance=ExtResource("3_qomee")]
+resistances = Array[ExtResource("6_ofvul")]([])
+damageImmunities = Array[ExtResource("6_ofvul")]([])
+effectResistances = Array[ExtResource("6_ofvul")]([])
+level = 0.0
+speed = 30.0
+
+[node name="inventory" type="Node" parent="."]
+
+[node name="lookDirection" type="RayCast3D" parent="."]
+target_position = Vector3(0, 0, -5)
+collide_with_bodies = false
+debug_shape_custom_color = Color(0.78899896, 0.73565173, 0.9691203, 1)
+debug_shape_thickness = 5

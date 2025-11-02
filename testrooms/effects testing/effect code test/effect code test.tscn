@@ -1,52 +1,30 @@
-[gd_scene load_steps=12 format=3 uid="uid://bj6csw4drqiin"]
+[gd_scene load_steps=9 format=3 uid="uid://bj6csw4drqiin"]
 
 [ext_resource type="Script" uid="uid://i2gvtebtu1n5" path="res://testrooms/effects testing/effect code test/effect_code_test.gd" id="1_ucehm"]
 [ext_resource type="Script" uid="uid://cm84txahi882w" path="res://creature components/attributes/attribute.gd" id="2_oyu7w"]
 [ext_resource type="Script" uid="uid://c47ansiwqjyiq" path="res://creature components/attributes/effects/res_effect.gd" id="3_4docc"]
-[ext_resource type="Script" uid="uid://3adm5rikmgnl" path="res://creature components/attributes/effects/res_targetAttribute.gd" id="3_fs1gm"]
+[ext_resource type="Script" uid="uid://dgdmgq7q0yc2v" path="res://player/items/weapons/weapon components/scripts/die.gd" id="3_fs1gm"]
 
 [sub_resource type="Resource" id="Resource_fs1gm"]
 script = ExtResource("2_oyu7w")
 name = "test"
 value = 2.0
-accepted = 2
 metadata/_custom_type_script = "uid://cm84txahi882w"
-
-[sub_resource type="Resource" id="Resource_b0wxs"]
-script = ExtResource("3_fs1gm")
-targetAttribute = "test"
-ammount = 2.0
-metadata/_custom_type_script = "uid://3adm5rikmgnl"
 
 [sub_resource type="Resource" id="Resource_bci0w"]
 script = ExtResource("3_4docc")
-effect = SubResource("Resource_b0wxs")
 metadata/_custom_type_script = "uid://c47ansiwqjyiq"
-
-[sub_resource type="Resource" id="Resource_4docc"]
-script = ExtResource("3_fs1gm")
-targetAttribute = "t1"
-ammount = 1.0
-metadata/_custom_type_script = "uid://3adm5rikmgnl"
 
 [sub_resource type="Resource" id="Resource_8xo2e"]
 script = ExtResource("3_4docc")
 effectName = "test 2 "
 stackable = true
-effect = SubResource("Resource_4docc")
 metadata/_custom_type_script = "uid://c47ansiwqjyiq"
-
-[sub_resource type="Resource" id="Resource_w3j6l"]
-script = ExtResource("3_fs1gm")
-targetAttribute = "t2"
-ammount = 2.0
-metadata/_custom_type_script = "uid://3adm5rikmgnl"
 
 [sub_resource type="Resource" id="Resource_di6fa"]
 script = ExtResource("3_4docc")
 effectName = "test3"
 stackable = true
-effect = SubResource("Resource_w3j6l")
 metadata/_custom_type_script = "uid://c47ansiwqjyiq"
 
 [node name="EffectCodeTest" type="Node2D"]

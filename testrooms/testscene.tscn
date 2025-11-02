@@ -1,13 +1,8 @@
-[gd_scene load_steps=20 format=3 uid="uid://c2apxkmgi52x2"]
+[gd_scene load_steps=13 format=3 uid="uid://c2apxkmgi52x2"]
 
 [ext_resource type="Script" uid="uid://800u5gjkpuk4" path="res://testrooms/testroomscripts/testscene.gd" id="1_smjcf"]
-[ext_resource type="PackedScene" uid="uid://bqv22p58k73pd" path="res://player/player_character.tscn" id="2_tu12g"]
 [ext_resource type="PackedScene" uid="uid://c4lqubwcw43y1" path="res://assets/placeholder staff.glb" id="3_d7fxl"]
-[ext_resource type="Script" uid="uid://rpx0sl5mvrk" path="res://testrooms/test_script_manager.gd" id="4_38u3p"]
-[ext_resource type="PackedScene" uid="uid://dbl8jt1fcw31q" path="res://testrooms/SCN_testcolider.tscn" id="4_yosie"]
-[ext_resource type="Script" uid="uid://3adm5rikmgnl" path="res://creature components/attributes/effects/res_targetAttribute.gd" id="5_c7syu"]
-[ext_resource type="Script" uid="uid://c47ansiwqjyiq" path="res://creature components/attributes/effects/res_effect.gd" id="6_k2pne"]
-[ext_resource type="Script" uid="uid://njad1paf0wqj" path="res://testrooms/debugoverlay.gd" id="8_k2pne"]
+[ext_resource type="PackedScene" uid="uid://dfpux28u75lmp" path="res://player/scn_player_controller.tscn" id="7_k2pne"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_leidy"]
 sky_top_color = Color(0.733333, 0.796078, 0.905882, 1)
@@ -42,26 +37,6 @@ height = 1.65
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ksq1p"]
 
-[sub_resource type="Resource" id="Resource_4jllv"]
-script = ExtResource("5_c7syu")
-targetAttribute = 0
-ammount = 2
-applymode = 0
-multiplytype = 0
-metadata/_custom_type_script = "uid://3adm5rikmgnl"
-
-[sub_resource type="Resource" id="Resource_2lysr"]
-script = ExtResource("6_k2pne")
-effectName = "test1"
-isTimed = false
-lifeTime = 1.0
-stackable = false
-effects = Array[ExtResource("5_c7syu")]([SubResource("Resource_4jllv")])
-display = true
-overtime = false
-overtimeInterval = 0.0
-metadata/_custom_type_script = "uid://c47ansiwqjyiq"
-
 [node name="Node" type="Node"]
 script = ExtResource("1_smjcf")
 
@@ -79,9 +54,6 @@ shape = SubResource("BoxShape3D_idjgc")
 transform = Transform3D(1000, 0, 0, 0, 1, 0, 0, 0, 1000, -1, 0, 1)
 mesh = SubResource("BoxMesh_hqii8")
 skeleton = NodePath("../..")
-
-[node name="player_character" parent="." instance=ExtResource("2_tu12g")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -21.7405, 0, -13.3001)
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.836535, -0.547914, 0, 0.547914, 0.836535, -21.7405, 47.5292, -13.3001)
@@ -115,41 +87,5 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -26, -7, 19)
 [node name="placeholder staff" parent="." instance=ExtResource("3_d7fxl")]
 transform = Transform3D(0.135214, 0, 0.990816, 0, 1, 0, -0.990816, 0, 0.135214, -17, 0, -25)
 
-[node name="testScriptManager" type="Node" parent="."]
-script = ExtResource("4_38u3p")
-testeffect1 = SubResource("Resource_2lysr")
-
-[node name="effectcollision" parent="testScriptManager" instance=ExtResource("4_yosie")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -24, 1, 5)
-title = "apply an effect"
-
-[node name="debug text" type="Control" parent="."]
-layout_mode = 3
-anchor_left = 0.472
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 0.255981
-grow_horizontal = 2
-grow_vertical = 2
-script = ExtResource("8_k2pne")
-
-[node name="VBoxContainer" type="VBoxContainer" parent="debug text"]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.757
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -146.256
-offset_top = 16.0
-offset_right = -11.0
-offset_bottom = -11.0
-grow_horizontal = 0
-grow_vertical = 2
-
-[node name="Label" type="Label" parent="debug text/VBoxContainer"]
-layout_mode = 2
-text = "test"
-
-[node name="Label2" type="Label" parent="debug text/VBoxContainer"]
-layout_mode = 2
-text = "test"
+[node name="PlayerController" parent="." instance=ExtResource("7_k2pne")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -19, 0, 0)

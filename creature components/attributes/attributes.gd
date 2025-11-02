@@ -35,7 +35,7 @@ func _ready():
 	# ):
 	#set up the attributes
 	attributes.push_back(Attribute.new("strength",8))
-	attributes
+	#attributes
 
 
 
@@ -75,51 +75,51 @@ func maxenergy():
 
 var maxHp:float = 1
 
-func _calculatemaxhp():
-	var health:float = 6 + get_mod(constitution)
-	if level >= 1:
-		health += (level-1) * (3 + get_mod(constitution))
+#func _calculatemaxhp():
+	#var health:float = 6 + get_mod(constitution)
+	#if level >= 1:
+		#health += (level-1) * (3 + get_mod(constitution))
+#
+	#return ceil(health) # while the hp is a float it is still supposed to rounded up
 
-	return ceil(health) # while the hp is a float it is still supposed to rounded up
-
-var maxHP = _calculatemaxhp()
-var currentHP = maxHp
-
-func _dealDamage(ammount:float,type:damageType):
-	var oldHP = currentHP
-
-	for dt in damageImmunities:
-		if type.type == dt.type:
-			damageImmune.emit(type)
-			print("immune to damage")
-			return
-	for dt in resistances:
-		if type.type == dt.type:
-			ammount -= ammount*dt.resPercent
-			currentHP -= ammount
-			currentHP = ceil(clamp(currentHP,0,maxHP))
-			dealtDamage.emit(oldHP,currentHP,true)
-			return
-	currentHP -= ammount
-	currentHP = ceil(clamp(currentHP,0,maxHP)) #always remember to make sure it's rounded
-	if currentHP != oldHP:
-		dealtDamage.emit(oldHP,currentHP)
-
-func _heal(ammount:float):
-	var oldHp = currentHP
-	currentHP += ammount
-	healed.emit(oldHp,currentHP,ammount)
-
-func hpPercent():
-	return currentHP/maxHP
-
-func _changeMaxHp(newmax:float):
-	var oldmax = maxHP
-	var hpPerc = hpPercent()
-	maxHp = newmax
-	# for now the current hp scales with max hp
-	currentHP = maxHP*hpPerc
-	maxHpChanged.emit(oldmax,maxHP)
+#var maxHP = _calculatemaxhp()
+#var currentHP = maxHp
+#
+#func _dealDamage(ammount:float,type:damageType):
+	#var oldHP = currentHP
+#
+	#for dt in damageImmunities:
+		#if type.type == dt.type:
+			#damageImmune.emit(type)
+			#print("immune to damage")
+			#return
+	#for dt in resistances:
+		#if type.type == dt.type:
+			#ammount -= ammount*dt.resPercent
+			#currentHP -= ammount
+			#currentHP = ceil(clamp(currentHP,0,maxHP))
+			#dealtDamage.emit(oldHP,currentHP,true)
+			#return
+	#currentHP -= ammount
+	#currentHP = ceil(clamp(currentHP,0,maxHP)) #always remember to make sure it's rounded
+	#if currentHP != oldHP:
+		#dealtDamage.emit(oldHP,currentHP)
+#
+#func _heal(ammount:float):
+	#var oldHp = currentHP
+	#currentHP += ammount
+	#healed.emit(oldHp,currentHP,ammount)
+#
+#func hpPercent():
+	#return currentHP/maxHP
+#
+#func _changeMaxHp(newmax:float):
+	#var oldmax = maxHP
+	#var hpPerc = hpPercent()
+	#maxHp = newmax
+	## for now the current hp scales with max hp
+	#currentHP = maxHP*hpPerc
+	#maxHpChanged.emit(oldmax,maxHP)
 
 # effect stuff
 

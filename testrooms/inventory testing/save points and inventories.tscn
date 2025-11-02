@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=3 uid="uid://dst6q5x4jk5mc"]
 
-[ext_resource type="PackedScene" uid="uid://bqv22p58k73pd" path="res://player/player_character.tscn" id="1_78n2f"]
+[ext_resource type="PackedScene" uid="uid://bqv22p58k73pd" path="res://player/player_character[DEPRECIATED].tscn" id="1_78n2f"]
 [ext_resource type="PackedScene" uid="uid://dikxwps5whpm5" path="res://environement items/interactables/placeholders/env_campfire.tscn" id="2_5cufc"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_wqodh"]

@@ -1,8 +1,8 @@
 [gd_scene load_steps=10 format=3 uid="uid://31gw5bfp7j80"]
 
-[ext_resource type="PackedScene" uid="uid://bqv22p58k73pd" path="res://player/player_character.tscn" id="1_udoy5"]
+[ext_resource type="PackedScene" uid="uid://bqv22p58k73pd" path="res://player/player_character[DEPRECIATED].tscn" id="1_udoy5"]
 [ext_resource type="PackedScene" uid="uid://db2ypxacbggky" path="res://testrooms/effects testing/effector.tscn" id="2_bud5d"]
-[ext_resource type="Script" uid="uid://3adm5rikmgnl" path="res://creature components/attributes/effects/res_targetAttribute.gd" id="3_m220s"]
+[ext_resource type="Script" path="res://creature components/attributes/effects/res_targetAttribute.gd" id="3_m220s"]
 [ext_resource type="Texture2D" uid="uid://ce6whub1holcl" path="res://assets/placeholder sprites/efecticon.png" id="4_4gb6g"]
 [ext_resource type="Script" uid="uid://c47ansiwqjyiq" path="res://creature components/attributes/effects/res_effect.gd" id="4_4thbv"]
 
