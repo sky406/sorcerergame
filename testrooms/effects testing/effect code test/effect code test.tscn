@@ -1,7 +1,7 @@
 [gd_scene load_steps=9 format=3 uid="uid://bj6csw4drqiin"]
 
 [ext_resource type="Script" uid="uid://i2gvtebtu1n5" path="res://testrooms/effects testing/effect code test/effect_code_test.gd" id="1_ucehm"]
-[ext_resource type="Script" uid="uid://cm84txahi882w" path="res://creature components/attributes/attribute.gd" id="2_oyu7w"]
+[ext_resource type="Script" uid="uid://cm84txahi882w" path="res://creature components/attributes/scripts/SCR_attribute.gd" id="2_oyu7w"]
 [ext_resource type="Script" uid="uid://c47ansiwqjyiq" path="res://creature components/attributes/effects/res_effect.gd" id="3_4docc"]
 [ext_resource type="Script" uid="uid://dgdmgq7q0yc2v" path="res://player/items/weapons/weapon components/scripts/die.gd" id="3_fs1gm"]
 

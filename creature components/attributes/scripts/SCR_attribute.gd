@@ -1,7 +1,6 @@
 class_name Attribute extends Resource
 
 @export_group("details")
-@export var name:String
 @export var limit:float= 20.0
 @export var value:float
 
@@ -21,27 +20,19 @@ var diesubtract:Dictionary[String,Array]
 # var overflow:int
 var effects_applied:Array[Effect]
 
-func addEffect(effect:Effect):
-	# if not acceptEffects:
-	# 	return false
-	# var eff = effect.effect
-	# if effect in effects_applied and not effect.stackable:
-	# 	return false
-	# else:
-	# 	if eff.targetAttribute != name:
-	# 		print("eff doesn't match")
-	# 		return false
-	# 	else:
-	# 		effects_applied.push_back(effect)
-	# 		match eff.applymode:
-	# 			0:# add
-	# 				bonus+= eff.ammount
-	# 				print("added")
-	# 			1:#multiply
-	# 				multiplier += eff.ammount
-	# 				print("multiplied")
-	# 		return true
-	if (acceptEffects and effect.targetAttribute == name and not effect in effects_applied) or (effect in effects_applied and effect.stackable):
+func _init(
+	attribvalue:float = 10,
+	usesDice:bool=false,
+	attriblimit:float = 20,
+	alllowEffects:bool = true
+	):
+		value = attribvalue
+		limit = attriblimit
+		dice = usesDice
+		acceptEffects = alllowEffects
+
+func addEffect(effect:Effect) -> bool:
+	if (acceptEffects and not effect in effects_applied) or (effect in effects_applied and effect.stackable):
 		if additiveBonus and effect.applymode == "add":
 			bonus += effect.ammount
 		
@@ -62,23 +53,12 @@ func addEffect(effect:Effect):
 					diesubtract[effect.affects] = effect.dice
 		
 		effects_applied.push_back(effect)
+		return true
 
 	else:
 		return false
 
 func removeEffect(effect:Effect):
-	# var eff = effect.effect
-	# if not (effect in effects_applied):
-	# 	print("effect not applied")
-	# 	return false
-	# else:
-	# 	effects_applied.erase(effect)
-	# 	match eff.applymode:
-	# 		0: # still add 
-	# 			bonus -= eff.ammount
-	# 		1: #multiply
-	# 			multiplier-= eff.ammount
-	# 	return true
 	if effect in effects_applied:
 		if additiveBonus:
 			bonus -= effect.ammount
@@ -97,14 +77,6 @@ func removeEffect(effect:Effect):
 
 		
 
-func _init(
-	attribname:String="unnamed attribute",
-	attribvalue:int = 10,
-	attriblimit:int = 20 
-	):
-		name = attribname
-		value = attribvalue
-		limit = attriblimit
 
 func total():
 	if multiplier == 0:

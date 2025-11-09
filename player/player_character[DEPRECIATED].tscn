@@ -1,14 +1,14 @@
 [gd_scene load_steps=23 format=3 uid="uid://bqv22p58k73pd"]
 
-[ext_resource type="Script" uid="uid://bpgoxoeiekgtu" path="res://player/player_character.gd" id="1_jsxkw"]
-[ext_resource type="PackedScene" uid="uid://ivoq3jp5vith" path="res://assets/claire_pawn.glb" id="2_pnju7"]
-[ext_resource type="PackedScene" uid="uid://dbg65bg8csgpv" path="res://creature components/attributes/attributes.tscn" id="3_mydv8"]
-[ext_resource type="Script" uid="uid://cm84txahi882w" path="res://creature components/attributes/attribute.gd" id="4_avj6n"]
-[ext_resource type="Script" uid="uid://mdw3ywaqgv0w" path="res://player/UI.gd" id="4_uebbd"]
-[ext_resource type="Script" uid="uid://eu45yk57yc4i" path="res://player/equipment.gd" id="5_5025v"]
-[ext_resource type="Script" uid="uid://bgbuje8mygw64" path="res://player/resources/res_equipslot.gd" id="6_u3epu"]
-[ext_resource type="PackedScene" uid="uid://ccw5elslourbc" path="res://player/components/Player_interactionUI.tscn" id="7_56ccg"]
-[ext_resource type="Script" uid="uid://boyk5yox52vv" path="res://player/interactionController.gd" id="8_j2hx5"]
+[ext_resource type="Script" uid="uid://bpgoxoeiekgtu" path="res://player/player_character.gd" id="1_54xes"]
+[ext_resource type="PackedScene" uid="uid://ivoq3jp5vith" path="res://assets/claire_pawn.glb" id="2_t3uxn"]
+[ext_resource type="PackedScene" uid="uid://dbg65bg8csgpv" path="res://creature components/attributes/SCN_attributes.tscn" id="3_hhlv1"]
+[ext_resource type="Script" uid="uid://cm84txahi882w" path="res://creature components/attributes/scripts/SCR_attribute.gd" id="4_631hn"]
+[ext_resource type="Script" uid="uid://mdw3ywaqgv0w" path="res://player/UI.gd" id="5_12wrn"]
+[ext_resource type="Script" uid="uid://eu45yk57yc4i" path="res://player/equipment.gd" id="6_vtw1f"]
+[ext_resource type="Script" uid="uid://bgbuje8mygw64" path="res://player/resources/res_equipslot.gd" id="7_nmqie"]
+[ext_resource type="PackedScene" uid="uid://ccw5elslourbc" path="res://player/components/Player_interactionUI.tscn" id="8_vo84q"]
+[ext_resource type="Script" uid="uid://boyk5yox52vv" path="res://player/interactionController.gd" id="9_7g3ye"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_343o7"]
 height = 1.65
@@ -23,43 +23,43 @@ height = 1.65
 viewport_path = NodePath("interactionUI")
 
 [sub_resource type="Resource" id="Resource_wi17q"]
-script = ExtResource("4_avj6n")
+script = ExtResource("4_631hn")
 name = "strength"
 value = 8.0
 metadata/_custom_type_script = "uid://cm84txahi882w"
 
 [sub_resource type="Resource" id="Resource_qep63"]
-script = ExtResource("4_avj6n")
+script = ExtResource("4_631hn")
 name = "dexterity"
 value = 12.0
 metadata/_custom_type_script = "uid://cm84txahi882w"
 
 [sub_resource type="Resource" id="Resource_3d672"]
-script = ExtResource("4_avj6n")
+script = ExtResource("4_631hn")
 name = "constitution"
 value = 13.0
 metadata/_custom_type_script = "uid://cm84txahi882w"
 
 [sub_resource type="Resource" id="Resource_l18q3"]
-script = ExtResource("4_avj6n")
+script = ExtResource("4_631hn")
 name = "inteligence"
 value = 11.0
 metadata/_custom_type_script = "uid://cm84txahi882w"
 
 [sub_resource type="Resource" id="Resource_20tpk"]
-script = ExtResource("4_avj6n")
+script = ExtResource("4_631hn")
 name = "wisdom"
 value = 10.0
 metadata/_custom_type_script = "uid://cm84txahi882w"
 
 [sub_resource type="Resource" id="Resource_ty42v"]
-script = ExtResource("4_avj6n")
+script = ExtResource("4_631hn")
 name = "charisma"
 value = 18.0
 metadata/_custom_type_script = "uid://cm84txahi882w"
 
 [sub_resource type="Resource" id="Resource_plbej"]
-script = ExtResource("6_u3epu")
+script = ExtResource("7_nmqie")
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_lux7e"]
 radius = 2.74621
@@ -67,11 +67,11 @@ radius = 2.74621
 [node name="player" type="CharacterBody3D" groups=["player"]]
 collision_layer = 7
 collision_mask = 7
-script = ExtResource("1_jsxkw")
+script = ExtResource("1_54xes")
 
 [node name="meshControl" type="Node3D" parent="."]
 
-[node name="claire_pawn" parent="meshControl" instance=ExtResource("2_pnju7")]
+[node name="claire_pawn" parent="meshControl" instance=ExtResource("2_t3uxn")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0262589, 0)
 
 [node name="playermesh" type="MeshInstance3D" parent="meshControl"]
@@ -111,15 +111,15 @@ texture = SubResource("ViewportTexture_sjgww")
 target_position = Vector3(0, 0, -10)
 debug_shape_custom_color = Color(0.834614, 0.834614, 0.834614, 1)
 
-[node name="attributes" parent="." instance=ExtResource("3_mydv8")]
-attributes = Array[Object]([SubResource("Resource_wi17q"), SubResource("Resource_qep63"), SubResource("Resource_3d672"), SubResource("Resource_l18q3"), SubResource("Resource_20tpk"), SubResource("Resource_ty42v")])
+[node name="attributes" parent="." instance=ExtResource("3_hhlv1")]
+attributes = Array[ExtResource("4_631hn")]([SubResource("Resource_wi17q"), SubResource("Resource_qep63"), SubResource("Resource_3d672"), SubResource("Resource_l18q3"), SubResource("Resource_20tpk"), SubResource("Resource_ty42v")])
 
 [node name="UI" type="Control" parent="."]
 layout_mode = 3
 anchor_right = 1.0
 anchor_bottom = 0.997
 offset_bottom = -0.0560303
-script = ExtResource("4_uebbd")
+script = ExtResource("5_12wrn")
 
 [node name="hp" type="ProgressBar" parent="UI"]
 layout_mode = 0
@@ -149,13 +149,13 @@ offset_bottom = 50.0
 theme_override_constants/separation = 1
 
 [node name="equipment" type="Node" parent="."]
-script = ExtResource("5_5025v")
+script = ExtResource("6_vtw1f")
 testSlot = SubResource("Resource_plbej")
 
 [node name="interactionUI" type="SubViewport" parent="."]
 transparent_bg = true
 
-[node name="interaction" parent="interactionUI" instance=ExtResource("7_56ccg")]
+[node name="interaction" parent="interactionUI" instance=ExtResource("8_vo84q")]
 
 [node name="interaction_collision" type="Area3D" parent="."]
 collision_layer = 0
@@ -165,6 +165,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.959287, 0)
 shape = SubResource("SphereShape3D_lux7e")
 
 [node name="interactionController" type="Node" parent="."]
-script = ExtResource("8_j2hx5")
+script = ExtResource("9_7g3ye")
 
 [connection signal="updatedInteractables" from="interactionController" to="." method="_updateInteractables"]

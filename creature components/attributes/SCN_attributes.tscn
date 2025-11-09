@@ -1,7 +1,7 @@
 [gd_scene load_steps=9 format=3 uid="uid://dbg65bg8csgpv"]
 
-[ext_resource type="Script" uid="uid://d2ttjvct8j4r3" path="res://creature components/attributes/attributes.gd" id="1_t0ki5"]
-[ext_resource type="Script" uid="uid://cm84txahi882w" path="res://creature components/attributes/attribute.gd" id="2_2x6na"]
+[ext_resource type="Script" uid="uid://d2ttjvct8j4r3" path="res://creature components/attributes/scripts/SCR_attributes.gd" id="1_t0ki5"]
+[ext_resource type="Script" uid="uid://cm84txahi882w" path="res://creature components/attributes/scripts/SCR_attribute.gd" id="2_2x6na"]
 
 [sub_resource type="Resource" id="Resource_ke3u6"]
 script = ExtResource("2_2x6na")
@@ -44,12 +44,6 @@ script = ExtResource("1_t0ki5")
 resistances = null
 damageImmunities = null
 effectResistances = null
-attributes = Array[Object]([SubResource("Resource_ke3u6"), SubResource("Resource_t0ki5"), SubResource("Resource_2x6na"), SubResource("Resource_m4hlv"), SubResource("Resource_hfj6n"), SubResource("Resource_vcrqh")])
-strength = null
-dexterity = null
-constitution = null
-inteligence = null
-wisdom = null
-charisma = null
+attributes = Array[ExtResource("2_2x6na")]([SubResource("Resource_ke3u6"), SubResource("Resource_t0ki5"), SubResource("Resource_2x6na"), SubResource("Resource_m4hlv"), SubResource("Resource_hfj6n"), SubResource("Resource_vcrqh")])
 level = null
 speed = null

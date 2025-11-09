@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://800u5gjkpuk4" path="res://testrooms/testroomscripts/testscene.gd" id="1_smjcf"]
 [ext_resource type="PackedScene" uid="uid://c4lqubwcw43y1" path="res://assets/placeholder staff.glb" id="3_d7fxl"]
-[ext_resource type="PackedScene" uid="uid://dfpux28u75lmp" path="res://player/scn_player_controller.tscn" id="7_k2pne"]
+[ext_resource type="PackedScene" uid="uid://dfpux28u75lmp" path="res://player/SCN_player_controller.tscn" id="7_k2pne"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_leidy"]
 sky_top_color = Color(0.733333, 0.796078, 0.905882, 1)
@@ -88,4 +88,4 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -26, -7, 19)
 transform = Transform3D(0.135214, 0, 0.990816, 0, 1, 0, -0.990816, 0, 0.135214, -17, 0, -25)
 
 [node name="PlayerController" parent="." instance=ExtResource("7_k2pne")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -19, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20, 0, 0)

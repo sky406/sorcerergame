@@ -4,6 +4,7 @@ var inputDir:Vector2 = Vector2.ZERO
 var mouseDelta:Vector2 = Vector2.ZERO # process the camera inputs in the player controller node
 var jump:bool = false
 var inputEnabled = true
+var isRunning = false
 # var direction:Vector3
 signal jumpPressed()#):
 signal mouseMovement(mouseDelta:Vector2)#):
@@ -32,6 +33,10 @@ func processInputs():
 		inputDir = Input.get_vector("strafeLeft","strafeRight","moveForward","moveBackward")
 		
 		jump =  Input.is_action_just_pressed("jump")
+
+		isRunning = Input.is_action_pressed("dash")
+
+
 
 
 #TODO combien the inputs with the player
