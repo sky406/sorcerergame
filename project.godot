@@ -21,6 +21,11 @@ AddEffect="*res://creature components/attributes/effects/add_effect.gd"
 Global="*res://global.gd"
 PS_InteractionManager="res://environement items/interactables/interactionManager.tscn"
 
+[editor]
+
+version_control/plugin_name="GitPlugin"
+version_control/autoload_on_startup=true
+
 [editor_plugins]
 
 enabled=PackedStringArray("res://addons/effectmaker/plugin.cfg")
