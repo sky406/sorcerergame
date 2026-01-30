@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://l5iv8c6e6f4g"]
+
+[ext_resource type="Script" uid="uid://b1deqny56al3h" path="res://creature components/inventory/scripts/SCR_inventory_controller.gd" id="1_3piws"]
+
+[node name="ScnInventoryNode" type="Node"]
+script = ExtResource("1_3piws")
+capacity = null
+limited = null
+allowedTypes = null

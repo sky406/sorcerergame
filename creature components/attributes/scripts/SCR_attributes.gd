@@ -2,7 +2,7 @@ class_name Attributes extends Node
 # const die = preload("res://weapons/weapon components/scripts/die.gd")
 # const Effect = preload("res://effects/template/effect.tscn")
 var resistances:Array[Resistance] 
-var damageImmunities:Array[damageType] 
+var damageImmunities:Array[DamageType] 
 var effectResistances:Array[String]
 var attributes:Dictionary[String,Attribute]
 # ''' signals '''
@@ -51,11 +51,13 @@ func calculateHP() -> float:
 	var level:float = getAttributeValue("level")
 	return 6+conMod + ((level-1)*3+conMod)
 
-func prof():
+func prof() -> float:
+	# ):/
 	var level = getAttributeValue("level")
 	return ceil(level/4.0)+1
 
 func applyEffect(effect:Effect) -> bool:
+	# ):
 	var targetAttr = effect.targetAttribute
 	if targetAttr in attributes:
 		var effectApplied = attributes[targetAttr].addEffect(effect)

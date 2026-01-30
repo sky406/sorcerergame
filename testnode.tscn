@@ -1,3 +1,16 @@
-[gd_scene format=3 uid="uid://ca7jm2oqpm7q2"]
+[gd_scene load_steps=3 format=3 uid="uid://ca7jm2oqpm7q2"]
+
+[ext_resource type="Script" uid="uid://dn4uwr58acvyo" path="res://testnode.gd" id="1_pa1is"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_akbbl"]
+radius = 1.476081
 
 [node name="Node3D" type="Node3D"]
+script = ExtResource("1_pa1is")
+
+[node name="Area3D" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+shape = SubResource("SphereShape3D_akbbl")
+
+[connection signal="area_entered" from="Area3D" to="." method="_on_area_3d_area_entered"]

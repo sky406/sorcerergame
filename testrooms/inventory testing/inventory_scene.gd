@@ -1,8 +1,8 @@
 extends Node3D
 @onready var slot1 = $Control/EquimentSlot
 @onready var slot2 = $Control/EquimentSlot2
-@export var testitem1:InvItem
-@export var testitem2:InvItem
+@export var testitem1:ItemData
+@export var testitem2:ItemData
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -31,5 +31,5 @@ func _on_empty_pressed() -> void:
 	slot1.empty()
 
 
-func _on_equiment_slot_insert_fail(item: InvItem) -> void:
+func _on_equiment_slot_insert_fail(item: ItemData) -> void:
 	print("slot insert fail")

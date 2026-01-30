@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="ItemData" load_steps=2 format=3 uid="uid://dfnk8ea3676tn"]
+
+[ext_resource type="Script" uid="uid://ckf2rby2c85hk" path="res://creature components/inventory/scripts/res_inv_item.gd" id="1_7imje"]
+
+[resource]
+script = ExtResource("1_7imje")
+itemName = "None"
+metadata/_custom_type_script = "uid://ckf2rby2c85hk"
