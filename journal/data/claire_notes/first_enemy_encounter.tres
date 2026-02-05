@@ -1,0 +1,8 @@
+[resource]
+id = "claire_first_enemy"
+title = "First Encounter"
+body_text = "These creatures move with intent, not instinct. They react, adapt… almost think. I must be cautious."
+author = "Claire"
+category = "enemy"
+revealed = false
+priority = 10

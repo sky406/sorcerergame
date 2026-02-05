@@ -1,0 +1,8 @@
+[resource]
+id = "adv_ruined_tower"
+title = "The Ruined Tower"
+body_text = "If you find this, do not linger. The walls whisper when the moon is high."
+author = "Unknown Adventurer"
+category = "location"
+revealed = false
+priority = 5
