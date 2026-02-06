@@ -1,0 +1,64 @@
+[gd_scene load_steps=8 format=3 uid="uid://dikxwps5whpm5"]
+
+[ext_resource type="Script" uid="uid://dl4ravux24jiq" path="res://environement items/interactables/placeholders/env_campfire.gd" id="1_14cnf"]
+[ext_resource type="PackedScene" uid="uid://d4di0dsm2vain" path="res://environement items/interactables/placeholders/env_campfire.fbx" id="1_x1fcb"]
+[ext_resource type="PackedScene" uid="uid://dwpttipc766fj" path="res://environement items/interactables/interactable.tscn" id="3_f60eu"]
+
+[sub_resource type="Curve" id="Curve_cmu73"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.17757, 0.896968), 0.0, 0.0, 0, 0, Vector2(0.416822, 0.00999308), -1.35293, -1.35293, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_em2nn"]
+curve = SubResource("Curve_cmu73")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_egvyd"]
+lifetime_randomness = 0.08
+emission_shape_offset = Vector3(0, 0.81, 0)
+emission_shape = 1
+emission_sphere_radius = 0.5
+direction = Vector3(0, 1, 0)
+spread = 53.07
+initial_velocity_min = 4.5
+initial_velocity_max = 5.5
+gravity = Vector3(0, -1.71, 0)
+linear_accel_min = -2.23517e-06
+linear_accel_max = -2.23517e-06
+scale_curve = SubResource("CurveTexture_em2nn")
+color = Color(0.878898, 0.0703359, 0.682084, 1)
+turbulence_enabled = true
+turbulence_noise_strength = 0.0
+turbulence_noise_scale = 0.324
+turbulence_noise_speed = Vector3(0, 10, 0)
+turbulence_noise_speed_random = 0.18
+turbulence_influence_min = 0.105
+turbulence_influence_max = 0.105
+collision_mode = 1
+collision_friction = 0.0
+collision_bounce = 0.0
+
+[sub_resource type="SphereMesh" id="SphereMesh_ra52l"]
+radius = 0.05
+height = 0.1
+radial_segments = 12
+
+[node name="EnvCampfire" type="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0963366, 0)
+script = ExtResource("1_14cnf")
+
+[node name="env_campfire" parent="." instance=ExtResource("1_x1fcb")]
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="."]
+amount = 103
+lifetime = 9.57
+fixed_fps = 60
+collision_base_size = 0.5
+process_material = SubResource("ParticleProcessMaterial_egvyd")
+draw_pass_1 = SubResource("SphereMesh_ra52l")
+
+[node name="GPUParticlesAttractorBox3D" type="GPUParticlesAttractorBox3D" parent="GPUParticles3D"]
+transform = Transform3D(1, 0, 0, 0, 7.776, 0, 0, 0, 1, 0, 8, 0)
+strength = 23.56
+attenuation = 0.615571
+
+[node name="Interactable" parent="." instance=ExtResource("3_f60eu")]
+collisionRadius = 4

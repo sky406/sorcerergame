@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://m0hpxjjvim3r"]
 
-[ext_resource type="Script" path="res://testrooms/templates/test_room_control_template.gd" id="1_dd5up"]
+[ext_resource type="Script" uid="uid://dm7264aeittir" path="res://testrooms/templates/test_room_control_template.gd" id="1_dd5up"]
 
 [node name="test room control template" type="Node"]
 script = ExtResource("1_dd5up")

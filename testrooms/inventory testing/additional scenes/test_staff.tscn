@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://mblbnbkybjp7"]
+
+[ext_resource type="PackedScene" uid="uid://c4lqubwcw43y1" path="res://assets/placeholder staff.glb" id="1_51g1v"]
+
+[node name="TestStaff" type="Node3D"]
+
+[node name="placeholder staff" parent="." instance=ExtResource("1_51g1v")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)

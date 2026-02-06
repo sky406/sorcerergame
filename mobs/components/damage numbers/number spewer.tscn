@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://difnki40kri8d"]
 
-[ext_resource type="Script" path="res://mobs/components/damage numbers/spewnumbers.gd" id="1_5c3gm"]
+[ext_resource type="Script" uid="uid://bpwkba67h37fg" path="res://mobs/components/damage numbers/spewnumbers.gd" id="1_5c3gm"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_aqk17"]
 

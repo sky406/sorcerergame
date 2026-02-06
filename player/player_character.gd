@@ -1,17 +1,21 @@
 extends CharacterBody3D
 
 #references to child nodes (like the camera and mesh) that control camera movement, character orientation, and attributes.
+#class_name PlayerController
 @onready var camcontrol = $cameraOrbit
 @onready var meshcontrol = $meshControl
 @onready var attributes = $attributes
 
 #settings for how fast the player moves, dashes, sprints, and jumps.
+@onready var equipment = $equipment
+@onready var interactUI = $interactionUI/interaction
+@onready var interactionControl = $interactionController
 @export var speed:float = 10
 @export var acceleration:float = 5
 @export var dash_speed:float = 60
 @export var sprint_speed:float = 36
 @export var jump_vel:float = 20
-signal input(inputtype)
+
 
 #Gets the gravity value from the project settings.
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
@@ -25,6 +29,12 @@ var horizontallook:float = 5
 var verticallook:float = 15
 var current_speed = speed
 
+
+signal input(inputtype)
+
+
+signal input(inputtype)
+
 #Called when the node is added to the scene. 
 #Here, the mouse is locked to the screen to keep it focused on gameplay.
 func _ready():
@@ -35,6 +45,9 @@ func _ready():
 func _input(event):
 	if event is InputEventMouseMotion:
 		mouseDelta = event.relative
+	# debug inputs
+	if Input.is_action_just_pressed("debug1"):
+		equipment.testSlot.equipItem(load("res://player/items/weapons/test weapon.tscn"),null)
 
 #Runs every frame. 
 #It uses mouseDelta to calculate rotation for the camera, 
@@ -70,7 +83,6 @@ func _physics_process(delta):
 		
 	#Handles player movement based on input.
 	move()
-
 func dash():
 	pass
 
@@ -100,7 +112,6 @@ func move():
 		velocity.x = lerp(velocity.x,0.0,0.1)
 		velocity.z = lerp(velocity.z,0.0,0.1)
 	move_and_slide()
-
 # Helper functions to keep rotations between 0 and 360 degrees and calculate the shortest angle to turn for smoother rotations.
 func correctAngle(rot):
 	var angle:float = abs(fmod(rot,360))
@@ -114,4 +125,13 @@ func angle_to_angle(from,to):
 	if difference > 180 or difference < -180:
 		pass
 	# TODO make the player model roatate towards the direction it's moving
-	
+
+''' interaction code '''
+func _updateInteractables(interactbles):
+	print("huh")
+	interactUI._assignButtons(interactbles)
+func  interactInputs():
+	if Input.is_action_just_pressed("MWU"):
+		interactUI.prevButton()
+	if Input.is_action_just_pressed("MWD"):
+		interactUI.nextButton()

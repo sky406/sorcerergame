@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="InvItem" load_steps=4 format=3 uid="uid://cs5raw656j6mx"]
+
+[ext_resource type="Texture2D" uid="uid://dffofiidqfgag" path="res://assets/textures/placeholder blobie.png" id="1_hfrvr"]
+[ext_resource type="Script" uid="uid://ckf2rby2c85hk" path="res://creature components/inventory/res_inv_item.gd" id="1_v677r"]
+[ext_resource type="PackedScene" uid="uid://baxb7wqi16amn" path="res://testrooms/inventory testing/additional scenes/test_box.tscn" id="2_nmjly"]
+
+[resource]
+script = ExtResource("1_v677r")
+itemName = "test item 2"
+itemIcon = ExtResource("1_hfrvr")
+itemDescription = "second test item"
+ammount = 1
+itemType = "weapon"
+itemScene = ExtResource("2_nmjly")

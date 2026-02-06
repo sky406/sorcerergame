@@ -5,4 +5,6 @@ enum Type {Consumable,Equipment,Weapon,Misc}
 @export var itemIcon:Texture2D
 # @export var equipEffect:AddEffect #make the effect actually the type for this
 @export_multiline var itemDescription:String
-var itemType:Type
+@export var itemType:Type
+@export var equipable:bool
+@export var equipItem:PackedScene

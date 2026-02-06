@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="Die" load_steps=2 format=3 uid="uid://dd4pc584ejbgx"]
+
+[ext_resource type="Script" uid="uid://dgdmgq7q0yc2v" path="res://player/items/weapons/weapon components/scripts/die.gd" id="1_s8xde"]
+
+[resource]
+script = ExtResource("1_s8xde")
+numdice = 0
+dietype = 0
+keepOrDrop = 0
+rerollDice = false
+rerollTrigger = 0
+rerollHigherLower = 0
+explodeDice = false
+explodeTrigger = 0
+explodeTriggerHigherLower = 0
+explodeAll = false
+explodeOnce = true
+exlimit = 10

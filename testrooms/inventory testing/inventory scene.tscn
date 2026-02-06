@@ -1,0 +1,95 @@
+[gd_scene load_steps=5 format=3 uid="uid://8nd4ujk415tr"]
+
+[ext_resource type="Script" uid="uid://l05hiy74gb1u" path="res://testrooms/inventory testing/inventory_scene.gd" id="1_w5xl6"]
+[ext_resource type="Resource" uid="uid://cf0cfgreo14xh" path="res://testrooms/inventory testing/resources/test item1.tres" id="2_wrslx"]
+[ext_resource type="PackedScene" uid="uid://dpgo4yb12camk" path="res://creature components/equipment/equiment slot.tscn" id="2_ygtcn"]
+[ext_resource type="Resource" uid="uid://cs5raw656j6mx" path="res://testrooms/inventory testing/resources/test item2.tres" id="3_5mb6w"]
+
+[node name="InventoryScene" type="Node3D"]
+script = ExtResource("1_w5xl6")
+testitem1 = ExtResource("2_wrslx")
+testitem2 = ExtResource("3_5mb6w")
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 1152.0
+offset_bottom = 653.0
+
+[node name="EquimentSlot" parent="Control" instance=ExtResource("2_ygtcn")]
+layout_mode = 1
+offset_left = 39.0
+offset_top = 53.0
+offset_right = -777.0
+offset_bottom = -78.0
+spinSpeed = 2.56
+itemType = "weapon"
+
+[node name="EquimentSlot2" parent="Control" instance=ExtResource("2_ygtcn")]
+layout_mode = 1
+offset_left = 728.0
+offset_top = 61.0
+offset_right = -88.0
+offset_bottom = -70.0
+itemType = "weapon"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control"]
+layout_mode = 0
+offset_left = 417.0
+offset_top = 75.0
+offset_right = 685.0
+offset_bottom = 554.0
+tooltip_text = "buttons"
+alignment = 1
+
+[node name="Label" type="Label" parent="Control/VBoxContainer"]
+layout_mode = 2
+text = "slot 1"
+
+[node name="insertA" type="Button" parent="Control/VBoxContainer"]
+layout_mode = 2
+text = "insert A"
+
+[node name="insertB" type="Button" parent="Control/VBoxContainer"]
+layout_mode = 2
+text = "insert B"
+
+[node name="swapCurrent" type="Button" parent="Control/VBoxContainer"]
+layout_mode = 2
+text = "swap current"
+
+[node name="empty" type="Button" parent="Control/VBoxContainer"]
+layout_mode = 2
+text = "empty slot
+"
+
+[node name="HSeparator" type="HSeparator" parent="Control/VBoxContainer"]
+custom_minimum_size = Vector2(0, 10)
+layout_mode = 2
+
+[node name="Label2" type="Label" parent="Control/VBoxContainer"]
+layout_mode = 2
+text = "slot 2"
+
+[node name="insertA2" type="Button" parent="Control/VBoxContainer"]
+layout_mode = 2
+text = "insert A"
+
+[node name="insertB2" type="Button" parent="Control/VBoxContainer"]
+layout_mode = 2
+text = "insert B"
+
+[node name="swapCurrent2" type="Button" parent="Control/VBoxContainer"]
+layout_mode = 2
+text = "swap current"
+
+[node name="empty2" type="Button" parent="Control/VBoxContainer"]
+layout_mode = 2
+text = "empty slot
+"
+
+[connection signal="insertFail" from="Control/EquimentSlot" to="." method="_on_equiment_slot_insert_fail"]
+[connection signal="pressed" from="Control/VBoxContainer/insertA" to="." method="_on_insert_a_pressed"]
+[connection signal="pressed" from="Control/VBoxContainer/insertB" to="." method="_on_insert_b_pressed"]
+[connection signal="pressed" from="Control/VBoxContainer/swapCurrent" to="." method="_on_swap_current_pressed"]
+[connection signal="pressed" from="Control/VBoxContainer/empty" to="." method="_on_empty_pressed"]
