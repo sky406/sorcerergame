@@ -105,19 +105,15 @@ func rotateCam(delta:float,counterRotation:bool=true,lockedvertical:bool=true):
 		camOrbit.rotation_degrees.x = clamp(camOrbit.rotation_degrees.x,minLookAngle,maxLookAngle)
 
 func initializeAttributes():
-	var attribs:Dictionary[String,Attribute] = {
-	# core attribs 
-		"strength":Attribute.new(strength),
+	var attribs : Dictionary[String, Attribute] = {
+		"strength":Attribute.new(strength), # core attribs 
 		"dexterity":Attribute.new(dexterity),
 		"constitution":Attribute.new(constitution),
 		"inteligence":Attribute.new(inteligence),
 		"wisdom":Attribute.new(wisdom),
 		"charisma":Attribute.new(charisma),
-	# meta attribs
-		"level":Attribute.new(level,false,20,true),
-	
-	# movement attributes
-		"speed":Attribute.new(baseSpeed,false,999),
+		"level":Attribute.new(level,false,20,true), # meta attribs
+		"speed":Attribute.new(baseSpeed,false,999), # movement attributes
 	}
 	attributes._setAttributes(attribs)
 

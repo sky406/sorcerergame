@@ -35,4 +35,4 @@ func _sort_by_distance_to_player(area1,area2):
 func _input(event:InputEvent):
 	if event.is_action_pressed("interact") and can_interact:
 		can_interact = false
-		await active_areas[0].InteractAction.call
+		await active_areas[0].InteractAction.call()
