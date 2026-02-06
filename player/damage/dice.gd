@@ -15,7 +15,6 @@ static func roll(dice_string: String) -> int:
 	if dice_and_modifier.size() > 1:
 		modifier = int(dice_and_modifier[1])
 
-
 	var total = 0
 	for i in range(num_dice):
 		total += randi_range(1, dice_sides) # Roll each die
