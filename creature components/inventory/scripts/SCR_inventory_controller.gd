@@ -9,26 +9,26 @@ class_name InvController
 @export var allowedTypes:Array[ItemData.itemTypes]
 #endregion
 
-var container:Dictionary[int,ItemContainer] # the dictionary is int teh format {item:ItemData,count:int}
+var container:Array[ItemContainer] # the dictionary is int teh format {item:ItemData,count:int}
 var slotsFilled = 0 
 
 #region signals
-signal itemAdded(item:ItemData,count:int)
-signal itemRemoved(item:ItemData,count:int)
+signal itemAdded(item:ItemData,count:int,slot:int)
+signal itemRemoved(item:ItemData,count:int,slot:int)
 signal inventoryFull()
 signal itemDenied(item:ItemData,count:int)
 signal overflow(item:ItemData,count:int)
 # ):
 #endregion
 
-#region initialize
+#region initialization
 func _ready() -> void:
 	# ):
 		initializeContainer()
 
 func initializeContainer() -> void:
 	for i in range(capacity):
-		container[i] = ItemContainer.new()
+		container.append(ItemContainer.new())
 
 #endregion
 
@@ -41,59 +41,29 @@ func insert(item:ItemData,count:int,position:int=-1):
 	- count: the ammount of items
 	- position: which slot it should be in
 	'''
-	if position > capacity:
-		position = capacity
+	if item.itemType not in allowedTypes:
+		# end quickly if the item is not accepted
+		itemDenied.emit(item,count)
+		print_debug("item %$ not allowed not accepted in this inventory"%[item.itemName])
+		return
 
-	match item.itemType in allowedTypes:
-		true:
-			if position == -1:
-				var existingSlot = findSame(item)
-				var emptySlot = findEmpty()
+	if position > capacity-1:
+		position = capacity-1
+	
+	var existingSlots:Array = findSame(item)
+	var emptySlots:Array = findEmpty()
 
-				if existingSlot != -1:
-					var slotOverflow = container[existingSlot].add(count) 
-					# didn't want to shadow the signal 
-					itemAdded.emit(item,abs(slotOverflow-count))
-					
-					if slotOverflow >0 and emptySlot != -1:
-						insert(item,slotOverflow,emptySlot)
-					
-					elif slotOverflow >0 and emptySlot == -1:
-						overflow.emit(item,slotOverflow)
-					else:
-						return
-					# if slotOverflow >0 and emptySlot!=-1:
-					# 	container[emptySlot] = ItemContainer.new(item,slotOverflow)
-					# elif slotOverflow >0 and emptySlot == -1:
-					# 	itemAdded.emit(item,count-slotOverflow)
-					# 	overflow.emit(item,slotOverflow)
-					# else:
-				elif emptySlot !=-1:
-					insert(item,count,emptySlot)
-				
-				else:
-					itemDenied.emit(item,count)
-			else:
-				if container[position].item ==ItemContainer.empty:
-					var replacedItem = container[position].replace(item,count)
-					var itemOverflow = replacedItem[2]
-					if itemOverflow:
-						overflow.emit(item,itemOverflow)
+	# the process
+	# check if the item can be added
+	# fill existing slots(if any is left got to next step )
+	# fill empty slots(if any is left emit overflow and inventory full)
+	var itemsLeft = count
 
-				else:
-					var replacedItem = container[position].replace(item,count)
-					var itemOverflow = replacedItem[2]
-					var oldItem = replacedItem[0]
-					var oldCount = replacedItem[1]
-					if itemOverflow:
-						overflow.emit(item,itemOverflow)
-					itemRemoved.emit(oldItem,oldCount)
-					itemAdded.emit(item,count-itemOverflow)
-
-
-		false:
-			itemDenied.emit(item,count)
-
+	for slot in existingSlots:
+		if container[slot].isFull():
+			pass
+		else:
+			
 
 func remove(item:ItemData,count:int) -> Array:
 	#):
@@ -109,6 +79,7 @@ func remove(item:ItemData,count:int) -> Array:
 			itemSlot = findSame(item)
 			var ammountRemoved = container[itemSlot].remove(count)
 			returnCount += ammountRemoved
+			itemRemoved.emit(item,ammountRemoved,itemSlot)
 			if returnCount < count:
 				count -= ammountRemoved
 			else:
@@ -121,28 +92,27 @@ func remove(item:ItemData,count:int) -> Array:
 
 func countItem(item:ItemData) -> int:
 	# ):
-	if findSame(item) == -1:
-		return 0
+	var itemCount:int = 0
+	for slot in Container:
+		if container[slot].item == item:
+			itemCount+= container[slot].count
+	return itemCount
 
-	else:
-		var count = 0
-		for i in container.keys():
-			if container[i].item == item:
-				count += container[i].count
-		return count
-
-
-func findEmpty() -> int:
+func findEmpty() -> Array[int]:
 	# ):
 	''' returns the index of the nearest empty slot '''
-	return container.find_key(ItemContainer.new())
+	var emptySlots = []
+	for slot in container:
+		if container[slot].isEmpty():
+			emptySlots.append(slot)
+	return emptySlots
 
-func findSame(item:ItemData) -> int:
+func findSame(item:ItemData) -> Array[int]:
 	# ):
-	for slot in container.keys():
+	var SameSlots = []
+	for slot in container:
 		if container[slot].item == item:
-			return slot 
-	return -1
+			SameSlots.append(slot)
+	return SameSlots
 				
-
 #endregion

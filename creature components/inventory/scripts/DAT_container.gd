@@ -19,6 +19,7 @@ func add(ammount:int=1,force:bool=false) -> int:
 	adds to the item count, 
 	returns any item overflow(the ammount that cant fit)
 	'''
+	# forgot to actually add somthign to force
 	count+=ammount
 	if count > item.stackLimit and force==false:
 		var overflow = count - item.stackLimit
@@ -38,24 +39,29 @@ func remove(ammount:int=1) -> int:
 		count -= ammount	
 		return ammount
 
-func replace(newItem:ItemData,newCount:int) -> Array:
+func replace(newItem:ItemData,newCount:int) -> Dictionary:
 	# ):
 		''' 
 		replaces the item in the container
-		returns an array containing the original item, the item count and the excess count of the new item in that order
+		"returns an a dictionary containing the old item, its count and the overflow from the newitem"
 		'''
-		var oldItem:ItemData = item
-		var oldCount:int = count
-		var overflow:int
+		var oldItem = item
+		var oldCount = count
 		item = newItem
-		count = newCount
-		if count >= item.stackLimit:
-			overflow = count-item.stackLimit
-			count = item.stackLimit
-		return [oldItem,oldCount,overflow]
-
+		var overflow = add(newCount)
+		return {
+			"oldItem":oldItem,
+			"oldCount":oldCount,
+			"overflow":overflow
+		}
 
 
 func emptyContainer():
 	count = 0 
 	item = empty
+
+func isEmpty():
+	return count == 0 and item == empty
+
+func isFull():
+	return count >= item.stackLimit
