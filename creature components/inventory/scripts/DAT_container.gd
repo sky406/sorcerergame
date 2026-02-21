@@ -32,9 +32,9 @@ func remove(ammount:int=1) -> int:
 	# ):
 	''' returns the ammount taken out of the container '''
 	if ammount >= count:
-		count = 0
-		item = empty
-		return count
+		var ammountReturned = count
+		emptyContainer()
+		return ammountReturned
 	else:
 		count -= ammount	
 		return ammount

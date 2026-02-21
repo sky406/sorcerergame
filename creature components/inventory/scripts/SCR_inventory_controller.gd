@@ -1,5 +1,5 @@
 extends Node
-class_name InvController
+class_name Inventory
 #region export variables
 @export_category("properties")
 @export var capacity:int  #how many items the inventory can carry
@@ -13,81 +13,68 @@ var container:Array[ItemContainer] # the dictionary is int teh format {item:Item
 var slotsFilled = 0 
 
 #region signals
-signal itemAdded(item:ItemData,count:int,slot:int)
-signal itemRemoved(item:ItemData,count:int,slot:int)
+signal itemAdded(item:ItemContainer,slot:int)
+signal itemRemoved(item:ItemContainer,slot:int)
+signal itemSwapped(oldItem:ItemContainer,newItem:ItemContainer,slot:int)
 signal inventoryFull()
-signal itemDenied(item:ItemData,count:int)
-signal overflow(item:ItemData,count:int)
+signal itemDenied(item:ItemContainer)
+signal overflow(item:ItemContainer)
 # ):
 #endregion
 
 #region initialization
+
 func _ready() -> void:
 	# ):
 		initializeContainer()
 
 func initializeContainer() -> void:
-	for i in range(capacity):
-		container.append(ItemContainer.new())
+	container.resize(capacity)
+	container.fill(ItemContainer.new())
 
 #endregion
 
-#region inventory controls
-func insert(item:ItemData,count:int,position:int=-1):
-	''' 
-	adds item into inventory
-	parameters
-	- item: the item data of the item added
-	- count: the ammount of items
-	- position: which slot it should be in
-	'''
-	if item.itemType not in allowedTypes:
-		# end quickly if the item is not accepted
-		itemDenied.emit(item,count)
-		print_debug("item %$ not allowed not accepted in this inventory"%[item.itemName])
-		return
+#region inventory functions
+# ):
+# note: do not add signals to any of these
+func _setSlot(slot:int,item:ItemData):
+		container[slot].emptyContainer()
+		container[slot].item = item
 
-	if position > capacity-1:
-		position = capacity-1
+# TODO for the overflow container change this to use force
+func _addToSlot(slot:int,count:int) -> int:
+		# ):
+		var excessItems = container[slot].add(count)
+		return excessItems
+
+func _pullFromSlot(slot:int,count) -> ItemContainer:
+		# ):
+		var item = container[slot].item
+		var totalRemoved = container[slot].remove(count)
+		var removedItems = ItemContainer.new(item,totalRemoved)
+		return removedItems
+
+
+
+# func insert(item:ItemContainer,position:int) -> void:
+# 	# ):
+# 	# put the item in the bag man
+# 	if container[position].isEmpty():
+# 		container[position] = item
+# 		itemAdded.emit(item,position)
+# 	else:
+# 		var olditem = container[position]
+# 		container[position] = item
+# 		itemAdded.emit(item,position)
+# 		itemRemoved.emit(olditem,position)
+# 		itemSwapped.emit(olditem,item)
 	
-	var existingSlots:Array = findSame(item)
-	var emptySlots:Array = findEmpty()
-
-	# the process
-	# check if the item can be added
-	# fill existing slots(if any is left got to next step )
-	# fill empty slots(if any is left emit overflow and inventory full)
-	var itemsLeft = count
-
-	for slot in existingSlots:
-		if container[slot].isFull():
-			pass
-		else:
-			
-
-func remove(item:ItemData,count:int) -> Array:
-	#):
-	'''  
-	note this returns an array in this format [item:itemData,count:count]
-	'''
-	var itemSlot = findSame(item)
-	var returnItem:ItemData = ItemContainer.empty
-	var returnCount:int = 0
-	if itemSlot != -1:
-		returnItem.item = item
-		while findSame(item) !=-1 or returnCount != count:
-			itemSlot = findSame(item)
-			var ammountRemoved = container[itemSlot].remove(count)
-			returnCount += ammountRemoved
-			itemRemoved.emit(item,ammountRemoved,itemSlot)
-			if returnCount < count:
-				count -= ammountRemoved
-			else:
-				break
-		return [returnItem,returnCount]
-	else:
-		printerr("inventory does not have item")
-		return[ItemContainer.empty,0]
+func pop(slot:int) -> ItemContainer:
+	# ):
+	var removedItem = container[slot]
+	container[slot].emptyContainer()
+	itemRemoved.emit(removedItem,slot)
+	return removedItem
 			
 
 func countItem(item:ItemData) -> int:
@@ -98,21 +85,73 @@ func countItem(item:ItemData) -> int:
 			itemCount+= container[slot].count
 	return itemCount
 
-func findEmpty() -> Array[int]:
+func findEmpty() -> int:
 	# ):
 	''' returns the index of the nearest empty slot '''
-	var emptySlots = []
+	# var emptySlots = []
 	for slot in container:
-		if container[slot].isEmpty():
-			emptySlots.append(slot)
-	return emptySlots
+		if slot.isEmpty():
+			return container.find(slot)
+	# 		emptySlots.append(container.find(slot))
+	# return emptySlots
+	return -1 
 
-func findSame(item:ItemData) -> Array[int]:
+func findSame(item:ItemData) -> int:
 	# ):
-	var SameSlots = []
 	for slot in container:
-		if container[slot].item == item:
-			SameSlots.append(slot)
-	return SameSlots
+		if slot.item == item:
+			return container.find(slot)
+	return -1
+
 				
+#endregion
+
+#region inventory controls
+func put(item:ItemContainer,slot:int=-1) -> void:
+	# ):
+	# puts an item into a slot 
+	# note to self may come back to fix this if this workd, because i realized the set slot command is -
+	# kinda redundant  but that's for a future me and not for you reading this you pervert
+	if slot == -1 or slot >= capacity -1:
+		var existingSlot = findSame(item.item)
+		var emptySlot = findEmpty()
+		if existingSlot != -1:
+			_addToSlot(existingSlot,item.count)
+			itemAdded.emit(container[existingSlot],existingSlot)
+		elif emptySlot != -1:
+			_setSlot(emptySlot,item.item)
+			_addToSlot(emptySlot,item.count)
+			itemAdded.emit(container[emptySlot],existingSlot)
+		else:
+			itemDenied.emit(ItemContainer)
+	else:
+		if container[slot].isEmpty():
+			_setSlot(slot,item.item)
+			_addToSlot(slot,item.count)
+			itemAdded.emit(container[slot],slot)
+		else:
+			var removedItem = container[slot]
+			container[slot] = item
+			itemSwapped.emit(removedItem,item,slot)
+			
+
+
+
+
+func pull(slot:int,count:int=-1) -> ItemContainer:
+	# pull an an item from a slot, return empty item container if the slot is empty
+	# empties the slot if the whole stack can be picked up
+	# if count is -1 collects upt ot it's stack limit
+	# ):
+	var item:ItemData = container[slot].item
+	if count == -1:
+		count = item.stackLimit
+		
+	var ammountReturned = container[slot].remove(count)
+	var removedItem = ItemContainer.new(item,ammountReturned)
+	itemRemoved.emit(removedItem,slot)
+	return removedItem
+
+
+
 #endregion
