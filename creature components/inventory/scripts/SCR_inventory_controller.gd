@@ -30,7 +30,9 @@ func _ready() -> void:
 
 func initializeContainer() -> void:
 	container.resize(capacity)
-	container.fill(ItemContainer.new())
+	for slot in range(container.size()):
+		container[slot] = ItemContainer.new()
+		print(container[slot])
 
 #endregion
 
@@ -55,20 +57,6 @@ func _pullFromSlot(slot:int,count) -> ItemContainer:
 		return removedItems
 
 
-
-# func insert(item:ItemContainer,position:int) -> void:
-# 	# ):
-# 	# put the item in the bag man
-# 	if container[position].isEmpty():
-# 		container[position] = item
-# 		itemAdded.emit(item,position)
-# 	else:
-# 		var olditem = container[position]
-# 		container[position] = item
-# 		itemAdded.emit(item,position)
-# 		itemRemoved.emit(olditem,position)
-# 		itemSwapped.emit(olditem,item)
-	
 func pop(slot:int) -> ItemContainer:
 	# ):
 	var removedItem = container[slot]
@@ -88,19 +76,20 @@ func countItem(item:ItemData) -> int:
 func findEmpty() -> int:
 	# ):
 	''' returns the index of the nearest empty slot '''
-	# var emptySlots = []
 	for slot in container:
 		if slot.isEmpty():
+			print_debug(container.find(slot))
 			return container.find(slot)
-	# 		emptySlots.append(container.find(slot))
-	# return emptySlots
 	return -1 
 
 func findSame(item:ItemData) -> int:
 	# ):
 	for slot in container:
 		if slot.item == item:
+			print_debug(container.find(slot))
 			return container.find(slot)
+		else:
+			print_debug("not the itme you're looking for （*゜ー゜*） it's this instead: %s"%[slot.item.itemName])
 	return -1
 
 				
@@ -114,14 +103,16 @@ func put(item:ItemContainer,slot:int=-1) -> void:
 	# kinda redundant  but that's for a future me and not for you reading this you pervert
 	if slot == -1 or slot >= capacity -1:
 		var existingSlot = findSame(item.item)
+		print("existing slot = %s"%[existingSlot])
 		var emptySlot = findEmpty()
+		print("empty slot = %s"%[emptySlot])
 		if existingSlot != -1:
 			_addToSlot(existingSlot,item.count)
 			itemAdded.emit(container[existingSlot],existingSlot)
 		elif emptySlot != -1:
 			_setSlot(emptySlot,item.item)
 			_addToSlot(emptySlot,item.count)
-			itemAdded.emit(container[emptySlot],existingSlot)
+			itemAdded.emit(container[emptySlot],emptySlot)
 		else:
 			itemDenied.emit(ItemContainer)
 	else:
@@ -151,6 +142,14 @@ func pull(slot:int,count:int=-1) -> ItemContainer:
 	var removedItem = ItemContainer.new(item,ammountReturned)
 	itemRemoved.emit(removedItem,slot)
 	return removedItem
+
+func pullItem(item:ItemData,count) -> ItemContainer:
+	# ):
+	var itemLocation = findSame(item)
+	if itemLocation != -1:
+		return pull(itemLocation,count)
+	else:
+		return ItemContainer.new()
 
 
 

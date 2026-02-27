@@ -12,6 +12,7 @@ config_version=5
 
 config/name="clairgame"
 config/tags=PackedStringArray("3d", "my_projects")
+run/main_scene="uid://c2apxkmgi52x2"
 config/features=PackedStringArray("4.5", "Forward Plus")
 config/icon="res://icon.svg"
 

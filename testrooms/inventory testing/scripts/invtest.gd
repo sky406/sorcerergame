@@ -12,31 +12,45 @@ const item1 = preload("res://testrooms/inventory testing/resources/test item1.tr
 const item2 = preload("res://testrooms/inventory testing/resources/test item2.tres")
 const itemDisplay = preload("res://testrooms/inventory testing/additional scenes/SCN_inv_item_display.tscn")
 #endregion
-var filledSlots:Dictionary[int,test_Inv_display]
+var invSlots:Array[ItemContainer]
+var slotCtrls:Array[test_Inv_display]
+func _ready():
+	invSlots = inventory.container
+	for slot in invSlots:
+		var slotctrl = itemDisplay.instantiate()
+		slotCtrls.append(slotctrl)
+		invBox.add_child(slotctrl)
+	var slotcount = 1
+	for slot in slotCtrls:
+		slot.itemslot = slotcount
+		slot.containerChanged.emit()
+		slotcount+=1
+		
+
+
 #region controls
 func addItem1():
-	inventory.insert(item1,item1Slider.value)
+	var itemCont = ItemContainer.new(item1,item1Slider.value)
+	print_debug("item to add: %s ammount added: %s"%[itemCont.item,itemCont.count])
+	inventory.put(itemCont)
 func removeItem1():
-	inventory.remove(item1,item1Slider.value)
+	inventory.pullItem(item1,item1Slider.value)
 
 func addItem2():
-	inventory.insert(item2,item2Slider.value)
+	var itemCont = ItemContainer.new(item2,item2Slider.value)
+	print_debug("item to add: %s ammount added: %s"%[itemCont.item,itemCont.count])
+	inventory.put(itemCont)
 func removeItem2():
-	inventory.remove(item2,item2Slider.value)
+	inventory.pullItem(item2,item2Slider.value)
 #endregion
+#note to self, these don't use the item parameter but instead grabs them from the cojntianer using the slot 
+func onItemAdd(item:ItemContainer,slot: int) -> void :
+	var changedItem = inventory.container[slot]
+	slotCtrls[slot].updatecontainer(changedItem)
+	#print_debug(slotCtrls)
+	
 
-func onItemAdd(item: ItemData,count: int,slot: int) -> void :
-	if slot in filledSlots.keys():
-		filledSlots[slot].add(count)
-	else:
-		var newDisplay = itemDisplay.instantiate()
-		newDisplay.itemName = item.itemName
-		#newDisplay.itemIcon = item.itemIcon
-		newDisplay.itemCount = count
-		newDisplay.iconTexture = item.itemIcon
-		filledSlots[slot]=newDisplay
-		print_debug(filledSlots)
-		itemDisplay.call_deferred("add_child",newDisplay)
-func onItemRemove(item:ItemData,count:int,slot:int):
-	if slot in filledSlots.keys():
-		filledSlots[slot].subtract(count)
+func onItemRemove(item:ItemContainer,slot:int) -> void:
+	var changedItem = inventory.container[slot]
+	slotCtrls[slot].updatecontainer(changedItem)
+	#print_debug(slotCtrls)
