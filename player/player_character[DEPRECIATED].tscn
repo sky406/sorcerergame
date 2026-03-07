@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://bpgoxoeiekgtu" path="res://player/player_character.gd" id="1_54xes"]
 [ext_resource type="PackedScene" uid="uid://ivoq3jp5vith" path="res://assets/claire_pawn.glb" id="2_t3uxn"]
 [ext_resource type="PackedScene" uid="uid://dbg65bg8csgpv" path="res://creature components/attributes/SCN_attributes.tscn" id="3_hhlv1"]
-[ext_resource type="Script" uid="uid://cm84txahi882w" path="res://creature components/attributes/scripts/SCR_attribute.gd" id="4_631hn"]
+[ext_resource type="Script" uid="uid://cm84txahi882w" path="res://creature components/attributes/scripts/res_attribute.gd" id="4_631hn"]
 [ext_resource type="Script" uid="uid://mdw3ywaqgv0w" path="res://player/UI.gd" id="5_12wrn"]
 [ext_resource type="Script" uid="uid://eu45yk57yc4i" path="res://player/equipment.gd" id="6_vtw1f"]
 [ext_resource type="Script" uid="uid://bgbuje8mygw64" path="res://player/resources/res_equipslot.gd" id="7_nmqie"]
