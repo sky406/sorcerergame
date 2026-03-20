@@ -1,0 +1,61 @@
+[gd_scene load_steps=3 format=3 uid="uid://dvrslutmkabi8"]
+
+[ext_resource type="Script" uid="uid://cf6p4ipxyrve7" path="res://testrooms/inventory testing/additional scenes/scripts/scn_inv_item_display.gd" id="1_gg8hu"]
+[ext_resource type="Texture2D" uid="uid://dffofiidqfgag" path="res://assets/textures/placeholder blobie.png" id="2_tvnm0"]
+
+[node name="ScnInvItemDisplay" type="Control"]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("1_gg8hu")
+
+[node name="AspectRatioContainer" type="AspectRatioContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -417.0
+offset_top = -71.0
+offset_right = 417.0
+offset_bottom = 71.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="AspectRatioContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="MarginContainer" type="MarginContainer" parent="AspectRatioContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 13
+theme_override_constants/margin_top = 12
+theme_override_constants/margin_right = 13
+theme_override_constants/margin_bottom = 12
+
+[node name="itemIcon" type="TextureRect" parent="AspectRatioContainer/HBoxContainer/MarginContainer"]
+layout_mode = 2
+texture = ExtResource("2_tvnm0")
+expand_mode = 3
+
+[node name="itemName" type="Label" parent="AspectRatioContainer/HBoxContainer"]
+layout_mode = 2
+text = "placeholder text"
+
+[node name="itemCount" type="Label" parent="AspectRatioContainer/HBoxContainer"]
+layout_mode = 2
+text = "365"
+
+[node name="itemslot" type="Label" parent="AspectRatioContainer/HBoxContainer"]
+layout_mode = 2
+text = "slot:1"
+
+[connection signal="countChanged" from="." to="." method="_on_count_changed"]
