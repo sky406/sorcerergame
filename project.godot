@@ -21,6 +21,10 @@ AddEffect="*res://creature components/attributes/effects/add_effect.gd"
 Global="*res://global.gd"
 PS_InteractionManager="res://environement items/interactables/interactionManager.tscn"
 
+[dotnet]
+
+project/assembly_name="clairgame"
+
 [editor_plugins]
 
 enabled=PackedStringArray("res://addons/effectmaker/plugin.cfg")
