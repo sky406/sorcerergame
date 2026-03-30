@@ -1,8 +1,12 @@
+[gd_resource type="Resource" script_class="JournalNote" load_steps=2 format=3 uid="uid://df7283uc3i4qo"]
+
+[ext_resource type="Script" uid="uid://c1bj50a7hru1k" path="res://journal/data/journal_note.gd" id="1_5g4jt"]
+
 [resource]
+script = ExtResource("1_5g4jt")
 id = "claire_first_enemy"
 title = "First Encounter"
-body_text = "These creatures move with intent, not instinct. They react, adapt… almost think. I must be cautious."
-author = "Claire"
+body_text = "idk what i'm doing lol. all glory to God sha"
 category = "enemy"
-revealed = false
 priority = 10
+metadata/_custom_type_script = "uid://c1bj50a7hru1k"

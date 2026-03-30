@@ -1,8 +1,13 @@
+[gd_resource type="Resource" script_class="JournalNote" load_steps=2 format=3 uid="uid://jdf2xeprvaj3"]
+
+[ext_resource type="Script" uid="uid://c1bj50a7hru1k" path="res://journal/data/journal_note.gd" id="1_qnj7l"]
+
 [resource]
+script = ExtResource("1_qnj7l")
 id = "adv_ruined_tower"
 title = "The Ruined Tower"
 body_text = "If you find this, do not linger. The walls whisper when the moon is high."
 author = "Unknown Adventurer"
 category = "location"
-revealed = false
 priority = 5
+metadata/_custom_type_script = "uid://c1bj50a7hru1k"

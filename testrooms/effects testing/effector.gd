@@ -1,6 +1,6 @@
 extends MeshInstance3D
 @onready var effectarea = $CollisionShape3D
-@export var effect:effectDat
+@export var effect:EffectDat
 #var effect = Effect.new("testeffect",false)
 # Called when the node enters the scene tree for the first time.
 var effectname= 1

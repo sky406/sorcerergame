@@ -1,4 +1,4 @@
-class_name Effect extends Resource
+class_name EffectDat extends Resource
 @export_group("details")
 @export var icon:Texture2D
 @export var effectName:String #i feel like i should make all effects have unique names, self note add all of these to docuementation

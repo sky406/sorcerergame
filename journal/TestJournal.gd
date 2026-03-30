@@ -25,14 +25,17 @@ func _ready() -> void:
 
 
 # Function to reveal notes
-func reveal_note(note):
-	if note.revealed == false:
+func reveal_note(note: JournalNote):
+	if not note.revealed:
 		note.revealed = true
-		revealed_notes.append(note)
 		print("New journal entry revealed:", note.title)
-	else:
-		print("Note already revealed:", note.title)
+		print("ID: ", note.id)
+		print("Author: ", note.author)
+		print("Category: ", note.category)
+		print("Body: ", note.body_text)
+		print("Priority: ", note.priority, "\n")
 
+	revealed_notes.append(note)
 
 # Called every frame (not needed for this test)
 func _process(delta: float) -> void:
