@@ -12,6 +12,7 @@ class_name JournalNote
 @export var icon: Texture2D
 @export var revealed: bool = false
 
+
 # Optional metadata (future-proofing)
 @export var related_entity_id: String = ""   # enemy, npc, item, location id
 @export var world_location_id: String = ""   # zone/area identifier
