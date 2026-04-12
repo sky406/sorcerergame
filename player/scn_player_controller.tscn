@@ -1,7 +1,8 @@
-[gd_scene load_steps=7 format=3 uid="uid://dfpux28u75lmp"]
+[gd_scene load_steps=8 format=3 uid="uid://dfpux28u75lmp"]
 
 [ext_resource type="Script" uid="uid://fdqypw4xkegf" path="res://player/scripts/SCR_player_controller.gd" id="1_g0c5r"]
 [ext_resource type="PackedScene" uid="uid://ivoq3jp5vith" path="res://assets/claire_pawn.glb" id="3_dvn8e"]
+[ext_resource type="Script" uid="uid://c4i2l4tsrn3rf" path="res://player/SCR_camera_orbit_PlayerFollow.gd" id="3_kjnqd"]
 [ext_resource type="PackedScene" uid="uid://dbg65bg8csgpv" path="res://creature components/attributes/SCN_attributes.tscn" id="3_qomee"]
 [ext_resource type="Script" uid="uid://dyocojy6tt5g4" path="res://player/scripts/SCR_inputs.gd" id="4_ofvul"]
 
@@ -9,9 +10,12 @@
 height = 2.1914063
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_krdnj"]
+radius = 0.9
 
 [node name="PlayerController" type="CharacterBody3D" groups=["player"]]
 script = ExtResource("1_g0c5r")
+minLookAngle = -80.0
+maxLookAngle = 80.0
 
 [node name="lookDirection" type="RayCast3D" parent="."]
 target_position = Vector3(0, 0, -5)
@@ -25,10 +29,18 @@ debug_shape_thickness = 5
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.88336027, 0)
 shape = SubResource("CapsuleShape3D_h0fml")
 
-[node name="cameraOrbit" type="Node3D" parent="."]
+[node name="cameraTarget" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.4889944, 0)
 
+[node name="cameraOrbit" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.4899645, 0)
+top_level = true
+script = ExtResource("3_kjnqd")
+camDistScale = 1.0134
+moveOffest = 1.019
+
 [node name="SpringArm3D" type="SpringArm3D" parent="cameraOrbit"]
+collision_mask = 3
 shape = SubResource("SphereShape3D_krdnj")
 spring_length = 6.0
 margin = 1.0
