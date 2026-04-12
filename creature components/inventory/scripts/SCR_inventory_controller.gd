@@ -49,14 +49,6 @@ func _addToSlot(slot:int,count:int) -> int:
 		var excessItems = container[slot].add(count)
 		return excessItems
 
-func _pullFromSlot(slot:int,count) -> ItemContainer:
-		# ):
-		var item = container[slot].item
-		var totalRemoved = container[slot].remove(count)
-		var removedItems = ItemContainer.new(item,totalRemoved)
-		return removedItems
-
-
 func pop(slot:int) -> ItemContainer:
 	# ):
 	var removedItem = container[slot]
@@ -64,7 +56,6 @@ func pop(slot:int) -> ItemContainer:
 	itemRemoved.emit(removedItem,slot)
 	return removedItem
 			
-
 func countItem(item:ItemData) -> int:
 	# ):
 	var itemCount:int = 0
@@ -92,7 +83,6 @@ func findSame(item:ItemData) -> int:
 			print_debug("not the itme you're looking for （*゜ー゜*） it's this instead: %s"%[slot.item.itemName])
 	return -1
 
-				
 #endregion
 
 #region inventory controls

@@ -18,7 +18,6 @@ config/icon="res://icon.svg"
 
 [autoload]
 
-AddEffect="*res://creature components/attributes/effects/add_effect.gd"
 Global="*res://global.gd"
 PS_InteractionManager="res://environement items/interactables/interactionManager.tscn"
 
