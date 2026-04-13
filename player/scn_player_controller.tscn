@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://dfpux28u75lmp"]
+[gd_scene load_steps=8 format=3 uid="uid://d0p1akau5bkt3"]
 
 [ext_resource type="Script" uid="uid://fdqypw4xkegf" path="res://player/scripts/SCR_player_controller.gd" id="1_g0c5r"]
 [ext_resource type="PackedScene" uid="uid://ivoq3jp5vith" path="res://assets/claire_pawn.glb" id="3_dvn8e"]
@@ -30,14 +30,14 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.88336027, 0)
 shape = SubResource("CapsuleShape3D_h0fml")
 
 [node name="cameraTarget" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.4889944, 0)
 
 [node name="cameraOrbit" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.4899645, 0)
 top_level = true
 script = ExtResource("3_kjnqd")
 camDistScale = 1.0134
-moveOffest = 1.019
+moveOffest = 1.06
+baseSpeed = 0.30000000000000004
 
 [node name="SpringArm3D" type="SpringArm3D" parent="cameraOrbit"]
 collision_mask = 3

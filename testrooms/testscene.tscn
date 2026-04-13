@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://800u5gjkpuk4" path="res://testrooms/testroomscripts/testscene.gd" id="1_smjcf"]
 [ext_resource type="PackedScene" uid="uid://c4lqubwcw43y1" path="res://assets/placeholder staff.glb" id="3_d7fxl"]
 [ext_resource type="PackedScene" uid="uid://dbl8jt1fcw31q" path="res://testrooms/SCN_testcolider.tscn" id="4_yosie"]
-[ext_resource type="PackedScene" uid="uid://dfpux28u75lmp" path="res://player/SCN_player_controller.tscn" id="7_k2pne"]
+[ext_resource type="PackedScene" uid="uid://d0p1akau5bkt3" path="res://player/SCN_player_controller.tscn" id="7_k2pne"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_leidy"]
 sky_top_color = Color(0.733333, 0.796078, 0.905882, 1)
