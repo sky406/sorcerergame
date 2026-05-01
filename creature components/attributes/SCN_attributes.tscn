@@ -1,6 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://dbg65bg8csgpv"]
-
-[ext_resource type="Script" uid="uid://d2ttjvct8j4r3" path="res://creature components/attributes/scripts/SCR_attributes.gd" id="1_t0ki5"]
-
-[node name="attributes" type="Node"]
-script = ExtResource("1_t0ki5")

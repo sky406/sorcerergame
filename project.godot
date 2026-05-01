@@ -30,6 +30,12 @@ version_control/autoload_on_startup=true
 
 enabled=PackedStringArray("res://addons/effectmaker/plugin.cfg")
 
+[file_customization]
+
+folder_colors={
+"res://components/": "orange"
+}
+
 [global_group]
 
 player="stuff belonging to the player"

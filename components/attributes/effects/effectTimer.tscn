@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://c71s8b7mnxuoj"]
 
-[ext_resource type="Script" uid="uid://drmoidcfqhamq" path="res://creature components/attributes/effects/scn_effect_timer.gd" id="1_lygto"]
+[ext_resource type="Script" uid="uid://drmoidcfqhamq" path="res://components/attributes/effects/scn_effect_timer.gd" id="1_lygto"]
 
 [node name="ScnEffectTimer" type="Timer"]
 one_shot = true

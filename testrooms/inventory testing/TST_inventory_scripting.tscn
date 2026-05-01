@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://cbe1kqihe47fq"]
 
 [ext_resource type="Script" uid="uid://cbj77nxrikej0" path="res://testrooms/inventory testing/scripts/invtest.gd" id="1_sgdqg"]
-[ext_resource type="PackedScene" uid="uid://l5iv8c6e6f4g" path="res://creature components/inventory/SCN_inventory_controller.tscn" id="2_jvji4"]
+[ext_resource type="PackedScene" uid="uid://l5iv8c6e6f4g" path="res://components/inventory/SCN_inventory_controller.tscn" id="2_jvji4"]
 
 [node name="TstInventoryScripting" type="Control"]
 layout_mode = 3

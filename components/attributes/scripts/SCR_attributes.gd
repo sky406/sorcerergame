@@ -90,3 +90,4 @@ func applyEffect(effect:Effect) -> bool:
 # 		20:lvlbonus = 133
 # 		_:lvlbonus = 133+level
 # 	return lvlbonus
+# TODO: connect the attributes to the hp and the res of the player stuff
