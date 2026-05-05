@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://d0p1akau5bkt3"]
+[gd_scene load_steps=8 format=3 uid="uid://svl4tt03y5j"]
 
 [ext_resource type="Script" uid="uid://fdqypw4xkegf" path="res://player/scripts/SCR_player_controller.gd" id="1_g0c5r"]
 [ext_resource type="PackedScene" uid="uid://ivoq3jp5vith" path="res://assets/claire_pawn.glb" id="3_dvn8e"]
