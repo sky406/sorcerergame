@@ -14,28 +14,13 @@ class_name Projectile
 @export_range(0.1,100,0.1,"suffix:kg") var mass:float
 # @export var mass:float = 0
 @export var gravityScale:float=1.0
+
+@export_tool_button("generate preview") var testAction = genPreview
+
 #endregion
-@export_tool_button("generate") var testAction = test
 
+func genPreview():
 
-
-func test():
-
-	# var previewSene = PackedScene.new()
-
-	# #  generate parts of the scene 
-	# var body = generateProjectile()
-
-	# var packed = previewSene.pack(body)
-	# # test for errors
-	# # undo_redo.create_action("create preview scene")
-	# if packed == OK:
-	# 	var error = ResourceSaver.save(previewSene,"res://components/preview/preview.tscn")
-	# 	if error != OK:
-	# 		push_error("an error occured while saving preview")
-	# 	else:
-	# 		print("preview generated")
-	
 	var undo_redo= EditorInterface.get_editor_undo_redo()
 	# EditorInterface.open_scene_from_path("res://components/preview/preview.tscn")
 	undo_redo.create_action("create preview")
@@ -83,11 +68,11 @@ func generateProjectile() -> RigidBody3D :
 	# collision setup 
 	var collider = CollisionShape3D.new()
 	collider.shape = collisionMesh
-	collider.name = "%scollider"%[ProjectileName]
+	collider.name = "%sCollider"%[ProjectileName]
 	# shape setup 
 	var shape = MeshInstance3D.new()
 	shape.mesh = mesh
-	shape.name = "%shape"%[ProjectileName]
+	shape.name = "%sShape"%[ProjectileName]
 
 	body.add_child(collider)
 	collider.owner = body
