@@ -7,8 +7,7 @@
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_eine3"]
 friction = 0.32
 rough = true
-bounce = 0.5
-absorbent = true
+bounce = 1.0
 
 [resource]
 script = ExtResource("1_f0uxx")

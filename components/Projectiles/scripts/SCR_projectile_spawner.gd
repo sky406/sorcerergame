@@ -4,6 +4,7 @@ class_name ProjSpawner
 #region exports
 @export_category("spawnSettings")
 @export var deviation:float = 0.0
+# TODO find a way to modify the deviation probabbly implementi it to weapons
 @export var spawnLocation:Marker3D:
 	set(value):
 		spawnLocation = value
@@ -24,16 +25,13 @@ func _get_configuration_warnings() -> PackedStringArray:
 #endregion
 
 
-func launchProjectile(projectile:Projectile,direction:Vector3,impulse:Vector3) -> void:
+func launchProjectile(projectile:Projectile,direction:Vector3,force:float) -> void:
 	# ):
 	var proj = projectile.generateProjectile()
-	proj.global_posistion = spawnLocation.global_position
-	
-	var error = get_tree().add_child(proj)
-	if error != OK:
-		push_error("couldn't add projectile to tree")
-	else:
-		proj.apply_impulse(impulse)
+	proj.global_position = spawnLocation.global_position
+	var tree = get_tree()
+	# var root = tree.root
+	tree.root.add_child(proj)
 
-func _ready() -> void:
-	pass
+	var impulse:Vector3 = direction * force
+	proj.apply_impulse(impulse)

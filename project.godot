@@ -34,7 +34,10 @@ enabled=PackedStringArray("res://addons/effectmaker/plugin.cfg")
 
 folder_colors={
 "res://components/": "orange",
-"res://components/preview/": "red"
+"res://components/preview/": "red",
+"res://player/": "yellow",
+"res://testrooms/": "red",
+"res://testrooms/testing tools/": "yellow"
 }
 
 [global_group]

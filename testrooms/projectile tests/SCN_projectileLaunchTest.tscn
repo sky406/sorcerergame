@@ -1,0 +1,64 @@
+[gd_scene load_steps=8 format=3 uid="uid://c0ki3dojabewa"]
+
+[ext_resource type="Script" uid="uid://o1ky6omunkw8" path="res://testrooms/projectile tests/scripts/SCR_just keep them balls running.gd" id="1_i66v4"]
+[ext_resource type="PackedScene" uid="uid://xmkevbsurg65" path="res://components/Projectiles/SCN_projectile_spawner.tscn" id="2_rre57"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_i66v4"]
+sky_top_color = Color(0.730108, 0.797757, 0.902662, 1)
+sky_horizon_color = Color(1.0184504, 1.0523919, 1.0738541, 1)
+ground_bottom_color = Color(0.123074, 0.191191, 0.172135, 1)
+ground_horizon_color = Color(1.0184504, 1.0523919, 1.0738541, 1)
+energy_multiplier = 0.95
+
+[sub_resource type="Sky" id="Sky_rre57"]
+sky_material = SubResource("ProceduralSkyMaterial_i66v4")
+
+[sub_resource type="Environment" id="Environment_mtg4y"]
+background_mode = 2
+sky = SubResource("Sky_rre57")
+tonemap_mode = 2
+
+[sub_resource type="BoxMesh" id="BoxMesh_i66v4"]
+size = Vector3(200, 1, 200)
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_rre57"]
+points = PackedVector3Array(101.56742, 1.0873015, 101.56742, -101.56742, -2.0873015, -101.56742, -101.56742, 1.0873015, -101.56742, 101.56742, -2.0873015, -101.56742, -101.56742, -2.0873015, 101.56742, -101.56742, 1.0873015, 101.56742, 101.56742, 1.0873015, -101.56742, 101.56742, -2.0873015, 101.56742)
+
+[node name="ScnProjectileLaunchTest" type="Node"]
+script = ExtResource("1_i66v4")
+impulseforce = 1.0
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0, 0, 0)
+light_color = Color(0.708196, 0.817061, 0.826815, 1)
+light_energy = 2.85
+shadow_enabled = true
+directional_shadow_max_distance = 1.0
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_mtg4y")
+
+[node name="ProjectileSpawner" parent="." node_paths=PackedStringArray("spawnLocation") instance=ExtResource("2_rre57")]
+spawnLocation = NodePath("projectileLocation")
+
+[node name="projectileLocation" type="Marker3D" parent="ProjectileSpawner"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 21.80148, 0)
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.268
+autostart = true
+
+[node name="Camera3D" type="Camera3D" parent="Timer"]
+transform = Transform3D(0.8968882, 0, -0.44225734, 0, 1, 0, 0.44225734, 0, 0.8968882, 0, 22.13162, 10.750324)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+collision_layer = 255
+collision_mask = 255
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D"]
+mesh = SubResource("BoxMesh_i66v4")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+shape = SubResource("ConvexPolygonShape3D_rre57")
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
