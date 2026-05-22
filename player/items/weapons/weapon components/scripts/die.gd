@@ -117,7 +117,7 @@ func rolldice(rolltimes:int,die:int)->Array:
 func roll()->Array:
 	# ):
 	var rolls = rolldice(numdice,dietype)
-	if reroll:
+	if rerollDice:
 		rolls = reroll(rolls,rerollTrigger,rerollHigherLower)
 
 	if explodeDice:

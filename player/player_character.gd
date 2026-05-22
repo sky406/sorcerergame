@@ -26,6 +26,11 @@ signal input(inputtype)
 func _ready():
 	#lock mouse to screen 
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+	var stats = get_node_or_null("CombatantStats")
+	if stats:
+		stats.damaged.connect(func(amount, type_id):
+			print("Player took ", amount, " ", type_id, " damage. HP remaining: ", stats.health)
+		)
 
 func _input(event):
 	if event is InputEventMouseMotion:

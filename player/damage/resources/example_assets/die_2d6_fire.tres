@@ -1,9 +1,0 @@
-[gd_resource type="Resource" script_class="Die" load_steps=2 format=3 uid="uid://blsvxsgb4xw4n"]
-
-[ext_resource type="Script" uid="uid://dgdmgq7q0yc2v" path="res://player/items/weapons/weapon components/scripts/die.gd" id="1_am6nc"]
-
-[resource]
-script = ExtResource("1_am6nc")
-numdice = 2
-dietype = 6
-metadata/_custom_type_script = "uid://dgdmgq7q0yc2v"

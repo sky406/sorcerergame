@@ -4,15 +4,5 @@
 
 [resource]
 script = ExtResource("1_s8xde")
-numdice = 0
-dietype = 0
-keepOrDrop = 0
-rerollDice = false
-rerollTrigger = 0
-rerollHigherLower = 0
-explodeDice = false
-explodeTrigger = 0
-explodeTriggerHigherLower = 0
-explodeAll = false
-explodeOnce = true
-exlimit = 10
+numdice = 1
+dietype = 6

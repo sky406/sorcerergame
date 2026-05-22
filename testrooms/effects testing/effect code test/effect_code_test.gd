@@ -1,9 +1,14 @@
 extends Node2D
 @export var testAttrib:Attribute
 @export var testEfect:Effect
-@export var attribs:Array[Attribute]= [
-	Attribute.new("t1"),
-	Attribute.new("t2")
+# WRONG - "t1" is a String, first argument must be a float
+# @export var attribs:Array[Attribute]= [
+#	Attribute.new("t1"),
+#	Attribute.new("t2")
+#]
+@export var attribs: Array[Attribute] = [
+	Attribute.new(10.0),   
+	Attribute.new(15.0) 
 ]
 @export var testEffect2:Effect
 @export var testEffect3:Effect

@@ -13,9 +13,9 @@ func _process(delta):
 	pass
 
 
-func _on_area_3d_body_entered(body):
-	if body.has_node("attributes"):
-		body.attributes._add_effect(effect)
+#func _on_area_3d_body_entered(body):
+	#if body.has_node("attributes"):
+		#body.attributes._add_effect(effect)
 	#print("entered")
 	##print (body.get_property_list())
 	#print(body.get("attributes").strength)

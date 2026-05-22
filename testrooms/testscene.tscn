@@ -1,8 +1,10 @@
-[gd_scene load_steps=13 format=3 uid="uid://c2apxkmgi52x2"]
+[gd_scene load_steps=18 format=3 uid="uid://c2apxkmgi52x2"]
 
 [ext_resource type="Script" uid="uid://800u5gjkpuk4" path="res://testrooms/testroomscripts/testscene.gd" id="1_smjcf"]
 [ext_resource type="PackedScene" uid="uid://c4lqubwcw43y1" path="res://assets/placeholder staff.glb" id="3_d7fxl"]
-[ext_resource type="PackedScene" uid="uid://dfpux28u75lmp" path="res://player/SCN_player_controller.tscn" id="7_k2pne"]
+[ext_resource type="Script" uid="uid://b0pk5pq45na7h" path="res://testrooms/damage_trigger.gd" id="4_yosie"]
+[ext_resource type="Resource" uid="uid://bb1tgb81umxxp" path="res://player/damage/resources/tres/dt_fire.tres" id="5_38u3p"]
+[ext_resource type="PackedScene" uid="uid://dfpux28u75lmp" path="res://player/scn_player_controller.tscn" id="7_k2pne"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_leidy"]
 sky_top_color = Color(0.733333, 0.796078, 0.905882, 1)
@@ -36,6 +38,15 @@ bottom_radius = 1.5
 height = 1.65
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ksq1p"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_yosie"]
+size = Vector3(2, 2, 2)
+
+[sub_resource type="BoxMesh" id="BoxMesh_38u3p"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4uv2t"]
+transparency = 1
+albedo_color = Color(1, 0.02745098, 1, 1)
 
 [node name="Node" type="Node"]
 script = ExtResource("1_smjcf")
@@ -89,3 +100,18 @@ transform = Transform3D(0.135214, 0, 0.990816, 0, 1, 0, -0.990816, 0, 0.135214, 
 
 [node name="PlayerController" parent="." instance=ExtResource("7_k2pne")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20, 0, 0)
+
+[node name="DamageTrigger" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 0, 0)
+script = ExtResource("4_yosie")
+fire_type = ExtResource("5_38u3p")
+
+[node name="Area3D" type="Area3D" parent="DamageTrigger"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="DamageTrigger/Area3D"]
+shape = SubResource("BoxShape3D_yosie")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="DamageTrigger/Area3D"]
+mesh = SubResource("BoxMesh_38u3p")
+surface_material_override/0 = SubResource("StandardMaterial3D_4uv2t")

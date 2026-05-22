@@ -1,9 +1,0 @@
-[gd_resource type="Resource" script_class="DamageComponent" load_steps=3 format=3 uid="uid://cd3u7svb06r41"]
-
-[ext_resource type="Resource" uid="uid://vh4jhi2fef63" path="res://player/damage/resources/example_assets/damage_type_fire.tres" id="1_b5y6l"]
-[ext_resource type="Script" uid="uid://oey4v38x26vu" path="res://player/damage/resources/damage_component.gd" id="1_mshuu"]
-
-[resource]
-script = ExtResource("1_mshuu")
-damage_type = ExtResource("1_b5y6l")
-metadata/_custom_type_script = "uid://oey4v38x26vu"
