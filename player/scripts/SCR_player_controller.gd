@@ -1,6 +1,6 @@
 extends CharacterBody3D
 class_name PlayerController 
-
+#region export variables
 @export_category("attributes")
 @export_group("core attributes")
 @export_range(1,20,1,"or_greater","hide_slider") var strength:float
@@ -25,18 +25,21 @@ class_name PlayerController
 
 @export_category("physics")
 @export var gravity:float = ProjectSettings.get_setting('physics/3d/default_gravity')
+#endregion
 
-
+#region other player vars
 @onready var inputs = $inputs
 @onready var charBody = $claire_pawn
 @onready var camOrbit = $cameraOrbit
 @onready var lookDir = $lookDirection
 @onready var attributes = $attributes
 
+#endregion
+
 var mouseLocked:bool = true
 var currentSpeed = baseSpeed
 
-signal effect_Failed(effect:Effect)
+signal effect_Failed(effect:Effect) #):
 signal effect_Applied(effect:Effect)
 
 
@@ -60,6 +63,7 @@ func _physics_process(delta: float):
 func move(isAming=false):
 	var inputDir = inputs.inputDir
 	var direction = (transform.basis * Vector3(inputDir.x,0,inputDir.y)).normalized()
+	print(inputDir)
 	var moveSpeed = Global.convertSpeedtometers(currentSpeed)
 	if inputs.isRunning:
 		moveSpeed *= runMultiplier

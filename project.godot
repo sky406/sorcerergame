@@ -12,6 +12,7 @@ config_version=5
 
 config/name="clairgame"
 config/tags=PackedStringArray("3d", "my_projects")
+run/main_scene="uid://c2apxkmgi52x2"
 config/features=PackedStringArray("4.5", "Forward Plus")
 config/icon="res://icon.svg"
 
@@ -20,9 +21,24 @@ config/icon="res://icon.svg"
 Global="*res://global.gd"
 PS_InteractionManager="res://environement items/interactables/interactionManager.tscn"
 
+[editor]
+
+version_control/plugin_name="GitPlugin"
+version_control/autoload_on_startup=true
+
 [editor_plugins]
 
 enabled=PackedStringArray("res://addons/effectmaker/plugin.cfg")
+
+[file_customization]
+
+folder_colors={
+"res://components/": "orange",
+"res://components/preview/": "red",
+"res://player/": "yellow",
+"res://testrooms/": "red",
+"res://testrooms/testing tools/": "yellow"
+}
 
 [global_group]
 
