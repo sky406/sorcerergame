@@ -20,6 +20,7 @@ config/icon="res://icon.svg"
 
 Global="*res://global.gd"
 PS_InteractionManager="res://environement items/interactables/interactionManager.tscn"
+JournalManager="*res://journal/scripts/JournalManager.gd"
 
 [dotnet]
 

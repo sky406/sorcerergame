@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://c1wdmpac5mo3p"]
+
+[ext_resource type="Script" uid="uid://d31ere7w8gatp" path="res://journal_trigger.gd" id="1_hlsce"]
+
+[node name="Area3D" type="Area3D"]
+script = ExtResource("1_hlsce")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
