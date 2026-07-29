@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="Effect" load_steps=3 format=3 uid="uid://sim7ce28cobi"]
+
+[ext_resource type="Script" uid="uid://dgdmgq7q0yc2v" path="res://player/items/weapons/weapon components/scripts/die.gd" id="1_opl1n"]
+[ext_resource type="Script" uid="uid://c47ansiwqjyiq" path="res://components/attributes/effects/res_effect.gd" id="2_qtnff"]
+
+[resource]
+script = ExtResource("2_qtnff")
+metadata/_custom_type_script = "uid://c47ansiwqjyiq"

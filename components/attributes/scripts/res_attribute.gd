@@ -1,15 +1,19 @@
 class_name Attribute extends Resource
 
 @export_group("details")
-@export var limit:float= 20.0
+## base value for the attribute 
 @export var value:float
+## maximum possible for the attribute
+@export var limit:float= 20.0
+
 
 @export_group("settings")
+## set this to false for static effects
 @export var acceptEffects:bool = true
 
 @export_subgroup("accepted effect types")
 @export var additiveBonus:bool = true
-@export var multipliedBonus:bool
+@export var multipliedBonus:bool = false
 @export var dice:bool = false
 
 
@@ -40,7 +44,7 @@ func addEffect(effect:Effect) -> bool:
 			multiplier += effect.ammount
 
 		if dice:
-			if effect.diceAdd:
+			if effect.addDice:
 				if effect.affects in dieadd:
 					dieadd[effect.affects].append_array(effect.dice)
 				else:
@@ -67,7 +71,7 @@ func removeEffect(effect:Effect):
 			multiplier -= effect.ammount
 
 		if dice:
-			if effect.diceAdd:
+			if effect.addDice:
 				for die in effect.dice:
 					dieadd[effect.affects].erase(die)
 			else :
