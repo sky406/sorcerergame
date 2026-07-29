@@ -63,7 +63,7 @@ func _physics_process(delta: float):
 func move(isAming=false):
 	var inputDir = inputs.inputDir
 	var direction = (transform.basis * Vector3(inputDir.x,0,inputDir.y)).normalized()
-	print(inputDir)
+	#print(inputDir)
 	var moveSpeed = Global.convertSpeedtometers(currentSpeed)
 	if inputs.isRunning:
 		moveSpeed *= runMultiplier

@@ -1,0 +1,51 @@
+[gd_scene load_steps=8 format=3 uid="uid://bsfw6u64mte57"]
+
+[ext_resource type="Material" uid="uid://chdoramu2yoff" path="res://assets/materials/MAT_placeholder.tres" id="1_vrhg2"]
+[ext_resource type="PackedScene" path="res://player/scn_player_controller.tscn" id="2_0jad3"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_vrhg2"]
+sky_top_color = Color(0.6489091, 0.82044154, 0.9223211, 1)
+sky_horizon_color = Color(0.82160246, 0.8644856, 0.88995546, 1)
+ground_bottom_color = Color(0, 0, 0, 1)
+ground_horizon_color = Color(0.82160246, 0.8644856, 0.88995546, 1)
+
+[sub_resource type="Sky" id="Sky_0jad3"]
+sky_material = SubResource("ProceduralSkyMaterial_vrhg2")
+
+[sub_resource type="Environment" id="Environment_3tlam"]
+background_mode = 2
+sky = SubResource("Sky_0jad3")
+tonemap_mode = 2
+ssao_enabled = true
+glow_enabled = true
+glow_intensity = 0.6
+glow_strength = 0.44
+
+[sub_resource type="BoxMesh" id="BoxMesh_wkiej"]
+material = ExtResource("1_vrhg2")
+size = Vector3(200, 10, 200)
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_0jad3"]
+data = PackedVector3Array(-100, 5, 100, 100, 5, 100, -100, -5, 100, 100, 5, 100, 100, -5, 100, -100, -5, 100, 100, 5, -100, -100, 5, -100, 100, -5, -100, -100, 5, -100, -100, -5, -100, 100, -5, -100, 100, 5, 100, 100, 5, -100, 100, -5, 100, 100, 5, -100, 100, -5, -100, 100, -5, 100, -100, 5, -100, -100, 5, 100, -100, -5, -100, -100, 5, 100, -100, -5, 100, -100, -5, -100, 100, 5, 100, -100, 5, 100, 100, 5, -100, -100, 5, 100, -100, 5, -100, 100, 5, -100, -100, -5, 100, 100, -5, 100, -100, -5, -100, 100, -5, 100, 100, -5, -100, -100, -5, -100)
+
+[node name="ScnImprovedTestroom" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_3tlam")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.86272997, -0.07547902, 0.5000001, 0.49809742, 0.043577783, 0.86602545, -0.08715564, 0.99619484, 4.593856e-08, 0, 18, 0)
+shadow_enabled = true
+directional_shadow_max_distance = 1.0
+
+[node name="floor" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.116680145, 0.22565079, 0.03213501)
+mesh = SubResource("BoxMesh_wkiej")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="floor"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="floor/StaticBody3D"]
+shape = SubResource("ConcavePolygonShape3D_0jad3")
+
+[node name="PlayerController" parent="." instance=ExtResource("2_0jad3")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 1.9019437, 5.4086447, 10.180342)
