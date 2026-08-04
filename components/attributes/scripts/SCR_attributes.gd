@@ -5,7 +5,8 @@ var resistances:Array[Resistance]
 var damageImmunities:Array[DamageType] 
 var effectResistances:Array[String]
 var attributes:Dictionary[String,Attribute]
-# ''' signals '''
+
+#region ''' signals '''
 signal attribute_changed(newattr)
 signal effect_added(effect)
 signal effect_removed(effect)
@@ -18,7 +19,7 @@ signal maxHpChanged(old,new)
 signal damageImmune(damage)
 signal healed(old,new,ammount)
 # this comment just prevents a bug in vscode don't pay any attention to it):
-
+#endregion
 
 
 func _ready():
@@ -28,7 +29,7 @@ func _setAttributes(attribs:Dictionary[String,Attribute]):
 	attributes = attribs
 
 	# setting all derived attributes
-	attributes["hp"] = Attribute.new(calculateHP(),false,9999,true)
+	attributes["hp"] = HP.new(calculateHP())
 
 
 func getAttributeValue(attribName:String) -> float:
@@ -42,8 +43,8 @@ func getAttributeValue(attribName:String) -> float:
 # attribute functions
 func getMod(attribName:String) -> float:
 	# ): 
-	var atttribval = getAttributeValue(attribName)
-	return floor((float(atttribval)-10)/2.0)
+	var attribval = getAttributeValue(attribName)
+	return floor((float(attribval)-10)/2.0)
 
 func calculateHP() -> float:
 	# ):

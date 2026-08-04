@@ -78,10 +78,6 @@ func removeEffect(effect:Effect):
 				for die in effect.dice:
 					diesubtract[effect.affects].erase(die)
 
-
-		
-
-
 func total():
 	if multiplier == 0:
 		return ceil(clamp(value+bonus,0,limit))

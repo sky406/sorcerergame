@@ -23,7 +23,6 @@ func _ready() :
 
 
 
-# func _process(delta: float):
-# 	for attr in attribs.keys():
-# 		var attribName:String = attr
-# 		var attrival
+ #func _process(delta: float):
+	#pass
+	##for attr in 

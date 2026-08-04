@@ -10,6 +10,7 @@ size = Vector3(1, 1.71, 1)
 
 [node name="ScnTestcolider" type="Node3D"]
 script = ExtResource("1_3qyjk")
+onCollide = Callable()
 
 [node name="Area3D" type="Area3D" parent="."]
 collision_layer = 2
@@ -25,6 +26,5 @@ mesh = SubResource("BoxMesh_2nlw0")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
 pixel_size = 0.01
 billboard = 2
-text = "change me"
 
 [connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]
