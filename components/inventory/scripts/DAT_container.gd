@@ -1,6 +1,6 @@
 extends Object
 class_name ItemContainer
-const empty:ItemData = preload("res://creature components/inventory/res_null_item.tres")
+const empty:ItemData = preload("res://components/inventory/res_null_item.tres")
 var count:int
 var item:ItemData = empty
 

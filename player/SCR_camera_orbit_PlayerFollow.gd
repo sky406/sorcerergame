@@ -30,7 +30,7 @@ func calcCamSpeed() -> float:
 	# if camDist < camMinDist:
 	# 	extraSpeed= camDist/camMinDist
 	# return clamp(camDistScale**camDist - 1,0,10) + extraSpeed
-	print(camDist**2*0.1+baseSpeed)
+	#print(camDist**2*0.1+baseSpeed)
 	return camDist**2*0.5+baseSpeed
 
 

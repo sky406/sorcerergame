@@ -42,7 +42,7 @@ environment = SubResource("Environment_mtg4y")
 spawnLocation = NodePath("projectileLocation")
 
 [node name="projectileLocation" type="Marker3D" parent="ProjectileSpawner"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 21.80148, 0)
+transform = Transform3D(0.95051575, -0.31067643, 0, 0.31067643, 0.95051575, 0, 0, 0, 1, -1.3990207, 21.80148, 0)
 
 [node name="Timer" type="Timer" parent="."]
 wait_time = 0.268
