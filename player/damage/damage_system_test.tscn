@@ -1,0 +1,211 @@
+[gd_scene load_steps=3 format=3 uid="uid://6up1bjabfblr"]
+
+[ext_resource type="Script" uid="uid://bawwite85015f" path="res://player/damage/nodes/combatant_stats.gd" id="1_a4hlu"]
+[ext_resource type="Script" uid="uid://csnfa3tf8ee8a" path="res://player/damage/damage_system_test.gd" id="1_xtn7w"]
+
+[node name="DamageSystemTest" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_xtn7w")
+
+[node name="AttackerStats" type="Node" parent="."]
+script = ExtResource("1_a4hlu")
+
+[node name="DefenderStats" type="Node" parent="."]
+script = ExtResource("1_a4hlu")
+
+[node name="MainMargin" type="MarginContainer" parent="."]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="MainVBox" type="VBoxContainer" parent="MainMargin"]
+layout_mode = 2
+alignment = 1
+
+[node name="TitleLabel" type="Label" parent="MainMargin/MainVBox"]
+layout_mode = 2
+text = "Damage System Test"
+horizontal_alignment = 1
+
+[node name="AttackSeparator" type="HSeparator" parent="MainMargin/MainVBox"]
+layout_mode = 2
+
+[node name="AttackerTitle" type="Label" parent="MainMargin/MainVBox"]
+layout_mode = 2
+text = "Attacker"
+
+[node name="AttackRow" type="HBoxContainer" parent="MainMargin/MainVBox"]
+layout_mode = 2
+
+[node name="AttackLabel" type="Label" parent="MainMargin/MainVBox/AttackRow"]
+layout_mode = 2
+text = "Attack:"
+
+[node name="AttackInput" type="SpinBox" parent="MainMargin/MainVBox/AttackRow"]
+unique_name_in_owner = true
+layout_mode = 2
+value = 10.0
+
+[node name="DamageSeparator" type="HSeparator" parent="MainMargin/MainVBox"]
+layout_mode = 2
+
+[node name="DamageTitle" type="Label" parent="MainMargin/MainVBox"]
+layout_mode = 2
+text = "Damage"
+
+[node name="DiceRow" type="HBoxContainer" parent="MainMargin/MainVBox"]
+layout_mode = 2
+
+[node name="DiceCountLabel" type="Label" parent="MainMargin/MainVBox/DiceRow"]
+layout_mode = 2
+text = "Dice count:"
+
+[node name="DiceCountInput" type="SpinBox" parent="MainMargin/MainVBox/DiceRow"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="DiceSideLabel" type="Label" parent="MainMargin/MainVBox/DiceRow"]
+layout_mode = 2
+text = "Dice sides:"
+
+[node name="DiceSidesInput" type="SpinBox" parent="MainMargin/MainVBox/DiceRow"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="DamageTypeRow" type="HBoxContainer" parent="MainMargin/MainVBox"]
+layout_mode = 2
+
+[node name="DamageTypeLabel" type="Label" parent="MainMargin/MainVBox/DamageTypeRow"]
+layout_mode = 2
+text = "Damage type:"
+
+[node name="DamageTypeInput" type="LineEdit" parent="MainMargin/MainVBox/DamageTypeRow"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "slashing"
+
+[node name="BonusesRow" type="HBoxContainer" parent="MainMargin/MainVBox"]
+layout_mode = 2
+
+[node name="FlatBonusLabel" type="Label" parent="MainMargin/MainVBox/BonusesRow"]
+layout_mode = 2
+text = "Flat bonus:"
+
+[node name="FlatBonusInput" type="SpinBox" parent="MainMargin/MainVBox/BonusesRow"]
+unique_name_in_owner = true
+layout_mode = 2
+min_value = -100.0
+value = 2.0
+
+[node name="EffectBonusLabel" type="Label" parent="MainMargin/MainVBox/BonusesRow"]
+layout_mode = 2
+text = "Effect bonus:"
+
+[node name="EffectBonusInput" type="SpinBox" parent="MainMargin/MainVBox/BonusesRow"]
+unique_name_in_owner = true
+layout_mode = 2
+min_value = -100.0
+
+[node name="LingeringRow" type="HBoxContainer" parent="MainMargin/MainVBox"]
+layout_mode = 2
+
+[node name="LingeringLabel" type="Label" parent="MainMargin/MainVBox/LingeringRow"]
+layout_mode = 2
+text = "Lingering effect:"
+
+[node name="LingeringInput" type="LineEdit" parent="MainMargin/MainVBox/LingeringRow"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "bleeding"
+
+[node name="EnemySeparator" type="HSeparator" parent="MainMargin/MainVBox"]
+layout_mode = 2
+
+[node name="EnemyTitle" type="Label" parent="MainMargin/MainVBox"]
+layout_mode = 2
+text = "Enemy"
+
+[node name="EnemyHealthRow" type="HBoxContainer" parent="MainMargin/MainVBox"]
+layout_mode = 2
+
+[node name="HealthLabel" type="Label" parent="MainMargin/MainVBox/EnemyHealthRow"]
+layout_mode = 2
+text = "Health:"
+
+[node name="HealthInput" type="SpinBox" parent="MainMargin/MainVBox/EnemyHealthRow"]
+unique_name_in_owner = true
+layout_mode = 2
+min_value = 1.0
+max_value = 1000.0
+value = 100.0
+
+[node name="EnemyResistanceRow" type="HBoxContainer" parent="MainMargin/MainVBox"]
+layout_mode = 2
+
+[node name="ResistanceLabel" type="Label" parent="MainMargin/MainVBox/EnemyResistanceRow"]
+layout_mode = 2
+text = "Resistance %:"
+
+[node name="ResistanceInput" type="SpinBox" parent="MainMargin/MainVBox/EnemyResistanceRow"]
+unique_name_in_owner = true
+layout_mode = 2
+max_value = 99.0
+
+[node name="EnemyFlagsRow" type="HBoxContainer" parent="MainMargin/MainVBox"]
+layout_mode = 2
+
+[node name="ImmuneCheck" type="CheckBox" parent="MainMargin/MainVBox/EnemyFlagsRow"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Immune"
+
+[node name="VulnerableCheck" type="CheckBox" parent="MainMargin/MainVBox/EnemyFlagsRow"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Vulnerable"
+
+[node name="ButtonsSeparator" type="HSeparator" parent="MainMargin/MainVBox"]
+layout_mode = 2
+
+[node name="ButtonsRow" type="HBoxContainer" parent="MainMargin/MainVBox"]
+layout_mode = 2
+
+[node name="ApplyHitButton" type="Button" parent="MainMargin/MainVBox/ButtonsRow"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Apply One Hit"
+
+[node name="ApplyMultipleHitsButton" type="Button" parent="MainMargin/MainVBox/ButtonsRow"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Apply Multiple Hits - set to 3 rn"
+
+[node name="ResetButton" type="Button" parent="MainMargin/MainVBox/ButtonsRow"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Reset"
+
+[node name="ResultLabel" type="Label" parent="MainMargin/MainVBox"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Ready"
+
+[node name="HistoryOutput" type="RichTextLabel" parent="MainMargin/MainVBox"]
+unique_name_in_owner = true
+clip_contents = false
+custom_minimum_size = Vector2(250, 0)
+layout_mode = 2
+text = "Ready"

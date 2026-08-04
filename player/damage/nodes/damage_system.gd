@@ -46,7 +46,6 @@ Final damage = Damage from dice roll
 
 """
 extends Node
-class_name DamageSystem
 
 @export var lingering_window_ms: int = 3000
 @export var lingering_hits_required: int = 3
