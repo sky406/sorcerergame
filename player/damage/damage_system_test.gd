@@ -23,7 +23,7 @@ extends Control
 @onready var reset_button: Button = %ResetButton
 
 @onready var result_label: Label = %ResultLabel
-@onready var history_output: RichTextLabel = %HistoryOutput
+@onready var history_output: RichTextLabel = %ResultOutput
 
 
 func _ready() -> void:
@@ -91,7 +91,7 @@ func _reset_combatants() -> void:
 	defender_stats.lingering_effects.clear()
 
 	history_output.clear()
-	_update_result("Ready")
+	_update_result("Damage Result")
 
 
 func _configure_combatants() -> void:
@@ -145,70 +145,410 @@ func _get_damage_type_id() -> String:
 	return value
 
 
-func _apply_test_hit() -> int:
+func _apply_test_hit() -> Dictionary:
 	_configure_combatants()
 
 	var component := _create_damage_component()
 	var components: Array[DamageComponent] = [component]
 
-	var health_before := defender_stats.health
-
-	var total_damage := DamageSystem.apply_hit(
+	return DamageSystem.apply_hit_detailed(
 		attacker_stats,
 		defender_stats,
 		components
 	)
 
-	var health_after := defender_stats.health
-
-	_append_history(
-		"Hit completed | total=%d | health: %d → %d"
-		% [total_damage, health_before, health_after]
-	)
-
-	_update_result("Last hit: %d damage" % total_damage)
-
-	return total_damage
-
-
 func _on_apply_hit_pressed() -> void:
-	_apply_test_hit()
+	var report := _apply_test_hit()
+	_display_attack_report(report)
 
+func _display_attack_report(report: Dictionary) -> void:
+	var output_lines: Array[String] = []
 
-func _on_apply_three_hits_pressed() -> void:
-	for hit_number in range(3):
-		var damage := _apply_test_hit()
+	output_lines.append("")
 
-		_append_history(
-			"Rapid hit %d dealt %d"
-			% [hit_number + 1, damage]
+	var components: Array = report["components"]
+
+	for index in range(components.size()):
+		var component_report: Dictionary = components[index]
+
+		if components.size() > 1:
+			output_lines.append(
+				"COMPONENT %d"
+				% [index + 1]
+			)
+			output_lines.append("")
+
+		output_lines.append(
+			"Damage Type: %s"
+				% component_report["damage_type_name"]
 		)
 
+		output_lines.append(
+			"Dice: %s"
+				% _format_rolls(
+					component_report["dice_rolls"]
+				)
+		)
+
+		output_lines.append(
+			"Dice Total: %d"
+				% int(component_report["dice_total"])
+		)
+
+		output_lines.append(
+			"Attack Bonus: %s"
+				% _format_signed_number(
+					int(component_report["attack_bonus"])
+				)
+		)
+
+		output_lines.append(
+			"Flat Bonus: %s"
+				% _format_signed_number(
+					int(component_report["flat_bonus"])
+				)
+		)
+
+		output_lines.append(
+			"Effect Bonus: %s"
+				% _format_signed_number(
+					int(component_report["effect_bonus"])
+				)
+		)
+
+		output_lines.append(
+			"Raw Damage: %d"
+				% int(component_report["raw_damage"])
+		)
+
+		output_lines.append(
+			"Resistance: %.0f%%"
+				% (
+					float(component_report["resistance"])
+					* 100.0
+				)
+		)
+
+		output_lines.append(
+			"After Resistance: %d"
+				% int(
+					component_report[
+						"damage_after_resistance"
+					]
+				)
+		)
+
+		output_lines.append(
+			"Vulnerable: %s"
+				% _yes_or_no(
+					bool(
+						component_report[
+							"is_vulnerable"
+						]
+					)
+				)
+		)
+
+		output_lines.append(
+			"Immune: %s"
+				% _yes_or_no(
+					bool(
+						component_report[
+							"is_immune"
+						]
+					)
+				)
+		)
+
+		output_lines.append(
+			"Final Damage: %d"
+				% int(component_report["final_damage"])
+		)
+
+		output_lines.append(
+			"Enemy HP: %d → %d"
+				% [
+					int(component_report["health_before"]),
+					int(component_report["health_after"])
+				]
+		)
+
+		output_lines.append(
+			"Lingering Counter: %d / %d"
+				% [
+					int(
+						component_report[
+							"lingering_count_after"
+						]
+					),
+					int(
+						component_report[
+							"lingering_hits_required"
+						]
+					)
+				]
+		)
+
+		var lingering_applied := bool(
+			component_report["lingering_applied"]
+		)
+
+		output_lines.append(
+			"Lingering Applied: %s"
+				% _yes_or_no(lingering_applied)
+		)
+
+		if lingering_applied:
+			output_lines.append(
+				"Lingering Effect: %s"
+					% component_report[
+						"lingering_effect_id"
+					]
+			)
+
+		output_lines.append("")
+
+	output_lines.append(
+		"TOTAL DAMAGE: %d"
+			% int(report["total_damage"])
+	)
+
+	output_lines.append(
+		"TOTAL HP CHANGE: %d → %d"
+			% [
+				int(report["health_before"]),
+				int(report["health_after"])
+			]
+	)
+
+	history_output.text = "\n".join(output_lines)
+
+	_update_result(
+		"Last hit: %d damage"
+			% int(report["total_damage"])
+	)
+
+func _format_rolls(rolls: Array) -> String:
+	if rolls.is_empty():
+		return "[]"
+
+	var values: Array[String] = []
+
+	for roll_value in rolls:
+		values.append(str(roll_value))
+
+	return "[" + ", ".join(values) + "]"
+
+func _format_signed_number(value: int) -> String:
+	if value >= 0:
+		return "+%d" % value
+
+	return str(value)
+
+func _yes_or_no(value: bool) -> String:
+	if value:
+		return "Yes"
+
+	return "No"
+
+func _on_apply_three_hits_pressed() -> void:
+	var reports: Array[Dictionary] = []
+	var sequence_health_before := defender_stats.health
+
+	for _hit_number in range(3):
+		var report := _apply_test_hit()
+		reports.append(report)
+
+	_display_multi_hit_report(
+		reports,
+		sequence_health_before,
+		defender_stats.health
+	)
+
+func _display_multi_hit_report(
+	reports: Array[Dictionary],
+	sequence_health_before: int,
+	sequence_health_after: int
+) -> void:
+	var output_lines: Array[String] = []
+
+	output_lines.append("")
+	output_lines.append("MULTI-HIT SUMMARY")
+	output_lines.append("")
+
+	var sequence_total_damage := 0
+	var lingering_triggered := false
+	var triggered_effects: Array[String] = []
+
+	for hit_index in range(reports.size()):
+		var report: Dictionary = reports[hit_index]
+		var hit_damage := int(report["total_damage"])
+
+		sequence_total_damage += hit_damage
+
+		output_lines.append(
+			"HIT %d"
+			% [hit_index + 1]
+		)
+
+		var components: Array = report["components"]
+
+		for component_value in components:
+			var component_report: Dictionary = component_value
+
+			output_lines.append(
+				"Damage Type: %s"
+				% component_report["damage_type_name"]
+			)
+
+			output_lines.append(
+				"Dice: %s"
+				% _format_rolls(
+					component_report["dice_rolls"]
+				)
+			)
+
+			output_lines.append(
+				"Dice Total: %d"
+				% int(component_report["dice_total"])
+			)
+
+			output_lines.append(
+				"Raw Damage: %d"
+				% int(component_report["raw_damage"])
+			)
+
+			output_lines.append(
+				"Resistance: %.0f%%"
+				% (
+					float(component_report["resistance"])
+					* 100.0
+				)
+			)
+
+			output_lines.append(
+				"Final Damage: %d"
+				% int(component_report["final_damage"])
+			)
+
+			output_lines.append(
+				"Enemy HP: %d → %d"
+				% [
+					int(component_report["health_before"]),
+					int(component_report["health_after"])
+				]
+			)
+
+			var effect_applied := bool(
+				component_report["lingering_applied"]
+			)
+
+			if effect_applied:
+				lingering_triggered = true
+
+				var effect_id := str(
+					component_report["lingering_effect_id"]
+				)
+
+				if (
+					not effect_id.is_empty()
+					and effect_id not in triggered_effects
+				):
+					triggered_effects.append(effect_id)
+
+				output_lines.append(
+					"Lingering Counter: Triggered at %d / %d; reset to 0"
+						% [
+							int(
+								component_report[
+									"lingering_hits_required"
+								]
+							),
+							int(
+								component_report[
+									"lingering_hits_required"
+								]
+							)
+						]
+				)
+			else:
+				output_lines.append(
+					"Lingering Counter: %d / %d"
+						% [
+							int(
+								component_report[
+									"lingering_count_after"
+								]
+							),
+							int(
+								component_report[
+									"lingering_hits_required"
+								]
+							)
+						]
+				)
+
+		output_lines.append(
+			"Hit %d Total: %d"
+				% [hit_index + 1, hit_damage]
+		)
+
+		output_lines.append("")
+
+	output_lines.append("--------------------")
+
+	output_lines.append(
+		"SEQUENCE TOTAL DAMAGE: %d"
+			% sequence_total_damage
+	)
+
+	output_lines.append(
+		"SEQUENCE HP CHANGE: %d → %d"
+			% [
+				sequence_health_before,
+				sequence_health_after
+			]
+	)
+
+	output_lines.append(
+		"Lingering Triggered: %s"
+			% _yes_or_no(lingering_triggered)
+	)
+
+	if not triggered_effects.is_empty():
+		output_lines.append(
+			"Lingering Effects Applied: %s"
+				% ", ".join(triggered_effects)
+		)
+
+	history_output.text = "\n".join(output_lines)
+
+	_update_result(
+		"Three hits dealt %d total damage"
+			% sequence_total_damage
+	)
 
 func _on_reset_pressed() -> void:
 	_reset_combatants()
 
 
 func _on_defender_damaged(
-	amount: int,
-	damage_type_id: String
+	_amount: int,
+	_damage_type_id: String
 ) -> void:
-	_append_history(
-		"Signal: damaged(%d, \"%s\")"
-		% [amount, damage_type_id]
-	)
+	pass
 
 
-func _on_lingering_applied(effect_id: String) -> void:
-	_append_history(
-		"Signal: lingering_applied(\"%s\")"
-		% effect_id
-	)
+func _on_lingering_applied(
+	_effect_id: String
+) -> void:
+	pass
 
 
 func _update_result(message: String) -> void:
 	result_label.text = (
-		"%s\n"
+		"Damage Result\n"
+		+"%s\n"
 		+ "Defender HP: %d / %d\n"
 		+ "Active effects: %s"
 	) % [
@@ -232,4 +572,4 @@ func _get_active_effect_names() -> String:
 
 
 func _append_history(message: String) -> void:
-	history_output.append_text(message + "\n")
+	history_output.append_text("\n" + message + "\n")

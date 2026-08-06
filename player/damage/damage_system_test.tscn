@@ -31,181 +31,192 @@ theme_override_constants/margin_top = 20
 theme_override_constants/margin_right = 20
 theme_override_constants/margin_bottom = 20
 
-[node name="MainVBox" type="VBoxContainer" parent="MainMargin"]
+[node name="MainScroll" type="ScrollContainer" parent="MainMargin"]
 layout_mode = 2
-alignment = 1
+horizontal_scroll_mode = 0
 
-[node name="TitleLabel" type="Label" parent="MainMargin/MainVBox"]
+[node name="MainVBox" type="VBoxContainer" parent="MainMargin/MainScroll"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="TitleLabel" type="Label" parent="MainMargin/MainScroll/MainVBox"]
 layout_mode = 2
 text = "Damage System Test"
 horizontal_alignment = 1
 
-[node name="AttackSeparator" type="HSeparator" parent="MainMargin/MainVBox"]
+[node name="AttackSeparator" type="HSeparator" parent="MainMargin/MainScroll/MainVBox"]
 layout_mode = 2
 
-[node name="AttackerTitle" type="Label" parent="MainMargin/MainVBox"]
+[node name="AttackerTitle" type="Label" parent="MainMargin/MainScroll/MainVBox"]
 layout_mode = 2
 text = "Attacker"
 
-[node name="AttackRow" type="HBoxContainer" parent="MainMargin/MainVBox"]
+[node name="AttackRow" type="HBoxContainer" parent="MainMargin/MainScroll/MainVBox"]
 layout_mode = 2
 
-[node name="AttackLabel" type="Label" parent="MainMargin/MainVBox/AttackRow"]
+[node name="AttackLabel" type="Label" parent="MainMargin/MainScroll/MainVBox/AttackRow"]
 layout_mode = 2
 text = "Attack:"
 
-[node name="AttackInput" type="SpinBox" parent="MainMargin/MainVBox/AttackRow"]
+[node name="AttackInput" type="SpinBox" parent="MainMargin/MainScroll/MainVBox/AttackRow"]
 unique_name_in_owner = true
 layout_mode = 2
 value = 10.0
 
-[node name="DamageSeparator" type="HSeparator" parent="MainMargin/MainVBox"]
+[node name="DamageSeparator" type="HSeparator" parent="MainMargin/MainScroll/MainVBox"]
 layout_mode = 2
 
-[node name="DamageTitle" type="Label" parent="MainMargin/MainVBox"]
+[node name="DamageTitle" type="Label" parent="MainMargin/MainScroll/MainVBox"]
 layout_mode = 2
 text = "Damage"
 
-[node name="DiceRow" type="HBoxContainer" parent="MainMargin/MainVBox"]
+[node name="DiceRow" type="HBoxContainer" parent="MainMargin/MainScroll/MainVBox"]
 layout_mode = 2
 
-[node name="DiceCountLabel" type="Label" parent="MainMargin/MainVBox/DiceRow"]
+[node name="DiceCountLabel" type="Label" parent="MainMargin/MainScroll/MainVBox/DiceRow"]
 layout_mode = 2
 text = "Dice count:"
 
-[node name="DiceCountInput" type="SpinBox" parent="MainMargin/MainVBox/DiceRow"]
+[node name="DiceCountInput" type="SpinBox" parent="MainMargin/MainScroll/MainVBox/DiceRow"]
 unique_name_in_owner = true
 layout_mode = 2
 
-[node name="DiceSideLabel" type="Label" parent="MainMargin/MainVBox/DiceRow"]
+[node name="DiceSideLabel" type="Label" parent="MainMargin/MainScroll/MainVBox/DiceRow"]
 layout_mode = 2
 text = "Dice sides:"
 
-[node name="DiceSidesInput" type="SpinBox" parent="MainMargin/MainVBox/DiceRow"]
+[node name="DiceSidesInput" type="SpinBox" parent="MainMargin/MainScroll/MainVBox/DiceRow"]
 unique_name_in_owner = true
 layout_mode = 2
 
-[node name="DamageTypeRow" type="HBoxContainer" parent="MainMargin/MainVBox"]
+[node name="DamageTypeRow" type="HBoxContainer" parent="MainMargin/MainScroll/MainVBox"]
 layout_mode = 2
 
-[node name="DamageTypeLabel" type="Label" parent="MainMargin/MainVBox/DamageTypeRow"]
+[node name="DamageTypeLabel" type="Label" parent="MainMargin/MainScroll/MainVBox/DamageTypeRow"]
 layout_mode = 2
 text = "Damage type:"
 
-[node name="DamageTypeInput" type="LineEdit" parent="MainMargin/MainVBox/DamageTypeRow"]
+[node name="DamageTypeInput" type="LineEdit" parent="MainMargin/MainScroll/MainVBox/DamageTypeRow"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "slashing"
 
-[node name="BonusesRow" type="HBoxContainer" parent="MainMargin/MainVBox"]
+[node name="BonusesRow" type="HBoxContainer" parent="MainMargin/MainScroll/MainVBox"]
 layout_mode = 2
 
-[node name="FlatBonusLabel" type="Label" parent="MainMargin/MainVBox/BonusesRow"]
+[node name="FlatBonusLabel" type="Label" parent="MainMargin/MainScroll/MainVBox/BonusesRow"]
 layout_mode = 2
 text = "Flat bonus:"
 
-[node name="FlatBonusInput" type="SpinBox" parent="MainMargin/MainVBox/BonusesRow"]
+[node name="FlatBonusInput" type="SpinBox" parent="MainMargin/MainScroll/MainVBox/BonusesRow"]
 unique_name_in_owner = true
 layout_mode = 2
 min_value = -100.0
 value = 2.0
 
-[node name="EffectBonusLabel" type="Label" parent="MainMargin/MainVBox/BonusesRow"]
+[node name="EffectBonusLabel" type="Label" parent="MainMargin/MainScroll/MainVBox/BonusesRow"]
 layout_mode = 2
 text = "Effect bonus:"
 
-[node name="EffectBonusInput" type="SpinBox" parent="MainMargin/MainVBox/BonusesRow"]
+[node name="EffectBonusInput" type="SpinBox" parent="MainMargin/MainScroll/MainVBox/BonusesRow"]
 unique_name_in_owner = true
 layout_mode = 2
 min_value = -100.0
 
-[node name="LingeringRow" type="HBoxContainer" parent="MainMargin/MainVBox"]
+[node name="LingeringRow" type="HBoxContainer" parent="MainMargin/MainScroll/MainVBox"]
 layout_mode = 2
 
-[node name="LingeringLabel" type="Label" parent="MainMargin/MainVBox/LingeringRow"]
+[node name="LingeringLabel" type="Label" parent="MainMargin/MainScroll/MainVBox/LingeringRow"]
 layout_mode = 2
 text = "Lingering effect:"
 
-[node name="LingeringInput" type="LineEdit" parent="MainMargin/MainVBox/LingeringRow"]
+[node name="LingeringInput" type="LineEdit" parent="MainMargin/MainScroll/MainVBox/LingeringRow"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "bleeding"
 
-[node name="EnemySeparator" type="HSeparator" parent="MainMargin/MainVBox"]
+[node name="EnemySeparator" type="HSeparator" parent="MainMargin/MainScroll/MainVBox"]
 layout_mode = 2
 
-[node name="EnemyTitle" type="Label" parent="MainMargin/MainVBox"]
+[node name="EnemyTitle" type="Label" parent="MainMargin/MainScroll/MainVBox"]
 layout_mode = 2
 text = "Enemy"
 
-[node name="EnemyHealthRow" type="HBoxContainer" parent="MainMargin/MainVBox"]
+[node name="EnemyHealthRow" type="HBoxContainer" parent="MainMargin/MainScroll/MainVBox"]
 layout_mode = 2
 
-[node name="HealthLabel" type="Label" parent="MainMargin/MainVBox/EnemyHealthRow"]
+[node name="HealthLabel" type="Label" parent="MainMargin/MainScroll/MainVBox/EnemyHealthRow"]
 layout_mode = 2
 text = "Health:"
 
-[node name="HealthInput" type="SpinBox" parent="MainMargin/MainVBox/EnemyHealthRow"]
+[node name="HealthInput" type="SpinBox" parent="MainMargin/MainScroll/MainVBox/EnemyHealthRow"]
 unique_name_in_owner = true
 layout_mode = 2
 min_value = 1.0
 max_value = 1000.0
 value = 100.0
 
-[node name="EnemyResistanceRow" type="HBoxContainer" parent="MainMargin/MainVBox"]
+[node name="EnemyResistanceRow" type="HBoxContainer" parent="MainMargin/MainScroll/MainVBox"]
 layout_mode = 2
 
-[node name="ResistanceLabel" type="Label" parent="MainMargin/MainVBox/EnemyResistanceRow"]
+[node name="ResistanceLabel" type="Label" parent="MainMargin/MainScroll/MainVBox/EnemyResistanceRow"]
 layout_mode = 2
 text = "Resistance %:"
 
-[node name="ResistanceInput" type="SpinBox" parent="MainMargin/MainVBox/EnemyResistanceRow"]
+[node name="ResistanceInput" type="SpinBox" parent="MainMargin/MainScroll/MainVBox/EnemyResistanceRow"]
 unique_name_in_owner = true
 layout_mode = 2
 max_value = 99.0
 
-[node name="EnemyFlagsRow" type="HBoxContainer" parent="MainMargin/MainVBox"]
+[node name="EnemyFlagsRow" type="HBoxContainer" parent="MainMargin/MainScroll/MainVBox"]
 layout_mode = 2
 
-[node name="ImmuneCheck" type="CheckBox" parent="MainMargin/MainVBox/EnemyFlagsRow"]
+[node name="ImmuneCheck" type="CheckBox" parent="MainMargin/MainScroll/MainVBox/EnemyFlagsRow"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Immune"
 
-[node name="VulnerableCheck" type="CheckBox" parent="MainMargin/MainVBox/EnemyFlagsRow"]
+[node name="VulnerableCheck" type="CheckBox" parent="MainMargin/MainScroll/MainVBox/EnemyFlagsRow"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Vulnerable"
 
-[node name="ButtonsSeparator" type="HSeparator" parent="MainMargin/MainVBox"]
+[node name="ButtonsSeparator" type="HSeparator" parent="MainMargin/MainScroll/MainVBox"]
 layout_mode = 2
 
-[node name="ButtonsRow" type="HBoxContainer" parent="MainMargin/MainVBox"]
+[node name="ButtonsRow" type="HBoxContainer" parent="MainMargin/MainScroll/MainVBox"]
 layout_mode = 2
 
-[node name="ApplyHitButton" type="Button" parent="MainMargin/MainVBox/ButtonsRow"]
+[node name="ApplyHitButton" type="Button" parent="MainMargin/MainScroll/MainVBox/ButtonsRow"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Apply One Hit"
 
-[node name="ApplyMultipleHitsButton" type="Button" parent="MainMargin/MainVBox/ButtonsRow"]
+[node name="ApplyMultipleHitsButton" type="Button" parent="MainMargin/MainScroll/MainVBox/ButtonsRow"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Apply Multiple Hits - set to 3 rn"
 
-[node name="ResetButton" type="Button" parent="MainMargin/MainVBox/ButtonsRow"]
+[node name="ResetButton" type="Button" parent="MainMargin/MainScroll/MainVBox/ButtonsRow"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Reset"
 
-[node name="ResultLabel" type="Label" parent="MainMargin/MainVBox"]
+[node name="ResultSeparator" type="HSeparator" parent="MainMargin/MainScroll/MainVBox"]
+layout_mode = 2
+
+[node name="ResultLabel" type="Label" parent="MainMargin/MainScroll/MainVBox"]
 unique_name_in_owner = true
 layout_mode = 2
-text = "Ready"
+text = "Damage Result
+"
 
-[node name="HistoryOutput" type="RichTextLabel" parent="MainMargin/MainVBox"]
+[node name="ResultOutput" type="RichTextLabel" parent="MainMargin/MainScroll/MainVBox"]
 unique_name_in_owner = true
 clip_contents = false
-custom_minimum_size = Vector2(250, 0)
 layout_mode = 2
-text = "Ready"
+text = "N/A
+"
+fit_content = true
+scroll_active = false
+scroll_following = true
