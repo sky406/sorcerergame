@@ -6,7 +6,6 @@
 [ext_resource type="PackedScene" uid="uid://dbg65bg8csgpv" path="res://components/attributes/SCN_attributes.tscn" id="3_qomee"]
 [ext_resource type="Script" uid="uid://dyocojy6tt5g4" path="res://player/scripts/SCR_inputs.gd" id="4_ofvul"]
 [ext_resource type="Script" uid="uid://b1deqny56al3h" path="res://components/inventory/scripts/SCR_inventory_controller.gd" id="6_ofvul"]
-[ext_resource type="Script" uid="uid://bawwite85015f" path="res://player/damage/nodes/combatant_stats.gd" id="5_dvn8e"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_h0fml"]
 height = 2.1914063

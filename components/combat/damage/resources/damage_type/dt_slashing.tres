@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="DamageType" load_steps=5 format=3 uid="uid://dec46jqu4un51"]
+
+[ext_resource type="Script" uid="uid://bwivhrkpjrc25" path="res://components/combat/damage/scripts/scr_damage_type.gd" id="1"]
+[ext_resource type="Resource" uid="uid://dk138n5gikwth" path="res://components/combat/damage/resources/die/die_d6.tres" id="2"]
+[ext_resource type="Script" uid="uid://c47ansiwqjyiq" path="res://components/attributes/effects/res_effect.gd" id="2_gluon"]
+[ext_resource type="Resource" uid="uid://bak82qkaqpla2" path="res://components/attributes/effects/resources/bleeding.tres" id="3_53ei5"]
+
+[resource]
+script = ExtResource("1")
+display_name = "Slashing"
+die = ExtResource("2")
+possible_lingering = Array[ExtResource("2_gluon")]([ExtResource("3_53ei5")])

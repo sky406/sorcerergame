@@ -36,48 +36,91 @@ func _init(
 		acceptEffects = alllowEffects
 
 func addEffect(effect:Effect) -> bool:
-	if (acceptEffects and not effect in effects_applied) or (effect in effects_applied and effect.stackable):
-		if additiveBonus and effect.applymode == "add":
-			bonus += effect.ammount
-		
-		if multipliedBonus and effect.applymode == "multiply":
-			multiplier += effect.ammount
+	# Effects can only be applied if:
+	# - this Attribute accepts effects and the effect is not already applied
+	# OR
+	# - the effect is already applied but is explicitly stackable.
+	var can_apply := (
+		acceptEffects
+		and effect not in effects_applied
+	) or (
+		effect in effects_applied
+		and effect.stackable
+	)
 
-		if dice:
-			if effect.addDice:
-				if effect.affects in dieadd:
-					dieadd[effect.affects].append_array(effect.dice)
-				else:
-					dieadd[effect.affects] = effect.dice
-
-			else:
-				if effect.affects in diesubtract:
-					diesubtract[effect.affects].append_array(effect.dice)
-				else:
-					diesubtract[effect.affects] = effect.dice
-		
-		effects_applied.push_back(effect)
-		return true
-
-	else:
+	# Early return instead of nesting the entire function
+	if not can_apply:
 		return false
 
-func removeEffect(effect:Effect):
-	if effect in effects_applied:
-		if additiveBonus:
-			bonus -= effect.ammount
-		
-		if multipliedBonus:
-			multiplier -= effect.ammount
+	# Apply additive effects to this Attribute's bonus.
+	if additiveBonus and effect.applymode == "add":
+		bonus += effect.ammount
 
-		if dice:
-			if effect.addDice:
-				for die in effect.dice:
-					dieadd[effect.affects].erase(die)
-			else :
-				for die in effect.dice:
-					diesubtract[effect.affects].erase(die)
+	# Apply multiplicative effects to this Attribute's multiplier.
+	if multipliedBonus and effect.applymode == "multiply":
+		multiplier += effect.ammount
 
+	# Some Attributes can also have dice added to or removed from them.
+	if dice:
+		var target_dictionary := (
+			dieadd
+			if effect.addDice
+			else diesubtract
+		)
+
+		if effect.affects in target_dictionary:
+			target_dictionary[
+				effect.affects
+			].append_array(effect.dice)
+		else:
+			# duplicate() avoids storing the exact same Array reference from the Effect resource inside the Attribute.
+			target_dictionary[
+				effect.affects
+			] = effect.dice.duplicate()
+
+	# Keep track of the effect so it can later be removed.
+	effects_applied.push_back(effect)
+
+	return true
+
+# Removes an applied effect and reverses any bonuses, multipliers, or dice changes it previously added.
+func removeEffect(effect: Effect) -> void:
+	# Stop immediately if this effect is not currently applied.
+	if effect not in effects_applied:
+		return
+
+	# The old version could potentially subtract the effect from both bonus and multiplier if both flags are true.
+	# Remove the effect's value from the additive bonus if it was applied as an additive effect.
+	if additiveBonus and effect.applymode == "add":
+		bonus -= effect.ammount
+	# Remove the effect's value from the multiplier if it was applied as a multiplicative effect.
+	if multipliedBonus and effect.applymode == "multiply":
+		multiplier -= effect.ammount
+
+	# Remove any dice that were added or subtracted by this effect.
+	# Instead of duplicating the same loop twice, it decides to use dieadd or diesubtract then runs the removal logic once.
+	if dice:
+		# Choose which dice dictionary the effect originally modified.
+		var target_dictionary := (
+			dieadd
+			if effect.addDice
+			else diesubtract
+		)
+
+		# Check that the dictionary contains an entry for the attribute/stat affected by the effect.
+		# If effect.affects doesn't exist as a key, the old code is more likely to cause an error.
+		if effect.affects in target_dictionary:
+			# Go through every die that was added by this effect.
+			for effect_die in effect.dice:
+				# Remove that die from the appropriate dice list.
+				# Old function, as shown, never actually removes the effect from effects_applied.
+				target_dictionary[
+					effect.affects
+				].erase(effect_die)
+
+	# Remove the effect itself from the list of currently applied effects.
+	effects_applied.erase(effect)
+	
 func total():
 	if multiplier == 0:
 		return ceil(clamp(value+bonus,0,limit))

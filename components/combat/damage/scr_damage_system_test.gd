@@ -1,8 +1,8 @@
 extends Control
 
 
-@onready var attacker_stats: CombatantStats = $AttackerStats
-@onready var defender_stats: CombatantStats = $DefenderStats
+@onready var attacker_stats: Attributes = $AttackerAttributes
+@onready var defender_stats: Attributes = $DefenderAttributes
 
 @onready var attack_input: SpinBox = %AttackInput
 
@@ -25,7 +25,7 @@ extends Control
 @onready var result_label: Label = %ResultLabel
 @onready var history_output: RichTextLabel = %ResultOutput
 
-
+# Initializes the damage test UI, connects signals/buttons, and resets the combatants.
 func _ready() -> void:
 	_set_default_values()
 
@@ -33,12 +33,19 @@ func _ready() -> void:
 	apply_three_hits_button.pressed.connect(_on_apply_three_hits_pressed)
 	reset_button.pressed.connect(_on_reset_pressed)
 
-	defender_stats.damaged.connect(_on_defender_damaged)
-	defender_stats.lingering_applied.connect(_on_lingering_applied)
+	defender_stats.damage_taken.connect(_on_defender_damaged)
+	defender_stats.effect_applied.connect(_on_effect_applied)
+	defender_stats.died.connect(_on_defender_died)
 
 	_reset_combatants()
+	
+	
+func _on_defender_died() -> void:
+	_append_history(
+		"\n" + "Defender died."
+	)
 
-
+# Sets the default values and limits for all damage test inputs and buttons.
 func _set_default_values() -> void:
 	attack_input.min_value = 0
 	attack_input.max_value = 100
@@ -77,74 +84,219 @@ func _set_default_values() -> void:
 	apply_three_hits_button.text = "Apply Multiple Hits"
 	reset_button.text = "Reset"
 
-
+# Resets the attacker and defender stats, clears combat state, and resets the output display.
 func _reset_combatants() -> void:
-	attacker_stats.attack = int(attack_input.value)
+	_initialize_attacker_attributes()
+	_initialize_defender_attributes()
 
-	defender_stats.max_health = int(health_input.value)
-	defender_stats.health = defender_stats.max_health
+	var defender_hp := defender_stats.getHP()
 
-	defender_stats.resistances.clear()
-	defender_stats.vulnerabilities.clear()
-	defender_stats.immunities.clear()
-	defender_stats.recent_hits.clear()
-	defender_stats.lingering_effects.clear()
+	if defender_hp != null:
+		defender_hp.setMaxValue(
+			float(health_input.value)
+		)
+
+		defender_hp.fullHeal()
+
+	defender_stats.recentDamageHits.clear()
 
 	history_output.clear()
+
 	_update_result("Damage Result")
 
+func _initialize_attacker_attributes() -> void:
+	var attribs: Dictionary[String, Attribute] = {
+		"strength": Attribute.new(
+			float(attack_input.value)
+		),
+		"dexterity": Attribute.new(10),
+		"constitution": Attribute.new(10),
+		"inteligence": Attribute.new(10),
+		"wisdom": Attribute.new(10),
+		"charisma": Attribute.new(10),
+		"level": Attribute.new(
+			1,
+			false,
+			20,
+			true
+		)
+	}
 
+	attacker_stats._setAttributes(attribs)
+
+
+func _initialize_defender_attributes() -> void:
+	var attribs: Dictionary[String, Attribute] = {
+		"strength": Attribute.new(10),
+		"dexterity": Attribute.new(10),
+		"constitution": Attribute.new(10),
+		"inteligence": Attribute.new(10),
+		"wisdom": Attribute.new(10),
+		"charisma": Attribute.new(10),
+		"level": Attribute.new(
+			1,
+			false,
+			20,
+			true
+		)
+	}
+
+	defender_stats._setAttributes(attribs)
+
+# Updates the attacker and defender combat stats using the current UI input values.
 func _configure_combatants() -> void:
-	var damage_type_id := _get_damage_type_id()
+	# Update the attacker Strength score from the UI.
+	if attacker_stats.attributes.has("strength"):
+		attacker_stats.attributes["strength"].value = (
+			float(attack_input.value)
+		)
 
-	attacker_stats.attack = int(attack_input.value)
+	var damage_type := _get_damage_type()
 
-	var resistance_decimal := float(resistance_input.value) / 100.0
+	var hp := defender_stats.getHP()
 
-	defender_stats.resistances.clear()
+	if hp == null:
+		return
+
+	hp.resistances.clear()
+	hp.vulnerabilities.clear()
+	hp.immune.clear()
+
+	var resistance_decimal := (
+		float(resistance_input.value)
+		/ 100.0
+	)
+
 	if resistance_decimal > 0.0:
-		defender_stats.resistances[damage_type_id] = resistance_decimal
+		hp.resistances[damage_type] = (
+			resistance_decimal
+		)
 
-	defender_stats.immunities.clear()
-	if immune_check.button_pressed:
-		defender_stats.immunities.append(damage_type_id)
-
-	defender_stats.vulnerabilities.clear()
 	if vulnerable_check.button_pressed:
-		defender_stats.vulnerabilities.append(damage_type_id)
+		# 1.0 = 100% extra damage = x2.
+		hp.vulnerabilities[damage_type] = 1.0
 
-
+	if immune_check.button_pressed:
+		hp.immune.append(damage_type)
+		
+# Creates a DamageComponent from the current dice, damage type, bonuses, and lingering effect inputs.
 func _create_damage_component() -> DamageComponent:
 	var die := Die.new()
-	die.numdice = int(dice_count_input.value)
-	die.dietype = int(dice_sides_input.value)
+
+	die.numdice = int(
+		dice_count_input.value
+	)
+
+	die.dietype = int(
+		dice_sides_input.value
+	)
 
 	var damage_type := DamageType.new()
-	damage_type.id = _get_damage_type_id()
-	damage_type.display_name = damage_type.id.capitalize()
+
+	damage_type.type = _get_damage_type()
+
+	damage_type.display_name = (
+		DamageTypes.types.keys()[
+			damage_type.type
+		].capitalize()
+	)
+
 	damage_type.die = die
 
-	var lingering_id := lingering_input.text.strip_edges().to_lower()
-	if not lingering_id.is_empty():
-		damage_type.possible_lingering.append(lingering_id)
+	var lingering_name := (
+		lingering_input.text
+		.strip_edges()
+		.to_lower()
+	)
+
+	if not lingering_name.is_empty():
+		var effect := _create_test_lingering_effect(
+			lingering_name
+		)
+
+		damage_type.possible_lingering.append(
+			effect
+		)
 
 	var component := DamageComponent.new()
+
 	component.damage_type = damage_type
-	component.flat_bonus = int(flat_bonus_input.value)
-	component.effect_bonus = int(effect_bonus_input.value)
+
+	component.flat_bonus = int(
+		flat_bonus_input.value
+	)
+
+	component.effect_bonus = int(
+		effect_bonus_input.value
+	)
+
+	# For this tester, attacks scale with Strength.
+	component.scaling_attribute = "strength"
+
+	# Keep this false initially so you can isolate
+	# attribute scaling from proficiency.
+	component.add_proficiency = false
 
 	return component
+	
+func _create_test_lingering_effect(
+	effect_name: String
+) -> Effect:
+	var effect := Effect.new()
 
+	effect.effectName = effect_name
 
-func _get_damage_type_id() -> String:
-	var value := damage_type_input.text.strip_edges().to_lower()
+	# Effect must target a valid Attribute because
+	# Attributes.applyEffect() routes it there.
+	effect.targetAttribute = "hp"
 
-	if value.is_empty():
-		return "untyped"
+	effect.stackable = false
 
-	return value
+	# For now this test effect only proves that lingering
+	# application works. Overtime behaviour can be tested
+	# separately once Pass 10 is complete.
+	effect.ammount = 0.0
 
+	return effect
+	
+# Gets and normalizes the entered damage type, defaulting to "untyped" when empty.
+func _get_damage_type() -> DamageTypes.types:
+	var value := (
+		damage_type_input.text
+		.strip_edges()
+		.to_lower()
+	)
 
+	match value:
+		"bludgeouning", "bludgeoning":
+			return DamageTypes.types.bludgeouning
+
+		"slashing":
+			return DamageTypes.types.slashing
+
+		"piercing":
+			return DamageTypes.types.piercing
+
+		"fire":
+			return DamageTypes.types.fire
+
+		"cold":
+			return DamageTypes.types.cold
+
+		"lightning":
+			return DamageTypes.types.lightning
+
+		"aether":
+			return DamageTypes.types.aether
+
+		"blight", "void":
+			return DamageTypes.types.blight
+
+		_:
+			# Temporary safe fallback for tester.
+			return DamageTypes.types.slashing
+			
+# Configures the combatants, creates the test damage component, and applies one hit through the DamageSystem.
 func _apply_test_hit() -> Dictionary:
 	_configure_combatants()
 
@@ -157,10 +309,12 @@ func _apply_test_hit() -> Dictionary:
 		components
 	)
 
+# Applies one test hit when the Apply One Hit button is pressed and displays its report.
 func _on_apply_hit_pressed() -> void:
 	var report := _apply_test_hit()
 	_display_attack_report(report)
 
+# Formats and displays the detailed results of a single attack.
 func _display_attack_report(report: Dictionary) -> void:
 	var output_lines: Array[String] = []
 
@@ -196,9 +350,22 @@ func _display_attack_report(report: Dictionary) -> void:
 		)
 
 		output_lines.append(
-			"Attack Bonus: %s"
+			"Scaling Attribute: %s"
+				% str(
+					component_report[
+						"scaling_attribute"
+					]
+				).capitalize()
+		)
+
+		output_lines.append(
+			"Scaling Bonus: %s"
 				% _format_signed_number(
-					int(component_report["attack_bonus"])
+					int(
+						component_report[
+							"scaling_bonus"
+						]
+					)
 				)
 		)
 
@@ -226,15 +393,6 @@ func _display_attack_report(report: Dictionary) -> void:
 				% (
 					float(component_report["resistance"])
 					* 100.0
-				)
-		)
-
-		output_lines.append(
-			"After Resistance: %d"
-				% int(
-					component_report[
-						"damage_after_resistance"
-					]
 				)
 		)
 
@@ -302,7 +460,7 @@ func _display_attack_report(report: Dictionary) -> void:
 			output_lines.append(
 				"Lingering Effect: %s"
 					% component_report[
-						"lingering_effect_id"
+						"lingering_effect_name"
 					]
 			)
 
@@ -328,6 +486,7 @@ func _display_attack_report(report: Dictionary) -> void:
 			% int(report["total_damage"])
 	)
 
+# Converts an array of dice roll values into a readable string.
 func _format_rolls(rolls: Array) -> String:
 	if rolls.is_empty():
 		return "[]"
@@ -339,21 +498,26 @@ func _format_rolls(rolls: Array) -> String:
 
 	return "[" + ", ".join(values) + "]"
 
+# Formats an integer with an explicit plus sign when the value is positive or zero.
 func _format_signed_number(value: int) -> String:
 	if value >= 0:
 		return "+%d" % value
 
 	return str(value)
 
+# Converts a boolean value into a readable "Yes" or "No" string.
 func _yes_or_no(value: bool) -> String:
 	if value:
 		return "Yes"
 
 	return "No"
 
+# Applies three consecutive test hits and displays their combined results.
 func _on_apply_three_hits_pressed() -> void:
 	var reports: Array[Dictionary] = []
-	var sequence_health_before := defender_stats.health
+	var sequence_health_before := int(
+		defender_stats.getCurrentHP()
+	)
 
 	for _hit_number in range(3):
 		var report := _apply_test_hit()
@@ -362,9 +526,10 @@ func _on_apply_three_hits_pressed() -> void:
 	_display_multi_hit_report(
 		reports,
 		sequence_health_before,
-		defender_stats.health
+		int(defender_stats.getCurrentHP())
 	)
 
+# Formats and displays the individual and combined results of a multi-hit sequence.
 func _display_multi_hit_report(
 	reports: Array[Dictionary],
 	sequence_health_before: int,
@@ -446,15 +611,19 @@ func _display_multi_hit_report(
 			if effect_applied:
 				lingering_triggered = true
 
-				var effect_id := str(
-					component_report["lingering_effect_id"]
+				var effect_name := str(
+					component_report[
+						"lingering_effect_name"
+					]
 				)
 
 				if (
-					not effect_id.is_empty()
-					and effect_id not in triggered_effects
+					not effect_name.is_empty()
+					and effect_name not in triggered_effects
 				):
-					triggered_effects.append(effect_id)
+					triggered_effects.append(
+						effect_name
+					)
 
 				output_lines.append(
 					"Lingering Counter: Triggered at %d / %d; reset to 0"
@@ -528,23 +697,24 @@ func _display_multi_hit_report(
 			% sequence_total_damage
 	)
 
+# Resets the combatants and damage test state when the Reset button is pressed.
 func _on_reset_pressed() -> void:
 	_reset_combatants()
 
-
+# Receives the defender's damaged signal for handling damage-related UI or test behavior.
 func _on_defender_damaged(
-	_amount: int,
-	_damage_type_id: String
+	_amount: float,
+	_damage_type: DamageTypes.types
 ) -> void:
 	pass
 
-
-func _on_lingering_applied(
-	_effect_id: String
+# Receives the lingering effect signal for handling newly applied lingering effects.
+func _on_effect_applied(
+	_effect: Effect
 ) -> void:
 	pass
 
-
+# Updates the result label with the latest message, defender health, and active effects.
 func _update_result(message: String) -> void:
 	result_label.text = (
 		"Damage Result\n"
@@ -553,23 +723,34 @@ func _update_result(message: String) -> void:
 		+ "Active effects: %s"
 	) % [
 		message,
-		defender_stats.health,
-		defender_stats.max_health,
+		int(defender_stats.getCurrentHP()),
+		int(defender_stats.getMaxHP()),
 		_get_active_effect_names()
 	]
 
-
+# Returns a readable list of the defender's active lingering effects, or "None" if there are none.
 func _get_active_effect_names() -> String:
-	if defender_stats.lingering_effects.is_empty():
+	var hp := defender_stats.getHP()
+
+	if hp == null:
+		return "None"
+
+	if hp.effects_applied.is_empty():
 		return "None"
 
 	var names: Array[String] = []
 
-	for effect in defender_stats.lingering_effects:
-		names.append(effect.id)
+	for effect in hp.effects_applied:
+		if (
+			effect.effectName
+			not in names
+		):
+			names.append(
+				effect.effectName
+			)
 
 	return ", ".join(names)
-
-
+	
+# Adds a new message to the damage history output.
 func _append_history(message: String) -> void:
 	history_output.append_text("\n" + message + "\n")

@@ -132,11 +132,7 @@ func initializeAttributes():
 	attributes._setAttributes(attribs)
 
 func applyEffect(effect:Effect):
-	var effectApplied = attributes.applyEffect(effect)
-	if effectApplied:
-		effect_Applied.emit(effect)
-	else:
-		effect_Failed.emit(effect)
+	return attributes.applyEffect(effect)
 
 func damage(ammount:float,type:String):
 	var damagedealt:float = attributes.attributes["hp"].dealDamage(ammount,type)

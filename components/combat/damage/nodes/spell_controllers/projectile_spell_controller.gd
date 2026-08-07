@@ -11,17 +11,17 @@ class_name ProjectileSpellController
 @export var caster_stats_path: NodePath
 @export var speed: float = 20.0
 
-var caster_stats: CombatantStats
+var caster_stats: Attributes
 
 func _ready():
-	caster_stats = get_node(caster_stats_path) as CombatantStats
+	caster_stats = get_node(caster_stats_path) as Attributes
 
 func on_hit(target_node: Node) -> void:
 	if spell == null or damage_system == null or caster_stats == null:
 		return
 
-	# Expect target has CombatantStats child or component
-	var target_stats := target_node.get_node_or_null("CombatantStats") as CombatantStats
+	# Expect target has Attributes child or component
+	var target_stats := target_node.get_node_or_null("Attributes") as Attributes
 	if target_stats == null:
 		# optionally search deeper or via groups
 		return

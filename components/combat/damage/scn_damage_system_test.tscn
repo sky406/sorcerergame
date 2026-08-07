@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://6up1bjabfblr"]
 
-[ext_resource type="Script" uid="uid://bawwite85015f" path="res://player/damage/nodes/combatant_stats.gd" id="1_a4hlu"]
-[ext_resource type="Script" uid="uid://csnfa3tf8ee8a" path="res://player/damage/damage_system_test.gd" id="1_xtn7w"]
+[ext_resource type="Script" uid="uid://csnfa3tf8ee8a" path="res://components/combat/damage/scr_damage_system_test.gd" id="1_vqlja"]
+[ext_resource type="Script" uid="uid://d2ttjvct8j4r3" path="res://components/attributes/scripts/SCR_attributes.gd" id="2_05kpw"]
 
 [node name="DamageSystemTest" type="Control"]
 layout_mode = 3
@@ -10,13 +10,13 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_xtn7w")
+script = ExtResource("1_vqlja")
 
-[node name="AttackerStats" type="Node" parent="."]
-script = ExtResource("1_a4hlu")
+[node name="AttackerAttributes" type="Node" parent="."]
+script = ExtResource("2_05kpw")
 
-[node name="DefenderStats" type="Node" parent="."]
-script = ExtResource("1_a4hlu")
+[node name="DefenderAttributes" type="Node" parent="."]
+script = ExtResource("2_05kpw")
 
 [node name="MainMargin" type="MarginContainer" parent="."]
 unique_name_in_owner = true
