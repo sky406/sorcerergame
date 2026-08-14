@@ -50,7 +50,7 @@ func calculateHP() -> float:
 	# ):
 	var conMod:float = getMod("constitution")
 	var level:float = getAttributeValue("level")
-	return 6+conMod + ((level-1)*3+conMod)
+	return 6+conMod + ((level-1)*3+level*conMod)
 
 func prof() -> float:
 	# ):/

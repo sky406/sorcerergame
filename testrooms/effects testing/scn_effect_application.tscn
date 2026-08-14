@@ -1,12 +1,19 @@
-[gd_scene load_steps=5 format=3 uid="uid://c1hyy1vnf7yw5"]
+[gd_scene load_steps=6 format=3 uid="uid://c1hyy1vnf7yw5"]
 
 [ext_resource type="PackedScene" uid="uid://bsfw6u64mte57" path="res://testrooms/SCN_improved_testroom.tscn" id="1_buaht"]
 [ext_resource type="Script" uid="uid://b5t14gh4hjfks" path="res://testrooms/effects testing/effect code test/scr_effect_display.gd" id="2_1l65l"]
 [ext_resource type="Script" uid="uid://phmnittthfho" path="res://testrooms/effects testing/scripts/scr_effect_application_room_script.gd" id="2_js66o"]
 [ext_resource type="PackedScene" uid="uid://bbas34jw8u07l" path="res://testrooms/testing tools/SCN_damageBox.tscn" id="5_gnsb1"]
+[ext_resource type="PackedScene" uid="uid://c1o0wgddt136r" path="res://UI/UI_hp_group.tscn" id="5_trk5m"]
 
 [node name="ScnImprovedTestroom" instance=ExtResource("1_buaht")]
 script = ExtResource("2_js66o")
+
+[node name="floor" parent="." index="2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.10612488, 0.2428217, 0.021615982)
+
+[node name="PlayerController" parent="." index="3"]
+level = 20
 
 [node name="attribute viewer" type="Control" parent="." index="4"]
 layout_mode = 3
@@ -19,12 +26,20 @@ size_flags_horizontal = 4
 
 [node name="VBoxContainer" type="VBoxContainer" parent="attribute viewer" index="0"]
 layout_mode = 1
-anchors_preset = 9
-anchor_bottom = 1.0
-offset_right = 195.0
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -195.0
 offset_bottom = 1.0
-grow_vertical = 2
+grow_horizontal = 0
 script = ExtResource("2_1l65l")
 
 [node name="ScnDamageBox" parent="." index="5" instance=ExtResource("5_gnsb1")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.1513796, 5.22565, -1.577785)
+damageAmmount = 10.0
+
+[node name="UiHpGroup" parent="." index="6" instance=ExtResource("5_trk5m")]
+offset_left = 1.0
+offset_top = 5.0
+offset_right = 1.0
+offset_bottom = 5.0

@@ -1,0 +1,52 @@
+[gd_scene load_steps=5 format=3 uid="uid://c1o0wgddt136r"]
+
+[ext_resource type="Script" uid="uid://cl1jvgv0qrvhy" path="res://UI/scripts/SCR_hp_group.gd" id="1_nfe12"]
+[ext_resource type="Texture2D" uid="uid://l4k5beljncud" path="res://assets/textures/godot-prototype-texture/PNG/logo_512x512/logo_orange_512x512.png" id="2_t2ol8"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nfe12"]
+bg_color = Color(0.99981326, 0.91206974, 0.8973417, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_t2ol8"]
+bg_color = Color(0.92, 0.064399995, 0.064399995, 1)
+
+[node name="UiHpGroup" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_nfe12")
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="sanity_img" type="TextureRect" parent="PanelContainer"]
+layout_mode = 2
+texture = ExtResource("2_t2ol8")
+expand_mode = 5
+stretch_mode = 4
+
+[node name="healthbar" type="ProgressBar" parent="."]
+custom_minimum_size = Vector2(0, 10)
+layout_mode = 0
+offset_left = 43.0
+offset_top = 3.0
+offset_right = 365.0
+offset_bottom = 13.0
+theme_override_colors/font_color = Color(0.92230344, 0.17461208, 0.011462627, 1)
+theme_override_styles/fill = SubResource("StyleBoxFlat_nfe12")
+value = 100.0
+show_percentage = false
+
+[node name="damagebar" type="ProgressBar" parent="healthbar"]
+custom_minimum_size = Vector2(0, 10)
+layout_mode = 0
+offset_right = 322.0
+offset_bottom = 10.0
+theme_override_colors/font_color = Color(0.99116415, 0.99116427, 0.99116415, 1)
+theme_override_styles/fill = SubResource("StyleBoxFlat_t2ol8")
+value = 100.0
+show_percentage = false

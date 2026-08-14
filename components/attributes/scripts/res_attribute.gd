@@ -4,7 +4,7 @@ class_name Attribute extends Resource
 ## base value for the attribute 
 @export var value:float
 ## maximum possible for the attribute
-@export var limit:float= 20.0
+@export var limit:float= 99999
 
 
 @export_group("settings")

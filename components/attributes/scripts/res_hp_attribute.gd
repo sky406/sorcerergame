@@ -1,6 +1,7 @@
 class_name HP extends Attribute
 #region exported vars
 @export_group("details")
+# limit = 999999999
 @export var maxValue:float
 
 

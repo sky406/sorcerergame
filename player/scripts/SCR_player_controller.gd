@@ -39,12 +39,13 @@ class_name PlayerController
 @onready var attributes = $attributes
 
 #endregion
-
 var mouseLocked:bool = true
 var currentSpeed = baseSpeed
-
+#region signals
 signal effect_Failed(effect:Effect) #):
 signal effect_Applied(effect:Effect)
+signal damageTaken(ammount:float)
+#endregion
 
 
 
@@ -141,11 +142,14 @@ func applyEffect(effect:Effect):
 func damage(ammount:float,type:String):
 	var damagedealt:float = attributes.attributes["hp"].dealDamage(ammount,type)
 	print(damagedealt)
+	print(attributes.attributes["hp"].value)
 	
 	# little placeholder damage display, make it the logic for coloring it appropriately later
 	Global.displayDamage(
 		str(damagedealt),
 		global_position,
 	)
+	
+	damageTaken.emit(damagedealt)
 
 #endregion
