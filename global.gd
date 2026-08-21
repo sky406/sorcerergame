@@ -1,4 +1,5 @@
 extends Node
+
 const damlabel = preload("res://mobs/components/damage numbers/damageLabel.tscn")
 
 func sumarray(array):

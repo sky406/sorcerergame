@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://c1hyy1vnf7yw5"]
+[gd_scene load_steps=7 format=3 uid="uid://c1hyy1vnf7yw5"]
 
 [ext_resource type="PackedScene" uid="uid://bsfw6u64mte57" path="res://testrooms/SCN_improved_testroom.tscn" id="1_buaht"]
 [ext_resource type="Script" uid="uid://b5t14gh4hjfks" path="res://testrooms/effects testing/effect code test/scr_effect_display.gd" id="2_1l65l"]
 [ext_resource type="Script" uid="uid://phmnittthfho" path="res://testrooms/effects testing/scripts/scr_effect_application_room_script.gd" id="2_js66o"]
 [ext_resource type="PackedScene" uid="uid://bbas34jw8u07l" path="res://testrooms/testing tools/SCN_damageBox.tscn" id="5_gnsb1"]
 [ext_resource type="PackedScene" uid="uid://c1o0wgddt136r" path="res://UI/UI_hp_group.tscn" id="5_trk5m"]
+[ext_resource type="PackedScene" uid="uid://doa6we7xdk3rk" path="res://UI/UI_hp_bar.tscn" id="6_trk5m"]
 
 [node name="ScnImprovedTestroom" instance=ExtResource("1_buaht")]
 script = ExtResource("2_js66o")
@@ -43,3 +44,10 @@ offset_left = 1.0
 offset_top = 5.0
 offset_right = 1.0
 offset_bottom = 5.0
+
+[node name="HP" parent="." index="7" instance=ExtResource("6_trk5m")]
+offset_left = 4.0
+offset_top = -266.0
+offset_right = 104.0
+offset_bottom = -256.0
+topBarRate = 5.0
