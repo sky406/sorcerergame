@@ -15,22 +15,25 @@ enum highlow{exact,higher,lower}
 @export var explodeTriggerHigherLower:highlow = highlow.exact
 @export var explodeAll:bool
 @export var explodeOnce:bool = true
-@export var exlimit = 10 #this exists for performance reasons try not to let it go on forever
+@export var exlimit = 10 # this exists for performance reasons try not to let it go on forever
 
 func dropLowest(rolls:Array):
 	var lowest = rolls.min()
 	rolls.erase(lowest)
 	return rolls
+
 func dropHighest(rolls:Array):
 	var highest = rolls.max()
 	rolls.erase(highest)
 	return rolls
+
 func keepLowest(rolls:Array):
 	return [rolls.min()]
+
 func keepHighest(rolls:Array):
 	return [rolls.max()]
-func reroll(rolls:Array,trigger:int,highOrLow:highlow):
 
+func reroll(rolls:Array,trigger:int,highOrLow:highlow):
 	var rerolled = []
 	var mode = highOrLow
 	while rolls!=[]:
@@ -53,21 +56,25 @@ func reroll(rolls:Array,trigger:int,highOrLow:highlow):
 					rerolled.append(rolls[0])
 		rolls.remove_at(0)
 	return rerolled
+
 func arrayHasGreaterEqual(array:Array,target:int):
 	for i in array:
 		if i >= target:
 			return true
 	return false
+
 func arrayHasLessEqual(array:Array,target:int):
 	for i in array:
 		if i <= target:
 			return true
 	return false
+
 func arrayHasEqual(array:Array,target:int):
 	for i in array:
 		if i == target:
 			return true
 	return false
+
 func explode(rolls:Array,trigger:int,highOrLow:highlow,once:bool=false,alldice:bool=false):
 	var dicerolled= 1
 	var explodecount = 0
@@ -107,7 +114,8 @@ func explode(rolls:Array,trigger:int,highOrLow:highlow,once:bool=false,alldice:b
 						explodecount+=1
 				else:
 					rolls.append_array(explodeddice)
-	return rolls					
+	return rolls			
+			
 func rolldice(rolltimes:int,die:int)->Array:
 	var results = []
 	for i in range(rolltimes):
@@ -117,7 +125,7 @@ func rolldice(rolltimes:int,die:int)->Array:
 func roll()->Array:
 	# ):
 	var rolls = rolldice(numdice,dietype)
-	if reroll:
+	if rerollDice:
 		rolls = reroll(rolls,rerollTrigger,rerollHigherLower)
 
 	if explodeDice:

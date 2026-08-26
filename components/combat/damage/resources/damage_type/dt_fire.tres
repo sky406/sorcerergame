@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="DamageType" load_steps=5 format=3 uid="uid://bb1tgb81umxxp"]
+
+[ext_resource type="Script" uid="uid://bwivhrkpjrc25" path="res://components/combat/damage/scripts/scr_damage_type.gd" id="1_6v7fl"]
+[ext_resource type="Resource" uid="uid://dk138n5gikwth" path="res://components/combat/damage/resources/die/die_d6.tres" id="1_cgraa"]
+[ext_resource type="Script" uid="uid://c47ansiwqjyiq" path="res://components/attributes/effects/res_effect.gd" id="2_cdo0s"]
+[ext_resource type="Resource" uid="uid://devre362cgrx1" path="res://components/attributes/effects/resources/burn.tres" id="3_cdo0s"]
+
+[resource]
+script = ExtResource("1_6v7fl")
+type = 3
+display_name = "Fire"
+die = ExtResource("1_cgraa")
+possible_lingering = Array[ExtResource("2_cdo0s")]([ExtResource("3_cdo0s")])
+metadata/_custom_type_script = "uid://bwivhrkpjrc25"

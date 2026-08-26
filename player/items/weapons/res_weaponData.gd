@@ -1,7 +1,7 @@
 extends Resource
 class_name WeaponDat
 enum weaponType{staff,melee,ranged}
-@export var equipEffect:effectDat
+#@export var equipEffect:effectDat
 @export var type:weaponType
 @export var weaponName:String
 @export_multiline var wesponDescription:String

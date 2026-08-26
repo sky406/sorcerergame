@@ -1,0 +1,222 @@
+[gd_scene load_steps=3 format=3 uid="uid://6up1bjabfblr"]
+
+[ext_resource type="Script" uid="uid://csnfa3tf8ee8a" path="res://components/combat/damage/scr_damage_system_test.gd" id="1_vqlja"]
+[ext_resource type="Script" uid="uid://d2ttjvct8j4r3" path="res://components/attributes/scripts/SCR_attributes.gd" id="2_05kpw"]
+
+[node name="DamageSystemTest" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_vqlja")
+
+[node name="AttackerAttributes" type="Node" parent="."]
+script = ExtResource("2_05kpw")
+
+[node name="DefenderAttributes" type="Node" parent="."]
+script = ExtResource("2_05kpw")
+
+[node name="MainMargin" type="MarginContainer" parent="."]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="MainScroll" type="ScrollContainer" parent="MainMargin"]
+layout_mode = 2
+horizontal_scroll_mode = 0
+
+[node name="MainVBox" type="VBoxContainer" parent="MainMargin/MainScroll"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="TitleLabel" type="Label" parent="MainMargin/MainScroll/MainVBox"]
+layout_mode = 2
+text = "Damage System Test"
+horizontal_alignment = 1
+
+[node name="AttackSeparator" type="HSeparator" parent="MainMargin/MainScroll/MainVBox"]
+layout_mode = 2
+
+[node name="AttackerTitle" type="Label" parent="MainMargin/MainScroll/MainVBox"]
+layout_mode = 2
+text = "Attacker"
+
+[node name="AttackRow" type="HBoxContainer" parent="MainMargin/MainScroll/MainVBox"]
+layout_mode = 2
+
+[node name="AttackLabel" type="Label" parent="MainMargin/MainScroll/MainVBox/AttackRow"]
+layout_mode = 2
+text = "Attack:"
+
+[node name="AttackInput" type="SpinBox" parent="MainMargin/MainScroll/MainVBox/AttackRow"]
+unique_name_in_owner = true
+layout_mode = 2
+value = 10.0
+
+[node name="DamageSeparator" type="HSeparator" parent="MainMargin/MainScroll/MainVBox"]
+layout_mode = 2
+
+[node name="DamageTitle" type="Label" parent="MainMargin/MainScroll/MainVBox"]
+layout_mode = 2
+text = "Damage"
+
+[node name="DiceRow" type="HBoxContainer" parent="MainMargin/MainScroll/MainVBox"]
+layout_mode = 2
+
+[node name="DiceCountLabel" type="Label" parent="MainMargin/MainScroll/MainVBox/DiceRow"]
+layout_mode = 2
+text = "Dice count:"
+
+[node name="DiceCountInput" type="SpinBox" parent="MainMargin/MainScroll/MainVBox/DiceRow"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="DiceSideLabel" type="Label" parent="MainMargin/MainScroll/MainVBox/DiceRow"]
+layout_mode = 2
+text = "Dice sides:"
+
+[node name="DiceSidesInput" type="SpinBox" parent="MainMargin/MainScroll/MainVBox/DiceRow"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="DamageTypeRow" type="HBoxContainer" parent="MainMargin/MainScroll/MainVBox"]
+layout_mode = 2
+
+[node name="DamageTypeLabel" type="Label" parent="MainMargin/MainScroll/MainVBox/DamageTypeRow"]
+layout_mode = 2
+text = "Damage type:"
+
+[node name="DamageTypeInput" type="LineEdit" parent="MainMargin/MainScroll/MainVBox/DamageTypeRow"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "slashing"
+
+[node name="BonusesRow" type="HBoxContainer" parent="MainMargin/MainScroll/MainVBox"]
+layout_mode = 2
+
+[node name="FlatBonusLabel" type="Label" parent="MainMargin/MainScroll/MainVBox/BonusesRow"]
+layout_mode = 2
+text = "Flat bonus:"
+
+[node name="FlatBonusInput" type="SpinBox" parent="MainMargin/MainScroll/MainVBox/BonusesRow"]
+unique_name_in_owner = true
+layout_mode = 2
+min_value = -100.0
+value = 2.0
+
+[node name="EffectBonusLabel" type="Label" parent="MainMargin/MainScroll/MainVBox/BonusesRow"]
+layout_mode = 2
+text = "Effect bonus:"
+
+[node name="EffectBonusInput" type="SpinBox" parent="MainMargin/MainScroll/MainVBox/BonusesRow"]
+unique_name_in_owner = true
+layout_mode = 2
+min_value = -100.0
+
+[node name="LingeringRow" type="HBoxContainer" parent="MainMargin/MainScroll/MainVBox"]
+layout_mode = 2
+
+[node name="LingeringLabel" type="Label" parent="MainMargin/MainScroll/MainVBox/LingeringRow"]
+layout_mode = 2
+text = "Lingering effect:"
+
+[node name="LingeringInput" type="LineEdit" parent="MainMargin/MainScroll/MainVBox/LingeringRow"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "bleeding"
+
+[node name="EnemySeparator" type="HSeparator" parent="MainMargin/MainScroll/MainVBox"]
+layout_mode = 2
+
+[node name="EnemyTitle" type="Label" parent="MainMargin/MainScroll/MainVBox"]
+layout_mode = 2
+text = "Enemy"
+
+[node name="EnemyHealthRow" type="HBoxContainer" parent="MainMargin/MainScroll/MainVBox"]
+layout_mode = 2
+
+[node name="HealthLabel" type="Label" parent="MainMargin/MainScroll/MainVBox/EnemyHealthRow"]
+layout_mode = 2
+text = "Health:"
+
+[node name="HealthInput" type="SpinBox" parent="MainMargin/MainScroll/MainVBox/EnemyHealthRow"]
+unique_name_in_owner = true
+layout_mode = 2
+min_value = 1.0
+max_value = 1000.0
+value = 100.0
+
+[node name="EnemyResistanceRow" type="HBoxContainer" parent="MainMargin/MainScroll/MainVBox"]
+layout_mode = 2
+
+[node name="ResistanceLabel" type="Label" parent="MainMargin/MainScroll/MainVBox/EnemyResistanceRow"]
+layout_mode = 2
+text = "Resistance %:"
+
+[node name="ResistanceInput" type="SpinBox" parent="MainMargin/MainScroll/MainVBox/EnemyResistanceRow"]
+unique_name_in_owner = true
+layout_mode = 2
+max_value = 99.0
+
+[node name="EnemyFlagsRow" type="HBoxContainer" parent="MainMargin/MainScroll/MainVBox"]
+layout_mode = 2
+
+[node name="ImmuneCheck" type="CheckBox" parent="MainMargin/MainScroll/MainVBox/EnemyFlagsRow"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Immune"
+
+[node name="VulnerableCheck" type="CheckBox" parent="MainMargin/MainScroll/MainVBox/EnemyFlagsRow"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Vulnerable"
+
+[node name="ButtonsSeparator" type="HSeparator" parent="MainMargin/MainScroll/MainVBox"]
+layout_mode = 2
+
+[node name="ButtonsRow" type="HBoxContainer" parent="MainMargin/MainScroll/MainVBox"]
+layout_mode = 2
+
+[node name="ApplyHitButton" type="Button" parent="MainMargin/MainScroll/MainVBox/ButtonsRow"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Apply One Hit"
+
+[node name="ApplyMultipleHitsButton" type="Button" parent="MainMargin/MainScroll/MainVBox/ButtonsRow"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Apply Multiple Hits - set to 3 rn"
+
+[node name="ResetButton" type="Button" parent="MainMargin/MainScroll/MainVBox/ButtonsRow"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Reset"
+
+[node name="ResultSeparator" type="HSeparator" parent="MainMargin/MainScroll/MainVBox"]
+layout_mode = 2
+
+[node name="ResultLabel" type="Label" parent="MainMargin/MainScroll/MainVBox"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Damage Result
+"
+
+[node name="ResultOutput" type="RichTextLabel" parent="MainMargin/MainScroll/MainVBox"]
+unique_name_in_owner = true
+clip_contents = false
+layout_mode = 2
+text = "N/A
+"
+fit_content = true
+scroll_active = false
+scroll_following = true

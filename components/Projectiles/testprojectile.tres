@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="Projectile" load_steps=5 format=3 uid="uid://c5i0hiamj1qka"]
+
+[ext_resource type="Shape3D" uid="uid://djlcbw3kqvto2" path="res://assets/COL_placeholder_projectile_object.tres" id="1_eine3"]
+[ext_resource type="ArrayMesh" uid="uid://dpscfigqoanpx" path="res://assets/OBJ_placeholder_projectile.obj" id="1_el3dm"]
+[ext_resource type="Script" uid="uid://cunt38bdexf5a" path="res://components/Projectiles/scripts/RES_projectile.gd" id="1_f0uxx"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_eine3"]
+friction = 0.32
+rough = true
+bounce = 1.0
+
+[resource]
+script = ExtResource("1_f0uxx")
+ProjectileName = "test1"
+source = "you"
+mesh = ExtResource("1_el3dm")
+collisionMesh = ExtResource("1_eine3")
+physicsMaterialOverride = SubResource("PhysicsMaterial_eine3")
+mass = 7.3
+metadata/_custom_type_script = "uid://cunt38bdexf5a"
