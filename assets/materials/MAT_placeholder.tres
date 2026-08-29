@@ -1,0 +1,11 @@
+[gd_resource type="ShaderMaterial" load_steps=3 format=3 uid="uid://chdoramu2yoff"]
+
+[ext_resource type="Shader" uid="uid://d0kroue8ey26p" path="res://assets/materials/shaders/SHD_placeholder.gdshader" id="1_e6wwr"]
+[ext_resource type="Texture2D" uid="uid://bg827lvx7wc62" path="res://assets/textures/godot-prototype-texture/PNG/checker_512x512/checker_red_512x512.png" id="2_o27n4"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_e6wwr")
+shader_parameter/_MainTex = ExtResource("2_o27n4")
+shader_parameter/UseImgRoughness = false
+shader_parameter/UVscale = 45.0

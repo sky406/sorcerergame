@@ -1,6 +1,6 @@
 extends CharacterBody3D
 class_name PlayerController 
-
+#region export variables
 @export_category("attributes")
 @export_group("core attributes")
 @export_range(1,20,1,"or_greater","hide_slider") var strength:float
@@ -11,6 +11,10 @@ class_name PlayerController
 @export_range(1,20,1,"or_greater","hide_slider") var charisma:float
 @export_group("meta attributes")
 @export_range(1,100,1,"or_greater","hide_slider") var level:int
+
+# @export_category("resistances and vulnerabilities")
+# @export var resistances:Dictionary[String,float]
+# @export var vulnerabilities:Dictionary[String,float]
 
 @export_category("movement")
 @export_range(0,100,5,"or_greater","suffix:feet per round") var baseSpeed:float = 30
@@ -25,19 +29,23 @@ class_name PlayerController
 
 @export_category("physics")
 @export var gravity:float = ProjectSettings.get_setting('physics/3d/default_gravity')
+#endregion
 
-
+#region other player vars
 @onready var inputs = $inputs
 @onready var charBody = $claire_pawn
 @onready var camOrbit = $cameraOrbit
 @onready var lookDir = $lookDirection
 @onready var attributes = $attributes
 
+#endregion
 var mouseLocked:bool = true
 var currentSpeed = baseSpeed
-
-signal effect_Failed(effect:Effect)
+#region signals
+signal effect_Failed(effect:Effect) #):
 signal effect_Applied(effect:Effect)
+signal damageTaken(ammount:float)
+#endregion
 
 
 
@@ -56,10 +64,11 @@ func _physics_process(delta: float):
 	move()
 
 
-# movement functions 
+#region movement functions 
 func move(isAming=false):
 	var inputDir = inputs.inputDir
 	var direction = (transform.basis * Vector3(inputDir.x,0,inputDir.y)).normalized()
+	#print(inputDir)
 	var moveSpeed = Global.convertSpeedtometers(currentSpeed)
 	if inputs.isRunning:
 		moveSpeed *= runMultiplier
@@ -103,7 +112,9 @@ func rotateCam(delta:float,counterRotation:bool=true,lockedvertical:bool=true):
 
 	if lockedvertical:
 		camOrbit.rotation_degrees.x = clamp(camOrbit.rotation_degrees.x,minLookAngle,maxLookAngle)
+#endregion
 
+#region attibute functions
 func initializeAttributes():
 	var attribs:Dictionary[String,Attribute] = {
 	# core attribs 
@@ -127,3 +138,18 @@ func applyEffect(effect:Effect):
 		effect_Applied.emit(effect)
 	else:
 		effect_Failed.emit(effect)
+
+func damage(ammount:float,type:String):
+	var damagedealt:float = attributes.attributes["hp"].dealDamage(ammount,type)
+	print(damagedealt)
+	print(attributes.attributes["hp"].value)
+	
+	# little placeholder damage display, make it the logic for coloring it appropriately later
+	Global.displayDamage(
+		str(damagedealt),
+		global_position,
+	)
+	
+	damageTaken.emit(damagedealt)
+
+#endregion

@@ -1,0 +1,38 @@
+[gd_resource type="Shader" format=3 uid="uid://dq454e7fq7jcp"]
+
+[resource]
+code = "shader_type spatial;
+render_mode blend_mix, depth_draw_opaque, depth_test_default, cull_back, diffuse_lambert, specular_schlick_ggx;
+
+uniform sampler2D imgtexture : source_color, repeat_enable;
+uniform float roughness : hint_range(0.0, 1.0) = 1.0;
+
+
+
+void fragment() {
+// UVFunc:6
+	vec2 n_in6p1 = vec2(50.00000, 50.00000);
+	vec2 n_in6p2 = vec2(0.00000, 0.00000);
+	vec2 n_out6p0 = (UV - n_in6p2) * n_in6p1 + n_in6p2;
+
+
+	vec4 n_out2p0;
+// Texture2D:2
+	n_out2p0 = texture(imgtexture, n_out6p0);
+
+
+// FloatParameter:4
+	float n_out4p0 = roughness;
+
+
+// Reroute:5
+	float n_out5p0 = n_out4p0;
+
+
+// Output:0
+	ALBEDO = vec3(n_out2p0.xyz);
+	ROUGHNESS = n_out5p0;
+
+
+}
+"

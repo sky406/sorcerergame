@@ -1,4 +1,5 @@
 extends Node
+
 const damlabel = preload("res://mobs/components/damage numbers/damageLabel.tscn")
 
 func sumarray(array):
@@ -73,7 +74,7 @@ subCol:Color = rgbTocol(171,178,187)
 func isPlayer(body:Node3D):
 	return body.is_in_group("player")
 
-func findPlayer():
+func findPlayer()->PlayerController: 
 	return get_tree().get_first_node_in_group("player")
 
 func sumArray(numbers:Array):

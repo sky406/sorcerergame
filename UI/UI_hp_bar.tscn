@@ -1,0 +1,41 @@
+[gd_scene load_steps=6 format=3 uid="uid://doa6we7xdk3rk"]
+
+[ext_resource type="Script" uid="uid://ccaiqoo8gp0r" path="res://UI/scripts/SCR_hp_bar.gd" id="1_b0oq3"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1o2cf"]
+bg_color = Color(0.45471185, 0.42432225, 0.5263163, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_b0oq3"]
+bg_color = Color(1, 1, 1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pibtj"]
+bg_color = Color(1, 1, 1, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_18e0u"]
+bg_color = Color(0.9827499, 4.740879e-06, 5.7756904e-07, 1)
+
+[node name="HP" type="ProgressBar"]
+clip_contents = true
+custom_minimum_size = Vector2(0, 10)
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -13.5
+offset_right = 100.0
+offset_bottom = -3.5
+grow_vertical = 2
+size_flags_horizontal = 0
+theme_override_styles/background = SubResource("StyleBoxFlat_1o2cf")
+theme_override_styles/fill = SubResource("StyleBoxFlat_b0oq3")
+show_percentage = false
+script = ExtResource("1_b0oq3")
+topBarRate = 2.0
+bottomBarRate = 0.9
+
+[node name="damagebar" type="ProgressBar" parent="."]
+layout_mode = 0
+offset_right = 100.0
+offset_bottom = 10.0
+theme_override_styles/background = SubResource("StyleBoxFlat_pibtj")
+theme_override_styles/fill = SubResource("StyleBoxFlat_18e0u")
+show_percentage = false
