@@ -90,3 +90,17 @@ func convertSpeedtometers(speedperround:float):
 	var feetpersec = speedperround/6
 
 	return feetpersec * 0.3048 * 10 # the * 10 is to account for scaling 
+
+func dtoV3(angleX:float,angleY:float) -> Vector3:
+	## ):
+	## converts two angles in degees to vector3
+
+	# convert angles to vector2
+	var radX = deg_to_rad(angleX)
+	var radY = deg_to_rad(angleY)
+
+	var x = cos(radX) * cos(radY)
+	var y = sin(radY) * cos(radX)
+	var z = sin(radY)
+
+	return Vector3(x,y,z)
